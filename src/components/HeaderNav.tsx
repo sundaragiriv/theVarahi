@@ -1,0 +1,83 @@
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+
+const HeaderNav: React.FC = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navItems = [
+    { label: 'About Us', href: '#about' },
+    { label: 'AI Services', href: '#ai-services' },
+    { label: 'CX Services', href: '#cx-services' },
+    { label: 'Customer Studies', href: '#customer-studies' },
+    { label: 'Tech Ideas', href: '#tech-ideas' },
+    { label: 'Consult Us', href: '#consult' },
+  ];
+
+  return (
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+        isScrolled 
+          ? 'bg-white/95 backdrop-blur-sm shadow-soft' 
+          : 'bg-transparent'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center"
+          >
+            <a href="#top" className="flex items-center space-x-2">
+              <span className="text-xl font-bold text-ink">Varahi</span>
+              <span className="text-xl font-medium text-ink/70">Group</span>
+            </a>
+          </motion.div>
+
+          {/* Navigation */}
+          <nav className="hidden lg:flex items-center space-x-1">
+            {navItems.map((item, index) => (
+              <motion.a
+                key={item.href}
+                href={item.href}
+                className="nav-pill"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {item.label}
+              </motion.a>
+            ))}
+          </nav>
+
+          {/* CTA Button */}
+          <motion.a
+            href="#consult"
+            className="btn-primary"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Talk to an Expert
+          </motion.a>
+        </div>
+      </div>
+    </motion.header>
+  );
+};
+
+export default HeaderNav;
