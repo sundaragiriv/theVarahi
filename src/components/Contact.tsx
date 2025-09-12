@@ -45,21 +45,20 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="consult" className="py-20 bg-gradient-to-br from-paper/50 to-brand/5">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="consult" className="py-24 bg-gradient-to-br from-primary/5 via-white to-secondary/5">
+      <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-ink mb-4">
+          <h2 className="text-4xl lg:text-6xl font-bold gradient-text mb-6">
             Let's Talk About Your CX & AI Goals
           </h2>
-          <p className="text-xl text-ink/70 max-w-2xl mx-auto">
-            Schedule a consultation to discuss your requirements and explore how we can help 
-            achieve measurable outcomes.
+          <p className="text-2xl text-gray max-w-4xl mx-auto font-light leading-relaxed">
+            Schedule a strategic consultation to discuss your enterprise requirements and explore how we can deliver measurable business outcomes.
           </p>
         </motion.div>
 
@@ -68,13 +67,13 @@ const Contact: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="card p-8"
+          className="glass-card p-12"
         >
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-8">
             {/* Basic Fields */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-ink mb-2">
+                <label htmlFor="name" className="block text-sm font-semibold text-dark mb-3 uppercase tracking-wider">
                   Full Name *
                 </label>
                 <input
@@ -84,12 +83,12 @@ const Contact: React.FC = () => {
                   required
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded border border-ink/20 focus:border-brand focus:ring-2 focus:ring-brand/50 transition-all duration-200"
+                  className="w-full px-6 py-4 rounded-sap border border-gray/30 focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 bg-white/50 backdrop-blur-sm"
                   placeholder="John Smith"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-ink mb-2">
+                <label htmlFor="email" className="block text-sm font-semibold text-dark mb-3 uppercase tracking-wider">
                   Work Email *
                 </label>
                 <input
@@ -99,15 +98,15 @@ const Contact: React.FC = () => {
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded border border-ink/20 focus:border-brand focus:ring-2 focus:ring-brand/50 transition-all duration-200"
+                  className="w-full px-6 py-4 rounded-sap border border-gray/30 focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 bg-white/50 backdrop-blur-sm"
                   placeholder="john@company.com"
                 />
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <label htmlFor="company" className="block text-sm font-medium text-ink mb-2">
+                <label htmlFor="company" className="block text-sm font-semibold text-dark mb-3 uppercase tracking-wider">
                   Company *
                 </label>
                 <input
@@ -117,12 +116,12 @@ const Contact: React.FC = () => {
                   required
                   value={formData.company}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded border border-ink/20 focus:border-brand focus:ring-2 focus:ring-brand/50 transition-all duration-200"
+                  className="w-full px-6 py-4 rounded-sap border border-gray/30 focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 bg-white/50 backdrop-blur-sm"
                   placeholder="Acme Corporation"
                 />
               </div>
               <div>
-                <label htmlFor="role" className="block text-sm font-medium text-ink mb-2">
+                <label htmlFor="role" className="block text-sm font-semibold text-dark mb-3 uppercase tracking-wider">
                   Role *
                 </label>
                 <select
@@ -131,7 +130,7 @@ const Contact: React.FC = () => {
                   required
                   value={formData.role}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded border border-ink/20 focus:border-brand focus:ring-2 focus:ring-brand/50 transition-all duration-200"
+                  className="w-full px-6 py-4 rounded-sap border border-gray/30 focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 bg-white/50 backdrop-blur-sm"
                 >
                   <option value="">Select your role</option>
                   <option value="CTO">CTO</option>
@@ -145,16 +144,16 @@ const Contact: React.FC = () => {
             </div>
 
             {/* RFP Toggle */}
-            <div className="flex items-center space-x-3 p-4 bg-brand/5 rounded">
+            <div className="flex items-center space-x-4 p-6 bg-primary/5 rounded-sap border border-primary/20">
               <input
                 type="checkbox"
                 id="isRFP"
                 name="isRFP"
                 checked={formData.isRFP}
                 onChange={handleInputChange}
-                className="h-4 w-4 text-brand border-ink/20 rounded focus:ring-brand"
+                className="h-5 w-5 text-primary border-gray/30 rounded focus:ring-primary"
               />
-              <label htmlFor="isRFP" className="text-sm font-medium text-ink">
+              <label htmlFor="isRFP" className="font-semibold text-dark">
                 This is for an active RFP or project with defined timeline
               </label>
             </div>
@@ -235,7 +234,7 @@ const Contact: React.FC = () => {
 
             {/* Message */}
             <div>
-              <label htmlFor="message" className="block text-sm font-medium text-ink mb-2">
+              <label htmlFor="message" className="block text-sm font-semibold text-dark mb-3 uppercase tracking-wider">
                 Message *
               </label>
               <textarea
@@ -245,7 +244,7 @@ const Contact: React.FC = () => {
                 required
                 value={formData.message}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 rounded border border-ink/20 focus:border-brand focus:ring-2 focus:ring-brand/50 transition-all duration-200"
+                className="w-full px-6 py-4 rounded-sap border border-gray/30 focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 bg-white/50 backdrop-blur-sm"
                 placeholder="Tell us about your CX or AI requirements, current challenges, or specific questions..."
               />
             </div>
@@ -255,18 +254,18 @@ const Contact: React.FC = () => {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full btn-primary flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full btn-primary flex items-center justify-center space-x-3 disabled:opacity-50 disabled:cursor-not-allowed text-xl py-6 glow-effect"
                 whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                 whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
               >
                 {isSubmitting ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
                     <span>Submitting...</span>
                   </>
                 ) : (
                   <>
-                    <Send className="h-4 w-4" />
+                    <Send className="h-6 w-6" />
                     <span>Send Message</span>
                   </>
                 )}

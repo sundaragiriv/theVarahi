@@ -5,15 +5,17 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
   }
   
   body {
-    @apply text-ink bg-white;
+    @apply text-dark bg-sap-white;
+    font-optical-sizing: auto;
   }
   
   /* Focus styles for accessibility */
   *:focus-visible {
-    @apply outline-2 outline-offset-2 outline-brand;
+    @apply outline-2 outline-offset-2 outline-primary;
   }
   
   /* Reduce motion for accessibility */
@@ -32,45 +34,88 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-brand text-white px-6 py-3 rounded font-medium hover:bg-brand/90 focus:ring-2 focus:ring-brand/50 transition-all duration-200 transform hover:scale-105;
+    @apply bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-sap font-semibold hover:from-secondary hover:to-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 transform hover:scale-105 hover:shadow-sap-lg;
   }
   
   .btn-secondary {
-    @apply bg-white text-ink border border-ink/20 px-6 py-3 rounded font-medium hover:bg-paper hover:border-brand focus:ring-2 focus:ring-brand/50 transition-all duration-200;
+    @apply bg-transparent text-primary border-2 border-primary px-8 py-4 rounded-sap font-semibold hover:bg-primary hover:text-white focus:ring-2 focus:ring-primary/50 transition-all duration-300 transform hover:scale-105;
   }
   
   .card {
-    @apply bg-white rounded shadow-soft hover:shadow-lift transition-all duration-200 transform hover:-translate-y-1;
+    @apply bg-white rounded-sap shadow-sap-md hover:shadow-sap-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray/10;
   }
   
   .nav-pill {
-    @apply px-4 py-2 rounded-full text-ink/70 hover:bg-brand hover:text-white focus:bg-brand focus:text-white transition-all duration-200 transform hover:scale-105 font-medium;
+    @apply px-6 py-3 rounded-sap text-dark/70 hover:bg-gradient-to-r hover:from-primary hover:to-secondary hover:text-white focus:bg-gradient-to-r focus:from-primary focus:to-secondary focus:text-white transition-all duration-300 transform hover:scale-105 font-semibold;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
+  }
+  
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-xl border border-white/20 rounded-sap shadow-sap-lg;
+  }
+  
+  .hero-gradient {
+    background: linear-gradient(135deg, #0070F2 0%, #0854A0 50%, #74B3F7 100%);
+  }
+  
+  .section-gradient {
+    background: linear-gradient(180deg, #F5F5F5 0%, #FFFFFF 100%);
   }
 }
 
-/* Floating background blobs */
+/* Enhanced floating background elements */
 .hero-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.6;
+  filter: blur(120px);
+  opacity: 0.4;
   animation: float 8s ease-in-out infinite;
 }
 
 .hero-blob-1 {
-  width: 400px;
-  height: 400px;
-  background: linear-gradient(45deg, #377DFF20, #377DFF10);
+  width: 600px;
+  height: 600px;
+  background: linear-gradient(45deg, #0070F230, #74B3F720);
   top: 10%;
   right: 10%;
   animation-delay: 0s;
 }
 
 .hero-blob-2 {
-  width: 300px;
-  height: 300px;
-  background: linear-gradient(135deg, #377DFF15, #377DFF08);
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(135deg, #0854A025, #0070F215);
   bottom: 20%;
   left: 15%;
   animation-delay: 4s;
+}
+
+.hero-blob-3 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(225deg, #74B3F720, #0070F210);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 2s;
+}
+
+/* Futuristic grid pattern */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(0, 112, 242, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 112, 242, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Glowing elements */
+.glow-effect {
+  box-shadow: 0 0 20px rgba(0, 112, 242, 0.3);
+}
+
+.glow-effect:hover {
+  box-shadow: 0 0 40px rgba(0, 112, 242, 0.5);
 }

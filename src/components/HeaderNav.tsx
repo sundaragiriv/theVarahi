@@ -6,7 +6,7 @@ const HeaderNav: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -27,20 +27,23 @@ const HeaderNav: React.FC = () => {
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled 
-          ? 'bg-white/95 backdrop-blur-sm shadow-soft' 
+          ? 'bg-white/90 backdrop-blur-xl shadow-sap-lg border-b border-gray/10' 
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <motion.div 
             whileHover={{ scale: 1.05 }}
             className="flex items-center"
           >
             <a href="#top" className="flex items-center space-x-2">
-              <span className="text-xl font-bold text-ink">Varahi</span>
-              <span className="text-xl font-medium text-ink/70">Group</span>
+              <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-sap flex items-center justify-center">
+                <span className="text-white font-bold text-lg">V</span>
+              </div>
+              <span className="text-2xl font-bold gradient-text">Varahi</span>
+              <span className="text-2xl font-medium text-gray">Group</span>
             </a>
           </motion.div>
 
@@ -65,7 +68,7 @@ const HeaderNav: React.FC = () => {
           {/* CTA Button */}
           <motion.a
             href="#consult"
-            className="btn-primary"
+            className="btn-primary shadow-sap-md"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 }}

@@ -4,7 +4,8 @@ import { motion } from 'framer-motion';
 const TrustMarquee: React.FC = () => {
   const clients = [
     'Microsoft', 'SAP', 'Salesforce', 'Adobe', 'Oracle', 'IBM', 
-    'Accenture', 'Deloitte', 'PwC', 'KPMG', 'EY', 'Capgemini'
+    'Accenture', 'Deloitte', 'PwC', 'KPMG', 'EY', 'Capgemini',
+    'Amazon', 'Google Cloud', 'ServiceNow', 'Workday'
   ];
 
   const marqueeVariants = {
@@ -22,28 +23,28 @@ const TrustMarquee: React.FC = () => {
   };
 
   return (
-    <section className="py-12 bg-paper/30 border-y border-ink/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 bg-white border-y border-gray/20">
+      <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12">
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center text-ink/60 text-sm font-medium mb-8 uppercase tracking-wider"
+          className="text-center text-gray text-sm font-semibold mb-12 uppercase tracking-widest"
         >
           Trusted by Enterprise Leaders
         </motion.p>
         
         <div className="relative overflow-hidden">
           <motion.div
-            className="flex space-x-16 items-center"
+            className="flex space-x-20 items-center"
             variants={marqueeVariants}
             animate="animate"
-            style={{ width: 'calc(200% + 4rem)' }}
+            style={{ width: 'calc(200% + 8rem)' }}
           >
             {[...clients, ...clients].map((client, index) => (
               <div
                 key={`${client}-${index}`}
-                className="flex-shrink-0 text-ink/40 font-semibold text-lg hover:text-brand transition-colors duration-200"
+                className="flex-shrink-0 text-gray/60 font-bold text-xl hover:text-primary transition-colors duration-300"
               >
                 {client}
               </div>
