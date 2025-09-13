@@ -119,3 +119,13 @@
 .glow-effect:hover {
   box-shadow: 0 0 40px rgba(0, 112, 242, 0.5);
 }
+
+@keyframes float {
+  '0%, 100%': { transform: 'translateY(0px)' },
+  '50%': { transform: 'translateY(-20px)' }
+}
+
+@keyframes shimmer {
+  '0%': { transform: 'translateX(-100%)' },
+  '100%': { transform: 'translateX(100%)' }
+}
