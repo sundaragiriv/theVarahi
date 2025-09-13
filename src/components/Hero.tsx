@@ -125,20 +125,20 @@ const Hero: React.FC = () => {
           >
             <ShimmerText>
               <motion.h1 
-                className="text-5xl lg:text-7xl font-bold text-white leading-tight"
+                className="text-5xl lg:text-7xl font-bold text-sap-navy leading-tight drop-shadow-lg"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
               >
                 <span className="block">Enterprise CX & AI—</span>
-                <span className="block bg-gradient-to-r from-sap-light-blue to-sap-white bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent drop-shadow-none">
                   Built for Outcomes
                 </span>
               </motion.h1>
             </ShimmerText>
             
             <motion.p 
-              className="text-2xl text-white/90 leading-relaxed max-w-2xl font-light"
+              className="text-2xl text-sap-navy/80 leading-relaxed max-w-2xl font-medium drop-shadow-sm"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
@@ -162,7 +162,7 @@ const Hero: React.FC = () => {
               </motion.a>
               <motion.a
                 href="#"
-                className="btn-secondary inline-flex items-center justify-center text-lg px-10 py-5 bg-white/10 border-white/30 text-white hover:bg-white hover:text-primary"
+                className="btn-secondary inline-flex items-center justify-center text-lg px-10 py-5 bg-white/90 border-sap-navy/20 text-sap-navy hover:bg-white hover:text-primary backdrop-blur-sm"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
