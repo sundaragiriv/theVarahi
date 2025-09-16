@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+// @ts-ignore
+import NavLink from './NavLink.astro';
 
 const HeaderNav: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -50,18 +52,9 @@ const HeaderNav: React.FC = () => {
           {/* Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
             {navItems.map((item, index) => (
-              <motion.a
-                key={item.href}
-                href={item.href}
-                className="nav-pill"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <NavLink href={item.href} key={item.href}>
                 {item.label}
-              </motion.a>
+              </NavLink>
             ))}
           </nav>
 
