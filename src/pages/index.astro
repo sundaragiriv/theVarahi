@@ -2,6 +2,9 @@
 import StickySubnav from "../components/StickySubnav.astro";
 import GlowOrbs from "../components/GlowOrbs.astro";
 import GridSparkle from "../react/GridSparkle.tsx";
+import TrustBar from "../components/TrustBar.astro";
+import OutcomeBand from "../components/OutcomeBand.astro";
+import CaseScroller from "../components/CaseScroller.astro";
 ---
 <html lang="en">
   <head>
@@ -17,6 +20,7 @@ import GridSparkle from "../react/GridSparkle.tsx";
       <p class="text-lg mb-8">Experience premium UX enhancements: sticky subnav, glows, and grid sparkles.</p>
       <a href="#contact" class="btn-accent px-6 py-3 rounded-lg font-semibold shadow-lg">Contact Us</a>
     </section>
+    <TrustBar />
     <StickySubnav sections={[
       { id: 'services', label: 'Services' },
       { id: 'outcomes', label: 'Outcomes' },
@@ -28,10 +32,7 @@ import GridSparkle from "../react/GridSparkle.tsx";
       <h2 class="text-2xl font-bold mb-4">Services</h2>
       <p>Our offerings are tailored for growth and innovation.</p>
     </section>
-    <section id="outcomes" class="relative py-16">
-      <h2 class="text-2xl font-bold mb-4">Outcomes</h2>
-      <p>See the results we deliver for our clients.</p>
-    </section>
+    <OutcomeBand />
     <section id="work" class="relative py-16">
       <h2 class="text-2xl font-bold mb-4">Case Studies</h2>
       <p>Explore our portfolio of successful projects.</p>
