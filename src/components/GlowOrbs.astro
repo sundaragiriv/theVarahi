@@ -1,0 +1,10 @@
+---
+/** Subtle layered radial glows. Place inside hero or CTA sections with absolute positioning. */
+const { tint = '#0070F2', opacity = 0.14 } = Astro.props;
+---
+<div aria-hidden class="pointer-events-none absolute inset-0 -z-10">
+  <div class="absolute -top-24 -left-24 h-[420px] w-[420px] rounded-full blur-2xl"
+       style={`background: radial-gradient(circle at center, ${tint}${Math.round(opacity*255).toString(16).padStart(2,'0')}, transparent 60%)`}></div>
+  <div class="absolute -bottom-24 right-[-10%] h-[380px] w-[380px] rounded-full blur-2xl"
+       style={`background: radial-gradient(circle at center, ${tint}${Math.round((opacity*0.85)*255).toString(16).padStart(2,'0')}, transparent 60%)`}></div>
+</div>

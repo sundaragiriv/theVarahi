@@ -15,7 +15,8 @@
   
   /* Focus styles for accessibility */
   *:focus-visible {
-    @apply outline-2 outline-offset-2 outline-primary;
+    outline: 2px solid #0070F2;
+    outline-offset: 2px;
   }
   
   /* Reduce motion for accessibility */
@@ -36,6 +37,13 @@
   .btn-primary {
     @apply bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-sap font-semibold hover:from-secondary hover:to-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 transform hover:scale-105 hover:shadow-sap-lg;
   }
+    .btn-accent {
+      background: #0070F2;
+      color: #fff;
+    }
+    .link-accent {
+      color: #0070F2;
+    }
   
   .btn-secondary {
     @apply bg-transparent text-primary border-2 border-primary px-8 py-4 rounded-sap font-semibold hover:bg-primary hover:text-white focus:ring-2 focus:ring-primary/50 transition-all duration-300 transform hover:scale-105;

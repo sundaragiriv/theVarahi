@@ -1,0 +1,55 @@
+---
+/**
+ * Props:
+ * - sections: { id: string; label: string }[]
+ * - offset?: number (px offset for active detection, default 140)
+ * Usage: <StickySubnav sections={[{id:'services',label:'Services'}, ...]} />
+ */
+const { sections = [], offset = 140 } = Astro.props;
+---
+<style>
+  .subnav {
+    position: sticky; top: 0; z-index: 40;
+    backdrop-filter: saturate(120%) blur(6px);
+  }
+  @media (max-width: 1023px) { .subnav { display: none; } } /* desktop-only */
+</style>
+<nav class="subnav border-b border-black/5 bg-white/70">
+  <div class="container mx-auto max-w-[1200px] 2xl:max-w-[1280px] h-12 flex items-center gap-2 px-4 overflow-x-auto">
+    {sections.map((s) => (
+      <a href={`#${s.id}`} data-id={s.id}
+         class="subnav-link shrink-0 px-3 py-1.5 rounded-lg text-sm text-slate-700 hover:bg-black/5 border border-transparent">
+        {s.label}
+      </a>
+    ))}
+  </div>
+</nav>
+<script type="module">
+  const links = Array.from(document.querySelectorAll('.subnav-link'));
+  const ids = links.map(l => l.getAttribute('data-id'));
+  const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
+  if ('IntersectionObserver' in window && sections.length) {
+    const rootMarginTop = offset * -1;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        const id = e.target.id;
+        const link = document.querySelector(`.subnav-link[data-id="${id}"]`);
+        if (!link) return;
+        if (e.isIntersecting) {
+          links.forEach(l => l.classList.remove('!bg-brand', '!text-white', '!border-brand'));
+          link.classList.add('!bg-brand', '!text-white', '!border-brand');
+          history.replaceState(null, '', `#${id}`);
+        }
+      });
+    }, { rootMargin: `${rootMarginTop}px 0px -60% 0px`, threshold: 0.01 });
+    sections.forEach(el => io.observe(el));
+  }
+  // Smooth scroll (native fallback)
+  links.forEach(l => l.addEventListener('click', (e) => {
+    const id = l.getAttribute('data-id');
+    const t = document.getElementById(id);
+    if (!t) return;
+    e.preventDefault();
+    t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
+</script>
