@@ -13,12 +13,12 @@ const HeaderNav: React.FC = () => {
   }, []);
 
   const navItems = [
-    { label: 'About Us', href: '#about' },
-    { label: 'AI Services', href: '#ai-services' },
-    { label: 'CX Services', href: '#cx-services' },
-    { label: 'Customer Studies', href: '#customer-studies' },
-    { label: 'Tech Ideas', href: '#tech-ideas' },
-    { label: 'Consult Us', href: '#consult' },
+    { label: 'CX Services', href: '/services' },
+    { label: 'Varahi System', href: '/system' },
+    { label: 'AI Services', href: '/ai' },
+    { label: 'Case Studies', href: '/case-studies' },
+    { label: 'Insights', href: '/insights' },
+    { label: 'About', href: '/about' },
   ];
 
   return (
@@ -67,15 +67,15 @@ const HeaderNav: React.FC = () => {
 
           {/* CTA Button */}
           <motion.a
-            href="#consult"
-            className="btn-primary shadow-sap-md"
+            href="/contact"
+            className="btn-accent px-3 py-1.5 rounded-lg shadow-sap-md"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Talk to an Expert
+            Book Assessment
           </motion.a>
         </div>
       </div>
