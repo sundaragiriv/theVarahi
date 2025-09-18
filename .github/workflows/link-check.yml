@@ -1,0 +1,30 @@
+name: Link Check
+
+on:
+  pull_request:
+  push:
+    branches: [main, repair/audit-routing-motion]
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build site
+        run: npm run build
+        
+      - name: Check links with lychee
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: --verbose --no-progress './dist/**/*.html'
+          fail: true

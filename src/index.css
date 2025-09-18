@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('./styles/grid.css');
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  width: calc(200% + 8rem);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -44,13 +56,18 @@
   .btn-primary {
     @apply bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-sap font-semibold hover:from-secondary hover:to-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 transform hover:scale-105 hover:shadow-sap-lg;
   }
-    .btn-accent {
-      background: #0070F2;
-      color: #fff;
-    }
-    .link-accent {
-      color: #0070F2;
-    }
+  .btn-accent {
+    background: #0070F2;
+    color: #fff;
+  }
+  .link-accent {
+    color: #0070F2;
+  }
+  
+  /* Brand colors for subnav */
+  .bg-brand { background-color: #0070F2 !important; }
+  .text-brand { color: #0070F2 !important; }
+  .border-brand { border-color: #0070F2 !important; }
   
   .btn-secondary {
     @apply bg-transparent text-primary border-2 border-primary px-8 py-4 rounded-sap font-semibold hover:bg-primary hover:text-white focus:ring-2 focus:ring-primary/50 transition-all duration-300 transform hover:scale-105;

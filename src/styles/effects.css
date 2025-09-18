@@ -1,0 +1,24 @@
+/* Pulsing halo */
+.halo { position: absolute; inset: 0; pointer-events: none; z-index: -1; }
+.halo::before, .halo::after{
+  content:""; position:absolute; left:50%; top:50%; translate:-50% -50%;
+  width: var(--size,320px); height: var(--size,320px); border-radius:9999px;
+  background: radial-gradient(circle,
+    color-mix(in oklab, var(--color,#0070F2) calc(var(--op,0.16)*100%), transparent) 0%,
+    transparent 60%);
+  filter: blur(10px);
+  animation: halo 6s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+.halo::after{ animation-delay:1.5s; }
+@keyframes halo { 0%{transform:scale(.9);opacity:.7} 50%{transform:scale(1.06);opacity:.4} 100%{transform:scale(.9);opacity:.7} }
+@media (prefers-reduced-motion: reduce){ .halo::before,.halo::after{ animation:none; opacity:.3 } }
+
+/* Orbiting icons */
+.orbit { position:relative; width:calc(var(--r,120)*2px); height:calc(var(--r,120)*2px);
+  animation: spin var(--spd,18s) linear infinite; }
+.orbit.reverse { animation-direction: reverse; }
+.orbit img{ position:absolute; left:50%; top:50%; width:var(--sz,32px); height:var(--sz,32px); translate:-50% -50%; }
+.orbit img[data-i]{ transform: rotate(var(--angle,0deg)) translate(var(--r,120px)) rotate(calc(-1*var(--angle,0deg))); }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce){ .orbit{ animation:none } }

@@ -1,0 +1,18 @@
+/* Subtle blueprint grid overlay */
+.grid-bg {
+  position: relative;
+  isolation: isolate;
+}
+.grid-bg::before {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to right, rgba(15,23,42,.06) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(to bottom, rgba(15,23,42,.06) 1px, transparent 1px) 0 0 / 32px 32px;
+  opacity: .6;
+  z-index: -1;
+  pointer-events: none;
+}
+@media (prefers-color-scheme: dark){
+  .grid-bg::before { opacity: .25; }
+}

@@ -1,0 +1,16 @@
+/* Dot glides along the ellipse path */
+.orbit-dot {
+  offset-distance: 12%;
+  animation: orbitSlide var(--orbit-speed, 6s) ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 4px rgba(0,112,242,.35));
+}
+
+@keyframes orbitSlide {
+  from { offset-distance: 12%; }
+  to   { offset-distance: 88%; }
+}
+
+/* Motion sensitivity */
+@media (prefers-reduced-motion: reduce){
+  .orbit-dot { animation: none !important; offset-distance: 12% !important; }
+}

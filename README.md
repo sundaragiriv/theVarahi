@@ -1,36 +1,69 @@
-varahi
+# Varahi - Premium CX and AI Services
 
-## UX Enhancements
+Astro + React + Tailwind site with premium UX enhancements.
 
-This branch implements three premium UX features:
+## Quick Start
+
+```bash
+npm install
+npm run dev
+```
+
+## Local QA Steps
+
+1. **Visual QA with Debug Sparkles:**
+   ```bash
+   VITE_DEBUG_SPARKLE=1 npm run dev
+   ```
+   - Visit http://localhost:4321
+   - Verify sparkles are visible in hero section
+   - Check glow orbs behind CTA sections
+
+2. **Navigation Testing:**
+   - Test all header links navigate to real pages
+   - Verify sticky subnav on homepage
+   - Check section anchors scroll properly
+   - Visit /_diagnostics for route verification
+
+3. **Reduced Motion:**
+   - Enable "Reduce motion" in OS accessibility settings
+   - Verify animations are disabled
+   - Layout should remain unchanged
+
+## UX Features
 
 ### 1. Sticky Section Sub-menu (Scroll Spy)
-- Desktop-only floating subnav appears after hero.
-- Anchors to sections, highlights active as you scroll.
-- Smooth scroll, no layout jumps.
-- Respects reduced motion.
-- Usage: `<StickySubnav sections={[{id:'services',label:'Services'}, ...]} />`
+- Desktop-only floating subnav below header
+- Anchors to sections, highlights active as you scroll
+- Smooth scroll, no layout jumps
+- Respects reduced motion
 
 ### 2. Circle Glow Orbs
-- Subtle, layered radial glows behind hero/CTAs.
-- Static by default; can animate with slow drift (disabled for reduced motion).
-- Usage: `<GlowOrbs tint="#0070F2" opacity={0.12} />`
+- Subtle radial glows behind hero/CTAs
+- Static, elegant background elements
+- Z-index: -z-10
 
 ### 3. Grid Sparkle
-- Lightweight canvas shimmer flows diagonally across grid.
-- Ultra-subtle, premium glint effect.
-- Disabled for reduced motion.
-- Usage: `<GridSparkle client:visible speed={0.7} density={0.0016} />`
+- Lightweight canvas shimmer flows diagonally
+- Ultra-subtle premium effect
+- Disabled for reduced motion
+- Z-index: -z-20
 
-### Reduced Motion Behavior
-- All motion/animation is disabled if user prefers-reduced-motion is enabled.
-- Site remains static and elegant.
+## Routes
 
-### Acceptance
-- Subnav appears below hero, anchors work, active state follows scroll.
-- No layout shifts, no console warnings.
-- 60fps on mid-range laptops.
-- Lighthouse desktop: Perf/A11y/Best/SEO ≥95.
-- CSP passes (no inline scripts).
+- `/` - Homepage with all UX features
+- `/services` - CX Services
+- `/ai` - AI Services  
+- `/system` - Varahi System
+- `/case-studies` - Case Studies
+- `/insights` - Insights
+- `/about` - About
+- `/contact` - Contact
+- `/_diagnostics` - Local QA page
 
-See `src/pages/index.astro` for a demo wiring all enhancements.
+## Build
+
+```bash
+npm run build
+npm run preview
+```
