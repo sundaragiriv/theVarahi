@@ -1,105 +1,65 @@
 import React from "react";
-import "./logo-orbit.css";
 
-/**
- * Varahi wordmark with a thin diagonal ellipse.
- * A small blue dot glides back-and-forth along the ellipse.
- * (Motion respects prefers-reduced-motion.)
- */
-export default function LogoOrbit({
-  size = 200,
-  tilt = -18,
-  color = "#0F172A",
-  ringColor = "rgba(0,112,242,.18)",
-  dotColor = "#0070F2",
-  speedSec = 6,
-}: {
+interface LogoOrbitProps {
   size?: number;
-  tilt?: number;
-  color?: string;
-  ringColor?: string;
-  dotColor?: string;
-  speedSec?: number;
-}) {
-  const h = size * 0.33;          // wordmark box height
-  const rx = size * 0.57;         // ellipse radii
-  const ry = h * 0.95;
-  const dotR = Math.max(2, Math.round(size * 0.018));
-  const d = `M ${-rx} 0 a ${rx} ${ry} 0 1 0 ${rx * 2} 0 a ${rx} ${ry} 0 1 0 ${-rx * 2} 0`;
-
-  return (
-    <svg
-      width={size}
-      height={h}
-      viewBox={`${-size / 2} ${-h / 2} ${size} ${h}`}
-      role="img"
-      aria-label="Varahi"
-      style={{ display: "block", ["--orbit-speed" as any]: `${speedSec}s` }}
-    >
-      {/* Ellipse */}
-      <g transform={`rotate(${tilt})`}>
-        <path d={d} fill="none" stroke={ringColor} strokeWidth={1} />
-      </g>
-
-      {/* Comet trail and dot */}
-      <g transform={`rotate(${tilt})`}>
-        {/* Comet trail */}
-        <circle
-          r={dotR * 2.5}
-          className="orbit-dot"
-          fill="url(#cometGradient)"
-          opacity="0.6"
-          style={{ offsetPath: `path('${d}')` } as React.CSSProperties}
-        />
-        <circle
-          r={dotR * 1.8}
-          className="orbit-dot"
-          fill="url(#cometGradient2)"
-          opacity="0.8"
-          style={{ offsetPath: `path('${d}')` } as React.CSSProperties}
-        />
-        {/* Main comet dot */}
-        <circle
-          r={dotR}
-          className="orbit-dot"
-          fill={dotColor}
-          style={{ 
-            offsetPath: `path('${d}')`,
-            filter: 'drop-shadow(0 0 8px rgba(0,112,242,0.6))'
-          } as React.CSSProperties}
-        />
-      </g>
-
-      {/* Gradient definitions */}
-      <defs>
-        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#0070F2" />
-          <stop offset="50%" stopColor="#0854A0" />
-          <stop offset="100%" stopColor="#74B3F7" />
-        </linearGradient>
-        <radialGradient id="cometGradient" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#0070F2" stopOpacity="0.8" />
-          <stop offset="70%" stopColor="#74B3F7" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#74B3F7" stopOpacity="0" />
-        </radialGradient>
-        <radialGradient id="cometGradient2" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#0070F2" stopOpacity="0.9" />
-          <stop offset="60%" stopColor="#0854A0" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="#0854A0" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      
-      {/* Wordmark with gradient */}
-      <text
-        x="0" y="0.34em" textAnchor="middle"
-        fontFamily="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto"
-        fontWeight={800}
-        fontSize={h * 0.56}
-        letterSpacing="0.4px"
-        fill="url(#logoGradient)"
-      >
-        Varahi
-      </text>
-    </svg>
-  );
 }
+
+const LogoOrbit: React.FC<LogoOrbitProps> = ({ size = 160 }) => {
+  return (
+    <div className="flex items-center gap-3">
+      {/* Logo Mark */}
+      <div className="relative" style={{ width: size * 0.25, height: size * 0.25 }}>
+        <svg
+          width={size * 0.25}
+          height={size * 0.25}
+          viewBox="0 0 40 40"
+          className="hover:scale-110 transition-transform duration-300"
+        >
+          {/* Professional V Symbol */}
+          <g className="drop-shadow-sm">
+            {/* Clean geometric V */}
+            <path
+              d="M12 10 L20 26 L28 10 L25 10 L20 20 L15 10 Z"
+              fill="#0070F2"
+            />
+            {/* Subtle base line */}
+            <rect
+              x="10"
+              y="28"
+              width="20"
+              height="2"
+              fill="#0070F2"
+              opacity="0.3"
+            />
+          </g>
+          
+          {/* Subtle orbital ring */}
+          <circle
+            cx="20"
+            cy="20"
+            r="18"
+            fill="none"
+            stroke="#0070F2"
+            strokeWidth="0.5"
+            opacity="0.15"
+            className="animate-spin"
+            style={{ animationDuration: '20s' }}
+            strokeDasharray="1 3"
+          />
+        </svg>
+      </div>
+      
+      {/* Wordmark */}
+      <div className="flex flex-col">
+        <span 
+          className="text-2xl font-bold text-slate-800 hover:text-blue-600 transition-colors duration-300"
+          style={{ fontFamily: 'Inter, system-ui, sans-serif', letterSpacing: '0.2em' }}
+        >
+          VARAHI
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export default LogoOrbit;

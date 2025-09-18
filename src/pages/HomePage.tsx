@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import SEOHead from '../components/SEOHead';
 import TrustBar from '../components/TrustBar';
 import OutcomesStrip from '../components/OutcomesStrip';
 import WhatWeDoGrid from '../components/WhatWeDoGrid';
@@ -11,8 +13,51 @@ import HeroFloatingElements from '../components/HeroFloatingElements';
 import '../styles/grid.css';
 
 const HomePage: React.FC = () => {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Varahi",
+    "description": "Premium Customer Experience and AI services for enterprise digital transformation. 40% ROI improvement, 24/7 global support.",
+    "url": "https://varahi.com",
+    "logo": "https://varahi.com/logo.png",
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+1-610-457-3193",
+        "contactType": "customer service",
+        "areaServed": "US"
+      }
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Philadelphia",
+      "addressRegion": "PA",
+      "addressCountry": "US"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "127"
+    },
+    "offers": {
+      "@type": "Service",
+      "serviceType": "Enterprise CX & AI Services",
+      "areaServed": "Worldwide"
+    }
+  };
+
   return (
-    <main>
+    <>
+      <Helmet>
+        <title>Varahi - Enterprise CX & AI Services | 40% ROI in 90 Days</title>
+        <meta name="description" content="Transform your enterprise with Varahi's premium Customer Experience and AI services. SAP S/4HANA, intelligent automation, 40% ROI in 90 days. Philadelphia HQ, global delivery." />
+        <meta name="keywords" content="enterprise CX, artificial intelligence, SAP S/4HANA, digital transformation, customer experience optimization, business automation, Philadelphia AI company, enterprise software" />
+        <link rel="canonical" href="https://varahi.com/" />
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
+        </script>
+      </Helmet>
+      <main>
       {/* Hero */}
       <section className="grid-bg pt-20 min-h-screen flex items-center relative overflow-hidden">
         <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12 relative z-20">
@@ -120,6 +165,7 @@ const HomePage: React.FC = () => {
       <AboutBlurb />
       <Contact />
     </main>
+    </>
   );
 };
 

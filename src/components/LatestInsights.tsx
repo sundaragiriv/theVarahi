@@ -41,7 +41,7 @@ const LatestInsights: React.FC = () => {
           transition={{ duration: 0.8 }}
         >
           <div>
-            <h2 className="text-4xl lg:text-5xl font-bold gradient-text mb-4">Latest Insights</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold gradient-text mb-4" style={{lineHeight: '1.2', paddingBottom: '8px'}}>Latest Insights</h2>
             <p className="text-xl text-gray-600">Expert perspectives on AI transformation and enterprise innovation</p>
           </div>
           <motion.div whileHover={{ scale: 1.05 }}>

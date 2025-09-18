@@ -172,14 +172,16 @@ const SolutionsPage: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-8 h-80 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-8 h-80 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10"></div>
+              <div className="text-center relative z-10">
+                <div className="w-32 h-32 bg-white/90 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <svg className="w-16 h-16 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800">Enterprise ERP</h3>
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">Enterprise ERP</h3>
+                <p className="text-gray-600 text-sm">S/4HANA Migration & Modernization</p>
               </div>
             </div>
           </div>
@@ -190,14 +192,16 @@ const SolutionsPage: React.FC = () => {
       <section id="enterprise-cx" className="py-20 bg-gray-50">
         <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-8 h-80 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            <div className="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-8 h-80 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-blue-500/10"></div>
+              <div className="text-center relative z-10">
+                <div className="w-32 h-32 bg-white/90 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <svg className="w-16 h-16 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800">Customer Experience</h3>
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">Customer Experience</h3>
+                <p className="text-gray-600 text-sm">Sales, Service & Marketing Cloud</p>
               </div>
             </div>
             <div>
@@ -479,14 +483,16 @@ const SolutionsPage: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-orange-100 to-yellow-100 rounded-2xl p-8 h-80 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-10 h-10 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            <div className="bg-gradient-to-br from-orange-100 to-yellow-100 rounded-2xl p-8 h-80 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-yellow-500/10"></div>
+              <div className="text-center relative z-10">
+                <div className="w-32 h-32 bg-white/90 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <svg className="w-16 h-16 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-800">AI Assistant</h3>
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">AI Assistant</h3>
+                <p className="text-gray-600 text-sm">Natural Language Processing</p>
               </div>
             </div>
           </div>
