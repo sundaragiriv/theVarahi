@@ -345,7 +345,7 @@ const ResourcesPage: React.FC = () => {
               Resources & Insights
             </h1>
             <p className="text-xl md:text-2xl text-blue-100">
-              Discover insights, strategies, and success stories to accelerate your digital transformation journey.
+              Discover insights, strategies, and success stories to accelerate your digital transformation journey. Auto-deploy test! 🚀
             </p>
           </motion.div>
         </div>
