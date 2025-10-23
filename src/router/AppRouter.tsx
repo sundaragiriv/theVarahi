@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HeaderNav from '../components/HeaderNav';
 import Footer from '../components/Footer';
+import GridBackground from '../components/GridBackground';
 
 // Page Components
 import HomePage from '../pages/HomePage';
@@ -18,6 +19,13 @@ import CDCPage from '../pages/solutions/CDCPage';
 import CommerceCPQPage from '../pages/solutions/CommerceCPQPage';
 import ManagedSAPPage from '../pages/solutions/ManagedSAPPage';
 
+// New Service Pages
+import SAPSolutionsPage from '../pages/services/SAPSolutionsPage';
+import EnterpriseCXPage from '../pages/services/EnterpriseCXPage';
+import AIOrchestrationPage from '../pages/services/AIOrchestrationPage';
+import JouleEnablementPage from '../pages/services/JouleEnablementPage';
+import UpgradeSAPPage from '../pages/services/UpgradeSAPPage';
+
 // AI Strategy
 import AssessmentPage from '../pages/solutions/ai/AssessmentPage';
 import GovernancePage from '../pages/solutions/ai/GovernancePage';
@@ -33,16 +41,26 @@ import CPGPage from '../pages/industries/CPGPage';
 import UtilitiesPage from '../pages/industries/UtilitiesPage';
 import FinancialServicesPage from '../pages/industries/FinancialServicesPage';
 
-import AboutPage from '../pages/AboutPage';
+import About from '../components/About';
 import OurStoryPage from '../pages/about/OurStoryPage';
 import OurTeamPage from '../pages/about/OurTeamPage';
 import CareersPage from '../pages/about/CareersPage';
 import PartnershipsPage from '../pages/about/PartnershipsPage';
+
+// New About components
+import Leadership from '../components/Leadership';
+import Careers from '../components/Careers';
+import InvestorRelations from '../components/InvestorRelations';
+import Partnerships from '../components/Partnerships';
+import Alliances from '../components/Alliances';
 import ResourcesPage from '../pages/ResourcesPage';
 import CaseStudiesPage from '../pages/resources/CaseStudiesPage';
 import BlogPage from '../pages/resources/BlogPage';
 import WhitepapersPage from '../pages/resources/WhitepapersPage';
 import VideosPage from '../pages/resources/VideosPage';
+import ThoughtLeadershipPage from '../pages/resources/ThoughtLeadershipPage';
+import ResearchReportsPage from '../pages/resources/ResearchReportsPage';
+import EventsPage from '../pages/resources/EventsPage';
 import ContactPage from '../pages/ContactPage';
 import SalesInquiryPage from '../pages/contact/SalesInquiryPage';
 import GeneralInquiryPage from '../pages/contact/GeneralInquiryPage';
@@ -52,18 +70,28 @@ import InvestorsPage from '../pages/contact/InvestorsPage';
 const AppRouter: React.FC = () => {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col relative">
+        {/* Subtle Grid Background for all pages */}
+        <GridBackground opacity={0.02} gridSize={40} color="#000000" />
+        
         <HeaderNav />
         
-        <main className="flex-grow">
+        <main className="flex-grow relative">
           <Routes>
             {/* Home */}
             <Route path="/" element={<HomePage />} />
             
-            {/* Solutions */}
-            <Route path="/solutions" element={<SolutionsPage />} />
-            <Route path="/solutions/ai-strategy-transformations" element={<AIStrategyPage />} />
-            <Route path="/solutions/industry-solutions" element={<IndustrySolutionsPage />} />
+            {/* Services */}
+            <Route path="/services" element={<SolutionsPage />} />
+            <Route path="/ai" element={<AIStrategyPage />} />
+            <Route path="/system" element={<IndustrySolutionsPage />} />
+            
+            {/* New Service Pages */}
+            <Route path="/services/sap-solutions" element={<SAPSolutionsPage />} />
+            <Route path="/services/enterprise-cx" element={<EnterpriseCXPage />} />
+            <Route path="/services/ai-orchestration" element={<AIOrchestrationPage />} />
+            <Route path="/services/joule-enablement" element={<JouleEnablementPage />} />
+            <Route path="/services/upgrade-sap" element={<UpgradeSAPPage />} />
             
             {/* SAP Services */}
             <Route path="/solutions/cx" element={<CXServicesPage />} />
@@ -82,27 +110,35 @@ const AppRouter: React.FC = () => {
             <Route path="/solutions/ai/conversational" element={<ConversationalPage />} />
             <Route path="/solutions/ai/telemetry" element={<TelemetryPage />} />
             
-            {/* Industries */}
-            <Route path="/industries" element={<IndustriesPage />} />
-            <Route path="/solutions/industry-solutions" element={<IndustriesPage />} />
-            <Route path="/industries/manufacturing" element={<ManufacturingPage />} />
-            <Route path="/industries/cpg" element={<CPGPage />} />
-            <Route path="/industries/utilities" element={<UtilitiesPage />} />
-            <Route path="/industries/financial-services" element={<FinancialServicesPage />} />
+
             
             {/* About */}
-            <Route path="/about" element={<AboutPage />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/leadership" element={<Leadership />} />
+            <Route path="/careers" element={<Careers />} />
+            <Route path="/investor-relations" element={<InvestorRelations />} />
+            <Route path="/partnerships" element={<Partnerships />} />
+            <Route path="/alliances" element={<Alliances />} />
             <Route path="/about/our-story" element={<OurStoryPage />} />
             <Route path="/about/our-team" element={<OurTeamPage />} />
             <Route path="/about/careers" element={<CareersPage />} />
             <Route path="/about/partnerships" element={<PartnershipsPage />} />
             
-            {/* Resources */}
+            {/* Resources - Unified with filtering */}
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/resources/case-studies" element={<CaseStudiesPage />} />
             <Route path="/resources/blog" element={<BlogPage />} />
             <Route path="/resources/whitepapers" element={<WhitepapersPage />} />
             <Route path="/resources/videos" element={<VideosPage />} />
+            <Route path="/resources/thought-leadership" element={<ThoughtLeadershipPage />} />
+            <Route path="/resources/research-reports" element={<ResearchReportsPage />} />
+            <Route path="/resources/events" element={<EventsPage />} />
+            <Route path="/case-studies" element={<CaseStudiesPage />} />
+            <Route path="/insights" element={<BlogPage />} />
+            <Route path="/tech-updates" element={<BlogPage />} />
+            
+            {/* Solutions Page */}
+            <Route path="/solutions" element={<SolutionsPage />} />
             
             {/* Contact */}
             <Route path="/contact" element={<ContactPage />} />

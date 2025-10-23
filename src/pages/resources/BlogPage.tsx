@@ -1,6 +1,22 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import NewsletterSubscription from '../../components/NewsletterSubscription';
+import { 
+  ArrowUpRight, 
+  Calendar, 
+  Clock, 
+  User, 
+  TrendingUp, 
+  BookOpen, 
+  Sparkles,
+  Brain,
+  Users,
+  Zap,
+  Building2,
+  BarChart3
+} from 'lucide-react';
+import GridBackground from '../../components/GridBackground';
 
 const BlogPage: React.FC = () => {
   const blogPosts = [
@@ -51,110 +67,266 @@ const BlogPage: React.FC = () => {
     }
   ];
 
-  const categories = ['All', 'AI Strategy', 'Customer Experience', 'Manufacturing', 'Supply Chain', 'AI Governance'];
+  const categories = [
+    { name: 'All', icon: BookOpen, color: 'brand' },
+    { name: 'AI Strategy', icon: Brain, color: 'turmeric' },
+    { name: 'Customer Experience', icon: Users, color: 'accent' },
+    { name: 'Manufacturing', icon: Building2, color: 'brand' },
+    { name: 'Supply Chain', icon: BarChart3, color: 'turmeric' },
+    { name: 'AI Governance', icon: Zap, color: 'accent' }
+  ];
+  
   const [selectedCategory, setSelectedCategory] = React.useState('All');
 
   const filteredPosts = selectedCategory === 'All' 
     ? blogPosts 
     : blogPosts.filter(post => post.category === selectedCategory);
 
+  const getCategoryIcon = (categoryName: string) => {
+    const category = categories.find(cat => cat.name === categoryName);
+    return category ? category.icon : BookOpen;
+  };
+
   return (
-    <div className="pt-20">
-      <section className="py-24 bg-gradient-to-br from-blue-50 to-white">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <motion.h1 
-            className="text-5xl font-bold text-gray-900 mb-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            Insights on AI, CX, and the Future of Business
-          </motion.h1>
-          <motion.p 
-            className="text-xl text-gray-600 max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Expert perspectives on enterprise AI transformation, customer experience innovation, and industry best practices.
-          </motion.p>
+    <div className="relative min-h-screen bg-white">
+      <GridBackground opacity={0.02} gridSize={60} />
+      
+      {/* Hero Section */}
+      <section className="relative pt-24 pb-16 bg-gradient-to-br from-turmeric-50 via-white to-brand-50">
+        <GridBackground opacity={0.03} gridSize={80} />
+        <div className="relative max-w-7xl mx-auto px-6">
+          <div className="text-center max-w-4xl mx-auto">
+            <motion.div
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-turmeric-200/50 rounded-full mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <Sparkles className="h-4 w-4 text-turmeric-600" />
+              <span className="text-sm font-medium text-turmeric-700">Latest Tech Insights</span>
+            </motion.div>
+            
+            <motion.h1 
+              className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              AI & Technology{" "}
+              <span className="text-transparent bg-gradient-to-r from-turmeric-600 via-brand-600 to-accent-600 bg-clip-text">
+                Updates
+              </span>
+            </motion.h1>
+            
+            <motion.p 
+              className="text-xl text-gray-600 mb-12 leading-relaxed"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Stay ahead with expert insights on enterprise AI transformation, customer experience innovation, 
+              and cutting-edge technology trends shaping the future of business.
+            </motion.p>
+
+            {/* Featured Stats */}
+            <motion.div
+              className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <div className="text-center p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-turmeric-100/50">
+                <div className="text-3xl font-bold text-turmeric-600 mb-2">50+</div>
+                <div className="text-sm text-gray-600">Expert Articles</div>
+              </div>
+              <div className="text-center p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-brand-100/50">
+                <div className="text-3xl font-bold text-brand-600 mb-2">10K+</div>
+                <div className="text-sm text-gray-600">Monthly Readers</div>
+              </div>
+              <div className="text-center p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-accent-100/50">
+                <div className="text-3xl font-bold text-accent-600 mb-2">6</div>
+                <div className="text-sm text-gray-600">Topic Categories</div>
+              </div>
+              <div className="text-center p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-turmeric-100/50">
+                <div className="text-3xl font-bold text-turmeric-600 mb-2">Weekly</div>
+                <div className="text-sm text-gray-600">New Content</div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Category Filter */}
-      <section className="py-8 bg-white border-b">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full font-semibold transition-colors ${
-                  selectedCategory === category
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+      <section className="relative py-12 bg-white/80 backdrop-blur-sm border-b border-gray-200/50">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            className="text-center mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Explore by Category</h2>
+            <p className="text-gray-600">Filter articles by your area of interest</p>
+          </motion.div>
+          
+          <motion.div 
+            className="flex flex-wrap justify-center gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.0 }}
+          >
+            {categories.map((category, index) => {
+              const IconComponent = category.icon;
+              const isActive = selectedCategory === category.name;
+              
+              return (
+                <motion.button
+                  key={category.name}
+                  onClick={() => setSelectedCategory(category.name)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 1.0 + (index * 0.1) }}
+                  className={`flex items-center gap-2 px-5 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                    isActive
+                      ? `bg-gradient-to-r from-${category.color}-500 to-${category.color}-600 text-white shadow-lg shadow-${category.color}-500/25`
+                      : 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 shadow-sm hover:shadow-md'
+                  }`}
+                >
+                  <IconComponent className={`h-4 w-4 ${isActive ? 'text-white' : `text-${category.color}-600`}`} />
+                  <span>{category.name}</span>
+                </motion.button>
+              );
+            })}
+          </motion.div>
         </div>
       </section>
 
       {/* Blog Posts */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPosts.map((post, index) => (
-              <motion.article
-                key={post.title}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
-              >
-                <img 
-                  src={post.image} 
-                  alt={post.title}
-                  className="w-full h-48 object-cover"
-                />
-                
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
-                      {post.category}
-                    </span>
-                    <span className="text-sm text-gray-500">{post.readTime}</span>
+      <section className="relative py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+            {filteredPosts.map((post, index) => {
+              const IconComponent = getCategoryIcon(post.category);
+              
+              return (
+                <motion.article
+                  key={post.title}
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="group bg-white/90 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg shadow-gray-900/5 border border-gray-200/50 hover:shadow-2xl hover:shadow-gray-900/10 transition-all duration-500"
+                >
+                  {/* Image */}
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img 
+                      src={post.image} 
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    
+                    {/* Category Badge */}
+                    <div className="absolute top-4 left-4">
+                      <div className="flex items-center gap-2 px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-full shadow-sm">
+                        <IconComponent className="h-3 w-3 text-turmeric-600" />
+                        <span className="text-xs font-semibold text-gray-800">{post.category}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Read Time */}
+                    <div className="absolute top-4 right-4">
+                      <div className="flex items-center gap-1 px-2 py-1 bg-black/60 backdrop-blur-sm rounded-full">
+                        <Clock className="h-3 w-3 text-white" />
+                        <span className="text-xs font-medium text-white">{post.readTime}</span>
+                      </div>
+                    </div>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                    {post.title}
-                  </h3>
-                  
-                  <p className="text-gray-600 mb-4 line-clamp-3">
-                    {post.summary}
-                  </p>
-                  
-                  <div className="flex items-center justify-between text-sm text-gray-500">
-                    <span>By {post.author}</span>
-                    <span>{post.date}</span>
+                  {/* Content */}
+                  <div className="p-6">
+                    <div className="mb-4">
+                      <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-turmeric-700 transition-colors duration-300">
+                        {post.title}
+                      </h3>
+                      
+                      <p className="text-gray-600 leading-relaxed text-sm line-clamp-3 mb-4">
+                        {post.summary}
+                      </p>
+                    </div>
+                    
+                    {/* Author & Date */}
+                    <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
+                      <div className="flex items-center gap-2">
+                        <User className="h-4 w-4 text-gray-500" />
+                        <span className="text-sm font-medium text-gray-700">{post.author}</span>
+                      </div>
+                      <div className="flex items-center gap-1 text-gray-500">
+                        <Calendar className="h-3 w-3" />
+                        <span className="text-xs">{post.date}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Read More Button */}
+                    <Link
+                      to="/contact/general-inquiry"
+                      className="group/btn inline-flex items-center gap-2 text-turmeric-600 font-semibold hover:text-turmeric-700 transition-colors duration-300"
+                    >
+                      <span>Read Full Article</span>
+                      <ArrowUpRight className="h-4 w-4 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform duration-300" />
+                    </Link>
                   </div>
-                  
-                  <Link
-                    to="/contact/general-inquiry"
-                    className="inline-flex items-center mt-4 text-blue-600 font-semibold hover:text-blue-700"
-                  >
-                    Read More
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                </div>
-              </motion.article>
-            ))}
+                </motion.article>
+              );
+            })}
           </div>
+          
+          {/* No Results */}
+          {filteredPosts.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-16"
+            >
+              <BookOpen className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">No articles found</h3>
+              <p className="text-gray-600">Try selecting a different category to explore our content.</p>
+            </motion.div>
+          )}
+        </div>
+      </section>
+      
+      {/* Newsletter CTA */}
+      <section className="relative py-20 bg-gradient-to-br from-turmeric-600 via-turmeric-700 to-brand-800">
+        <GridBackground opacity={0.1} gridSize={100} color="white" />
+        <div className="relative max-w-4xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full mb-8">
+              <TrendingUp className="h-4 w-4 text-white" />
+              <span className="text-sm font-medium text-white">Stay Updated</span>
+            </div>
+            
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+              Never Miss the Latest Tech Insights
+            </h2>
+            <p className="text-xl text-white/90 mb-8 leading-relaxed">
+              Get weekly updates on AI trends, enterprise technology, and innovation strategies 
+              delivered directly to your inbox.
+            </p>
+            
+            <div className="max-w-md mx-auto">
+              <NewsletterSubscription variant="inline" className="bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm border-white/20" />
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

@@ -1,0 +1,56 @@
+<svg width="200" height="50" viewBox="0 0 200 50" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Drop shadow filter -->
+    <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#2563eb" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  
+  <!-- Outer circle with gradient -->
+  <circle cx="25" cy="25" r="20" fill="url(#iconGradient)" filter="url(#dropShadow)" opacity="0.95"/>
+  
+  <!-- Inner white circle -->
+  <circle cx="25" cy="25" r="18" fill="white"/>
+  
+  <!-- Neural network pattern -->
+  <g fill="#2563eb" opacity="0.9">
+    <!-- Central node -->
+    <circle cx="25" cy="25" r="3" fill="#f59e0b"/>
+    <!-- Outer nodes -->
+    <circle cx="17" cy="17" r="2.5" fill="#2563eb"/>
+    <circle cx="33" cy="17" r="2.5" fill="#059669"/>
+    <circle cx="17" cy="33" r="2.5" fill="#059669"/>
+    <circle cx="33" cy="33" r="2.5" fill="#2563eb"/>
+  </g>
+  
+  <!-- Connection lines -->
+  <g stroke="#3b82f6" stroke-width="1.2" opacity="0.6">
+    <line x1="19" y1="19" x2="22.5" y2="22.5"/>
+    <line x1="31" y1="19" x2="27.5" y2="22.5"/>
+    <line x1="19" y1="31" x2="22.5" y2="27.5"/>
+    <line x1="31" y1="31" x2="27.5" y2="27.5"/>
+  </g>
+  
+  <!-- Micro animation dot -->
+  <circle cx="41" cy="9" r="2" fill="#059669" opacity="0.6">
+    <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- varahi Text -->
+  <text x="55" y="30" font-family="Monaco, Consolas, monospace" font-size="24" font-weight="700" 
+        fill="url(#textGradient)" letter-spacing="0.2em" transform="scale(0.8,1.25)">varahi</text>
+</svg>

@@ -1,95 +1,184 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Users, Target, Globe, Zap } from 'lucide-react';
 
 const About: React.FC = () => {
-  const values = [
-    {
-      icon: (
-        <svg className="h-8 w-8 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" strokeWidth="2" /><circle cx="12" cy="12" r="4" strokeWidth="2" /></svg>
-      ),
-      title: 'Reliability',
-      description: 'Consistent delivery and dependable partnerships that enterprises can count on.'
-    },
-    {
-      icon: (
-        <svg className="h-8 w-8 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor"><ellipse cx="12" cy="12" rx="10" ry="6" strokeWidth="2" /><circle cx="12" cy="12" r="3" strokeWidth="2" /></svg>
-      ),
-      title: 'Clarity',
-      description: 'Transparent communication and clear documentation throughout every engagement.'
-    },
-    {
-      icon: (
-        <svg className="h-8 w-8 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" strokeWidth="2" /></svg>
-      ),
-      title: 'Measurable Outcomes',
-      description: 'Focus on KPIs and business metrics that matter to your organization.'
-    }
-  ];
-
-  const leadership = [
-    { name: 'Raj Patel', role: 'Managing Director', experience: '15+ years SAP CX' },
-    { name: 'Sarah Chen', role: 'Head of AI Practice', experience: '12+ years ML/AI' },
-    { name: 'Michael Kumar', role: 'CX Architecture Lead', experience: '18+ years Enterprise CX' }
-  ];
-
   return (
-    <section id="about" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 transition-all duration-700">
-          <h2 className="text-3xl lg:text-4xl font-bold text-ink mb-4">
-            About Varahi
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            <p className="text-xl text-ink/70 leading-relaxed mb-8">
-              Founded by enterprise software veterans, Varahi specializes in customer experience 
-              and AI transformations that deliver measurable business outcomes. We combine deep SAP CX 
-              expertise with modern AI capabilities to help Fortune 500 companies modernize their 
-              customer engagement platforms.
-            </p>
-            <p className="text-lg text-ink/60 leading-relaxed">
-              Our team of certified architects and consultants has successfully implemented over 200+ 
-              CX projects across manufacturing, financial services, retail, and technology sectors. 
-              We focus on sustainable solutions that scale with your business and deliver ROI within 
-              the first 90 days.
-            </p>
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 to-accent-50 pt-20">
+      {/* Compact Dashboard Layout */}
+      <div className="container mx-auto px-6 py-8">
+        
+        {/* Header Strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center justify-between mb-8"
+        >
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 bg-accent-600 rounded-full"></span>
+              <span className="text-sm text-accent-700 font-medium uppercase tracking-wider">Who We Are</span>
+            </div>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-brand-700 to-accent-600 bg-clip-text text-transparent">
+              Varahi Systems
+            </h1>
           </div>
-        </div>
-
-        {/* Values */}
-        <div className="mb-16 transition-all duration-700">
-          <h3 className="text-2xl font-bold text-ink text-center mb-12">Our Values</h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            {values.map((value) => (
-              <div key={value.title} className="text-center group">
-                <div className="flex items-center justify-center w-16 h-16 rounded-xl bg-brand/10 mx-auto mb-6 group-hover:bg-brand/20 transition-colors duration-200">
-                  {value.icon}
-                </div>
-                <h4 className="text-xl font-semibold text-ink mb-3">{value.title}</h4>
-                <p className="text-ink/70 leading-relaxed">{value.description}</p>
-              </div>
-            ))}
+          <div className="text-right">
+            <div className="text-2xl font-bold text-brand-600">500+</div>
+            <div className="text-sm text-text-light">Enterprise Clients</div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Leadership */}
-        <div className="transition-all duration-700">
-          <h3 className="text-2xl font-bold text-ink text-center mb-12">Leadership Team</h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            {leadership.map((leader) => (
-              <div key={leader.name} className="card p-6 text-center">
-                <div className="w-20 h-20 rounded-full bg-brand/10 mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-brand">
-                    {leader.name.split(' ').map(n => n[0]).join('')}
-                  </span>
+        {/* Main Dashboard Grid */}
+        <div className="grid lg:grid-cols-12 gap-6 lg:h-[calc(100vh-200px)]">
+          
+          {/* Left Column - Core Info */}
+          <div className="lg:col-span-8 space-y-4 lg:space-y-6">
+            
+            {/* Mission & Vision Cards */}
+            <div className="grid md:grid-cols-2 gap-4 lg:gap-6">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+                className="bg-white rounded-xl p-4 lg:p-6 shadow-lg border border-border h-fit"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-accent-100 to-brand-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Zap className="h-6 w-6 text-accent-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-text mb-3">Our Mission</h3>
+                    <p className="text-sm text-text-light leading-relaxed">
+                      Engineers, architects, and thinkers who see technology as a <strong>living system</strong> — one that learns, protects, and amplifies human intelligence.
+                    </p>
+                  </div>
                 </div>
-                <h4 className="text-lg font-semibold text-ink mb-1">{leader.name}</h4>
-                <p className="text-brand font-medium mb-2">{leader.role}</p>
-                <p className="text-sm text-ink/60">{leader.experience}</p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+                className="bg-gradient-to-br from-brand-600 to-accent-600 rounded-xl p-4 lg:p-6 text-white h-fit"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Globe className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold mb-3">Varahi Group</h3>
+                    <p className="text-sm opacity-90 leading-relaxed">
+                      The <strong>connective layer between strategy and execution</strong> — where ideas become architecture, and architecture becomes intelligence.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Key Metrics */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="bg-white rounded-xl p-4 lg:p-6 shadow-lg border border-border"
+            >
+              <h3 className="font-bold text-text mb-4">Key Metrics</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-brand-600 mb-1">85%</div>
+                  <div className="text-xs text-text-light">Client Retention</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-accent-600 mb-1">16</div>
+                  <div className="text-xs text-text-light">Years Experience</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-turmeric-600 mb-1">15-35%</div>
+                  <div className="text-xs text-text-light">Efficiency Gains*</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-brand-700 mb-1">3-9</div>
+                  <div className="text-xs text-text-light">Months to Value*</div>
+                </div>
               </div>
-            ))}
+            </motion.div>
+
+          </div>
+
+          {/* Right Column - Navigation & CTA */}
+          <div className="lg:col-span-4 space-y-4">
+            
+            {/* Quick Navigation */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+              className="bg-white rounded-xl p-4 shadow-lg border border-border"
+            >
+              <h3 className="font-bold text-text mb-4 text-sm">Explore More</h3>
+              <div className="space-y-2">
+                <Link to="/leadership" className="flex items-center justify-between p-3 hover:bg-brand-50 rounded-lg transition-colors group">
+                  <div className="flex items-center gap-3">
+                    <Users className="h-4 w-4 text-brand-600" />
+                    <span className="text-sm font-medium">Leadership</span>
+                  </div>
+                  <ArrowRight className="h-3 w-3 text-text-light group-hover:text-brand-600 group-hover:translate-x-1 transition-all" />
+                </Link>
+                
+                <Link to="/careers" className="flex items-center justify-between p-3 hover:bg-accent-50 rounded-lg transition-colors group">
+                  <div className="flex items-center gap-3">
+                    <Target className="h-4 w-4 text-accent-600" />
+                    <span className="text-sm font-medium">Careers</span>
+                  </div>
+                  <ArrowRight className="h-3 w-3 text-text-light group-hover:text-accent-600 group-hover:translate-x-1 transition-all" />
+                </Link>
+
+                <Link to="/partnerships" className="flex items-center justify-between p-3 hover:bg-turmeric-50 rounded-lg transition-colors group">
+                  <div className="flex items-center gap-3">
+                    <Globe className="h-4 w-4 text-turmeric-600" />
+                    <span className="text-sm font-medium">Partnerships</span>
+                  </div>
+                  <ArrowRight className="h-3 w-3 text-text-light group-hover:text-turmeric-600 group-hover:translate-x-1 transition-all" />
+                </Link>
+
+                <Link to="/investor-relations" className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors group">
+                  <div className="flex items-center gap-3">
+                    <Target className="h-4 w-4 text-gray-600" />
+                    <span className="text-sm font-medium">Investors</span>
+                  </div>
+                  <ArrowRight className="h-3 w-3 text-text-light group-hover:text-gray-600 group-hover:translate-x-1 transition-all" />
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* CTA Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <Link
+                to="/contact"
+                className="block bg-gradient-to-br from-brand-600 to-accent-600 rounded-xl p-6 text-white hover:shadow-xl transition-all duration-300 transform hover:scale-105 group"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                    <ArrowRight className="h-5 w-5 text-white group-hover:translate-x-1 transition-transform" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold mb-1">Ready to Connect?</h3>
+                    <p className="text-sm opacity-90">Free Strategy Call</p>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -93,6 +93,8 @@ const OurTeamPage: React.FC = () => {
                     src={member.image} 
                     alt={member.name}
                     className="w-64 h-64 rounded-full object-cover shadow-lg"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </motion.div>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ArrowUpRight, Users, Clock, TrendingUp, CheckCircle2, Zap, Building2, Gauge } from 'lucide-react';
+import GridBackground from '../../components/GridBackground';
 
 const CaseStudiesPage: React.FC = () => {
   const caseStudies = [
@@ -78,119 +80,261 @@ const CaseStudiesPage: React.FC = () => {
   ];
 
   return (
-    <div className="pt-20">
+    <div className="relative min-h-screen bg-white">
+      <GridBackground opacity={0.02} gridSize={60} />
+      
       {/* Hero Section */}
-      <section className="py-24 bg-gradient-to-br from-blue-50 to-white">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <motion.h1 
-            className="text-5xl font-bold text-gray-900 mb-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            Real-World Results. Measurable Impact.
-          </motion.h1>
-          <motion.p 
-            className="text-xl text-gray-600 max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            See how our clients achieved tangible business outcomes with Varahi's AI platform.
-          </motion.p>
+      <section className="relative pt-24 pb-16 bg-gradient-to-br from-brand-50 via-white to-accent-50">
+        <GridBackground opacity={0.03} gridSize={80} />
+        <div className="relative max-w-7xl mx-auto px-6">
+          <div className="text-center max-w-4xl mx-auto">
+            <motion.div
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-brand-200/50 rounded-full mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <TrendingUp className="h-4 w-4 text-brand-600" />
+              <span className="text-sm font-medium text-brand-700">Proven Success Stories</span>
+            </motion.div>
+            
+            <motion.h1 
+              className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              Real Results,{" "}
+              <span className="text-transparent bg-gradient-to-r from-brand-600 via-turmeric-500 to-accent-600 bg-clip-text">
+                Measurable Impact
+              </span>
+            </motion.h1>
+            
+            <motion.p 
+              className="text-xl text-gray-600 mb-12 leading-relaxed"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Discover how enterprise leaders transformed their operations with our AI-powered solutions, 
+              delivering exceptional ROI and sustainable growth.
+            </motion.p>
+
+            {/* Stats Overview */}
+            <motion.div
+              className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <div className="text-center p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-brand-100/50">
+                <div className="text-3xl font-bold text-brand-600 mb-2">$25M+</div>
+                <div className="text-sm text-gray-600">Total Client Savings</div>
+              </div>
+              <div className="text-center p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-turmeric-100/50">
+                <div className="text-3xl font-bold text-turmeric-600 mb-2">40%</div>
+                <div className="text-sm text-gray-600">Avg ROI Improvement</div>
+              </div>
+              <div className="text-center p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-accent-100/50">
+                <div className="text-3xl font-bold text-accent-600 mb-2">99.2%</div>
+                <div className="text-sm text-gray-600">Prediction Accuracy</div>
+              </div>
+              <div className="text-center p-4 bg-white/70 backdrop-blur-sm rounded-xl border border-brand-100/50">
+                <div className="text-3xl font-bold text-brand-600 mb-2">15+</div>
+                <div className="text-sm text-gray-600">Countries Served</div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Case Studies Grid */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid gap-12">
+      {/* Case Studies */}
+      <section className="relative py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="space-y-24">
             {caseStudies.map((study, index) => (
-              <motion.div
+              <motion.article
                 key={study.title}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="bg-white rounded-lg shadow-lg overflow-hidden"
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                className="group"
               >
-                <div className="grid lg:grid-cols-3 gap-8">
-                  <div className="lg:col-span-2 space-y-6">
-                    <div className="flex items-center justify-between">
-                      <div className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
-                        {study.industry}
-                      </div>
-                    </div>
-                    
-                    <h3 className="text-3xl font-bold text-gray-900">{study.title}</h3>
-                    <p className="text-lg font-semibold text-blue-600">{study.company}</p>
-                    
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div>
-                        <h4 className="font-bold text-gray-900 mb-3">Challenge</h4>
-                        <p className="text-gray-700 text-sm leading-relaxed">{study.challenge}</p>
-                      </div>
-                      
-                      <div>
-                        <h4 className="font-bold text-gray-900 mb-3">Solution</h4>
-                        <p className="text-gray-700 text-sm leading-relaxed">{study.solution}</p>
-                      </div>
-                      
-                      <div>
-                        <h4 className="font-bold text-gray-900 mb-3">Technology Stack</h4>
-                        <p className="text-gray-700 text-sm">{study.stack}</p>
+                <div className="bg-white/80 backdrop-blur-sm border border-gray-200/50 rounded-2xl overflow-hidden shadow-xl shadow-gray-900/5 hover:shadow-2xl hover:shadow-gray-900/10 transition-all duration-500">
+                  <div className="grid lg:grid-cols-5 gap-8">
+                    {/* Main Content */}
+                    <div className="lg:col-span-3 p-8 lg:p-12">
+                      {/* Header */}
+                      <div className="flex items-start justify-between mb-8">
+                        <div>
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="p-2 bg-gradient-to-br from-brand-500 to-accent-500 rounded-lg">
+                              {study.industry === 'Manufacturing' && <Building2 className="h-4 w-4 text-white" />}
+                              {study.industry === 'Consumer Packaged Goods' && <Users className="h-4 w-4 text-white" />}
+                              {study.industry === 'Utilities' && <Zap className="h-4 w-4 text-white" />}
+                            </div>
+                            <span className="text-sm font-medium text-brand-600 bg-brand-50 px-3 py-1 rounded-full">
+                              {study.industry}
+                            </span>
+                          </div>
+                          <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3 group-hover:text-brand-700 transition-colors duration-300">
+                            {study.title}
+                          </h3>
+                          <p className="text-lg font-semibold text-turmeric-600">{study.company}</p>
+                        </div>
+                        <ArrowUpRight className="h-6 w-6 text-gray-500 group-hover:text-brand-600 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
                       </div>
                       
-                      <div>
-                        <h4 className="font-bold text-gray-900 mb-3">Timeline</h4>
-                        <p className="text-gray-700 text-sm">{study.timeline}</p>
+                      {/* Challenge & Solution */}
+                      <div className="grid md:grid-cols-2 gap-8 mb-8">
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                            <h4 className="font-bold text-gray-900">Challenge</h4>
+                          </div>
+                          <p className="text-gray-700 leading-relaxed text-sm">{study.challenge}</p>
+                        </div>
+                        
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                            <h4 className="font-bold text-gray-900">Solution</h4>
+                          </div>
+                          <p className="text-gray-700 leading-relaxed text-sm">{study.solution}</p>
+                        </div>
                       </div>
-                    </div>
-                    
-                    <div>
-                      <h4 className="font-bold text-gray-900 mb-3">Results</h4>
-                      <ul className="grid md:grid-cols-2 gap-2">
-                        {study.results.map((result) => (
-                          <li key={result} className="flex items-start text-gray-700 text-sm">
-                            <svg className="w-4 h-4 text-green-600 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                            <span className="font-semibold">{result}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-6">
-                    <img 
-                      src={study.image} 
-                      alt={study.title}
-                      className="w-full h-48 object-cover rounded-lg shadow-lg"
-                    />
-                    
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <h4 className="font-bold text-gray-900 mb-3">Team</h4>
-                      <p className="text-gray-700 text-sm">{study.team}</p>
-                    </div>
-                    
-                    {study.artifacts && (
-                      <div className="bg-blue-50 p-4 rounded-lg">
-                        <h4 className="font-bold text-gray-900 mb-3">Key Artifacts</h4>
-                        <ul className="space-y-1">
-                          {study.artifacts.map((artifact) => (
-                            <li key={artifact} className="text-blue-700 text-sm font-medium">
-                              • {artifact}
-                            </li>
+                      
+                      {/* Results Grid */}
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-2 mb-4">
+                          <Gauge className="h-5 w-5 text-turmeric-600" />
+                          <h4 className="font-bold text-gray-900">Key Results</h4>
+                        </div>
+                        <div className="grid md:grid-cols-2 gap-3">
+                          {study.results.map((result, resultIndex) => (
+                            <motion.div
+                              key={result}
+                              initial={{ opacity: 0, x: -20 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              transition={{ duration: 0.5, delay: resultIndex * 0.1 }}
+                              className="flex items-start gap-3 p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-100/50"
+                            >
+                              <CheckCircle2 className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                              <span className="text-sm font-medium text-gray-800">{result}</span>
+                            </motion.div>
                           ))}
-                        </ul>
+                        </div>
                       </div>
-                    )}
+                    </div>
+                    
+                    {/* Sidebar */}
+                    <div className="lg:col-span-2 bg-gradient-to-br from-gray-50 to-white p-8">
+                      <div className="space-y-8">
+                        {/* Visual */}
+                        <div className="aspect-video rounded-xl overflow-hidden shadow-lg">
+                          <img 
+                            src={study.image} 
+                            alt={study.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </div>
+                        
+                        {/* Timeline */}
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2">
+                            <Clock className="h-4 w-4 text-brand-600" />
+                            <h4 className="font-semibold text-gray-900">Timeline</h4>
+                          </div>
+                          <p className="text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-200/50">
+                            {study.timeline}
+                          </p>
+                        </div>
+                        
+                        {/* Team */}
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2">
+                            <Users className="h-4 w-4 text-accent-600" />
+                            <h4 className="font-semibold text-gray-900">Expert Team</h4>
+                          </div>
+                          <p className="text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-200/50">
+                            {study.team}
+                          </p>
+                        </div>
+                        
+                        {/* Technology Stack */}
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 bg-turmeric-600 rounded-sm"></div>
+                            <h4 className="font-semibold text-gray-900">Technology Stack</h4>
+                          </div>
+                          <div className="bg-white p-3 rounded-lg border border-gray-200/50">
+                            <p className="text-xs text-gray-600 leading-relaxed">{study.stack}</p>
+                          </div>
+                        </div>
+                        
+                        {/* Artifacts */}
+                        {study.artifacts && (
+                          <div className="space-y-3">
+                            <h4 className="font-semibold text-gray-900">Key Deliverables</h4>
+                            <div className="space-y-2">
+                              {study.artifacts.map((artifact, artifactIndex) => (
+                                <div 
+                                  key={artifact} 
+                                  className="flex items-center gap-2 text-sm text-brand-700 bg-brand-50 px-3 py-2 rounded-lg"
+                                >
+                                  <div className="w-1 h-1 bg-brand-500 rounded-full"></div>
+                                  <span className="font-medium">{artifact}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </motion.div>
+              </motion.article>
             ))}
           </div>
+        </div>
+      </section>
+      
+      {/* CTA Section */}
+      <section className="relative py-20 bg-gradient-to-br from-brand-600 via-brand-700 to-accent-800">
+        <GridBackground opacity={0.1} gridSize={100} color="white" />
+        <div className="relative max-w-4xl mx-auto px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+              Ready to Transform Your Enterprise?
+            </h2>
+            <p className="text-xl text-white/90 mb-8 leading-relaxed">
+              Join industry leaders who've achieved measurable results with our proven AI solutions.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-white text-brand-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors duration-300 shadow-lg"
+              >
+                Schedule Consultation
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-xl hover:bg-white hover:text-brand-700 transition-all duration-300"
+              >
+                Download Case Studies
+              </motion.button>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

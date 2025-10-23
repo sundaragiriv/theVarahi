@@ -1,332 +1,484 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import ScrollSpyNav from '../components/ScrollSpyNav';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Phone, Mail, MapPin, Clock, MessageSquare, Zap, Shield, Globe, CheckCircle, ArrowRight, AlertCircle } from 'lucide-react';
+import GridBackground from '../components/GridBackground';
+import EmailService, { ContactFormData } from '../services/emailService';
 
 const ContactPage: React.FC = () => {
-  const sections = [
-    { id: 'get-started', label: 'Get Started' },
-    { id: 'office-locations', label: 'Office Locations' },
-    { id: 'partnerships', label: 'Partnerships' },
-    { id: 'investors', label: 'Investors' }
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    phone: '',
+    inquiryType: '',
+    urgency: '',
+    message: '',
+    budget: '',
+    timeline: ''
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' });
+
+  const inquiryTypes = [
+    { id: 'sap-migration', label: 'SAP S/4HANA Migration', icon: Zap, color: 'blue' },
+    { id: 'ai-strategy', label: 'AI Strategy & Implementation', icon: MessageSquare, color: 'purple' },
+    { id: 'cx-platform', label: 'Customer Experience Platform', icon: Globe, color: 'green' },
+    { id: 'infrastructure', label: 'Infrastructure Upgrade', icon: Shield, color: 'red' },
+    { id: 'support', label: 'Technical Support', icon: Phone, color: 'orange' },
+    { id: 'partnership', label: 'Partnership Opportunity', icon: CheckCircle, color: 'indigo' }
   ];
 
   const offices = [
-    {
-      city: 'Philadelphia',
-      address: '123 Enterprise Way, Suite 500\nPhiladelphia, PA 19103',
-      phone: '+1-610-457-3193',
-      email: 'philadelphia@varahi.com',
-      timezone: 'EST',
-      isHeadquarters: true
-    },
-    {
-      city: 'New York',
-      address: '456 Business Plaza, Floor 25\nNew York, NY 10001',
-      phone: '+1 (212) 555-0200',
-      email: 'ny@varahi.com',
-      timezone: 'EST'
-    },
-    {
-      city: 'Mumbai',
-      address: '789 Innovation Centre\nBandra Kurla Complex\nMumbai, Maharashtra 400051',
-      phone: '+91-8074926638',
-      email: 'mumbai@varahi.com',
-      timezone: 'IST'
-    },
-    {
-      city: 'Bangalore',
-      address: 'Tech Park Plaza, Electronic City\nBangalore, Karnataka 560100',
-      phone: '+91 (80) 4567-8900',
-      email: 'bangalore@varahi.com',
-      timezone: 'IST'
-    }
+    { city: 'Philadelphia', phone: '+1-610-457-3193', timezone: 'EST', flag: '🇺🇸', isHQ: true },
+    { city: 'Mumbai', phone: '+91-8074926638', timezone: 'IST', flag: '🇮🇳', isHQ: false },
+    { city: 'New York', phone: '+1 (212) 555-0200', timezone: 'EST', flag: '🇺🇸', isHQ: false },
+    { city: 'Bangalore', phone: '+91 (80) 4567-8900', timezone: 'IST', flag: '🇮🇳', isHQ: false }
   ];
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+    
+    try {
+      // Validate required fields
+      if (!formData.name || !formData.email || !formData.company || !formData.message) {
+        throw new Error('Please fill in all required fields');
+      }
+
+      // Prepare data for EmailJS
+      const contactData: ContactFormData = {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        phone: formData.phone,
+        inquiryType: formData.inquiryType,
+        urgency: formData.urgency,
+        message: formData.message,
+        budget: formData.budget,
+        timeline: formData.timeline
+      };
+
+      // Send email via EmailJS
+      const result = await EmailService.sendContactForm(contactData);
+      
+      if (result.success) {
+        setIsSubmitted(true);
+        setSubmitStatus({ type: 'success', message: result.message });
+      } else {
+        setSubmitStatus({ type: 'error', message: result.message });
+      }
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      setSubmitStatus({ 
+        type: 'error', 
+        message: error instanceof Error ? error.message : 'An unexpected error occurred. Please try again.' 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  if (isSubmitted) {
+    return (
+      <div className="pt-20 min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50 relative">
+        <GridBackground opacity={0.03} gridSize={60} color="#10b981" />
+        <motion.div
+          className="text-center max-w-2xl mx-auto px-6"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle className="w-10 h-10 text-green-600" />
+          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Message Sent Successfully!</h1>
+          <p className="text-lg text-gray-600 mb-8">
+            Thank you for reaching out. Our team will review your inquiry and respond within 24 hours during business days.
+          </p>
+          <motion.button
+            className="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+            onClick={() => setIsSubmitted(false)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Send Another Message <ArrowRight className="w-4 h-4" />
+          </motion.button>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
-    <div className="pt-20">
-      <ScrollSpyNav sections={sections} />
+    <div className="pt-20 bg-gradient-to-br from-brand-50 via-white to-accent-50 relative">
+      <GridBackground opacity={0.02} gridSize={40} color="#0070f2" />
       
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-green-50 to-white">
-        <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold mb-8 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent" style={{lineHeight: '1.2', paddingBottom: '8px'}}>
-              Contact Us
+      <section className="py-16 relative">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div 
+            className="text-center max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent">
+              Let's Transform Your Business
             </h1>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Ready to transform your enterprise with AI and SAP solutions? Our team of experts is here to help you 
-              navigate your digital transformation journey.
+            <p className="text-xl text-gray-600 leading-relaxed">
+              Ready to accelerate your digital transformation? Our experts are standing by to help you achieve breakthrough results.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Get Started */}
-      <section id="get-started" className="py-20">
-        <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">How Can We Help?</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Choose the option that best describes your needs, and we'll connect you with the right expert.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Link to="/contact/sales-inquiry" className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow text-center group">
-              <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-6 group-hover:bg-blue-200 transition-colors">
-                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-4">Book Assessment</h3>
-              <p className="text-gray-600">Schedule a consultation to discuss your transformation needs</p>
-            </Link>
+      {/* Main Contact Section */}
+      <section className="py-12 relative">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-3 gap-12">
             
-            <Link to="/contact/general-inquiry" className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow text-center group">
-              <div className="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-6 group-hover:bg-green-200 transition-colors">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-4">General Inquiry</h3>
-              <p className="text-gray-600">Questions about our services, partnerships, or company</p>
-            </Link>
-            
-            <Link to="/contact/support" className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow text-center group">
-              <div className="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-6 group-hover:bg-purple-200 transition-colors">
-                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-4">Technical Support</h3>
-              <p className="text-gray-600">Get help with existing implementations and services</p>
-            </Link>
-            
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow text-center group">
-              <div className="w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-200 transition-colors">
-                <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-4">Emergency Support</h3>
-              <p className="text-gray-600 mb-4">24/7 critical system support</p>
-              <div className="space-y-2">
-                <a href="tel:+1-610-457-3193" className="block text-orange-600 hover:text-orange-700 font-semibold">
-                  US: +1-610-457-3193
-                </a>
-                <a href="tel:+91-8074926638" className="block text-orange-600 hover:text-orange-700 font-semibold">
-                  India: +91-8074926638
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Office Locations */}
-      <section id="office-locations" className="py-20 bg-gray-50">
-        <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Global Presence</h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              With offices across three continents, we're positioned to serve enterprise clients worldwide.
-            </p>
-          </div>
-          
-          <div className="grid lg:grid-cols-3 gap-8">
-            {offices.map((office, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 relative">
-                {office.isHeadquarters && (
-                  <div className="absolute top-4 right-4">
-                    <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                      Headquarters
-                    </span>
+            {/* Contact Form */}
+            <motion.div 
+              className="lg:col-span-2"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                <div className="p-8">
+                  <div className="mb-8">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-3">How Can We Help?</h2>
+                    <p className="text-gray-600">Tell us about your project and we'll connect you with the right expert.</p>
                   </div>
-                )}
-                <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                  {office.city}
-                  {office.isHeadquarters && (
-                    <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-                    </svg>
-                  )}
-                </h3>
+
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Inquiry Type Selection */}
+                    <fieldset>
+                      <legend className="block text-sm font-semibold text-gray-700 mb-4">What brings you here?</legend>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3" role="radiogroup" aria-labelledby="inquiry-type-legend">
+                        {inquiryTypes.map((type) => {
+                          const IconComponent = type.icon;
+                          return (
+                            <motion.label
+                              key={type.id}
+                              className={`relative cursor-pointer rounded-lg border-2 p-4 hover:border-${type.color}-300 transition-all ${
+                                formData.inquiryType === type.id 
+                                  ? `border-${type.color}-500 bg-${type.color}-50` 
+                                  : 'border-gray-200 hover:bg-gray-50'
+                              }`}
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              <input
+                                type="radio"
+                                name="inquiryType"
+                                value={type.id}
+                                checked={formData.inquiryType === type.id}
+                                onChange={handleInputChange}
+                                className="sr-only"
+                                aria-describedby="inquiry-description"
+                              />
+                              <div className="text-center">
+                                <IconComponent className={`w-6 h-6 mx-auto mb-2 ${
+                                  formData.inquiryType === type.id ? `text-${type.color}-600` : 'text-gray-500'
+                                }`} />
+                                <div className={`text-sm font-medium ${
+                                  formData.inquiryType === type.id ? `text-${type.color}-900` : 'text-gray-700'
+                                }`}>
+                                  {type.label}
+                                </div>
+                              </div>
+                            </motion.label>
+                          );
+                        })}
+                      </div>
+                      <span id="inquiry-description" className="sr-only">Select the type of service you're interested in</span>
+                    </fieldset>
+
+                    {/* Contact Details Row */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <label htmlFor="contact-name" className="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
+                        <input
+                          id="contact-name"
+                          type="text"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                          placeholder="Your full name"
+                          required
+                          aria-required="true"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="contact-email" className="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+                        <input
+                          id="contact-email"
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                          placeholder="your@company.com"
+                          required
+                          aria-required="true"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Company & Phone Row */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <label htmlFor="contact-company" className="block text-sm font-semibold text-gray-700 mb-2">Company *</label>
+                        <input
+                          id="contact-company"
+                          type="text"
+                          name="company"
+                          value={formData.company}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                          placeholder="Your company name"
+                          required
+                          aria-required="true"
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="contact-phone" className="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
+                        <input
+                          id="contact-phone"
+                          type="tel"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                          placeholder="+1 (555) 123-4567"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Budget & Timeline Row */}
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <label htmlFor="contact-budget" className="block text-sm font-semibold text-gray-700 mb-2">Budget Range</label>
+                        <select
+                          id="contact-budget"
+                          name="budget"
+                          value={formData.budget}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                        >
+                          <option value="">Select budget range</option>
+                          <option value="under-50k">Under $50K</option>
+                          <option value="50k-150k">$50K - $150K</option>
+                          <option value="150k-500k">$150K - $500K</option>
+                          <option value="500k-1m">$500K - $1M</option>
+                          <option value="over-1m">$1M+</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label htmlFor="contact-timeline" className="block text-sm font-semibold text-gray-700 mb-2">Timeline</label>
+                        <select
+                          id="contact-timeline"
+                          name="timeline"
+                          value={formData.timeline}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
+                        >
+                          <option value="">When do you want to start?</option>
+                          <option value="immediate">Immediately</option>
+                          <option value="1-3-months">1-3 months</option>
+                          <option value="3-6-months">3-6 months</option>
+                          <option value="6-12-months">6-12 months</option>
+                          <option value="planning">Still planning</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Urgency */}
+                    <fieldset>
+                      <legend className="block text-sm font-semibold text-gray-700 mb-3">Urgency Level</legend>
+                      <div className="flex gap-4" role="radiogroup" aria-labelledby="urgency-legend">
+                        {['Low', 'Medium', 'High', 'Critical'].map((level) => (
+                          <label key={level} className="flex items-center cursor-pointer">
+                            <input
+                              type="radio"
+                              name="urgency"
+                              value={level.toLowerCase()}
+                              checked={formData.urgency === level.toLowerCase()}
+                              onChange={handleInputChange}
+                              className="w-4 h-4 text-brand-600 border-gray-300 focus:ring-brand-500"
+                              aria-describedby="urgency-description"
+                            />
+                            <span className="ml-2 text-sm font-medium text-gray-700">{level}</span>
+                          </label>
+                        ))}
+                      </div>
+                      <span id="urgency-description" className="sr-only">Select the urgency level for your project</span>
+                    </fieldset>
+
+                    {/* Message */}
+                    <div>
+                      <label htmlFor="contact-message" className="block text-sm font-semibold text-gray-700 mb-2">Tell us about your project *</label>
+                      <textarea
+                        id="contact-message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        rows={5}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all resize-none"
+                        placeholder="Describe your current challenges, goals, and what you're looking to achieve..."
+                        required
+                        aria-required="true"
+                      />
+                    </div>
+
+                    {/* Submit Button */}
+                    <motion.button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-gradient-to-r from-brand-600 to-accent-600 hover:from-brand-700 hover:to-accent-700 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          Sending Message...
+                        </>
+                      ) : (
+                        <>
+                          Send Message <ArrowRight className="w-5 h-5" />
+                        </>
+                      )}
+                    </motion.button>
+
+                    {/* Status Messages */}
+                    {submitStatus.type && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className={`flex items-center gap-3 p-4 rounded-lg border ${
+                          submitStatus.type === 'success'
+                            ? 'bg-green-50 border-green-200 text-green-800'
+                            : 'bg-red-50 border-red-200 text-red-800'
+                        }`}
+                      >
+                        {submitStatus.type === 'success' ? (
+                          <CheckCircle className="w-5 h-5 text-green-600" />
+                        ) : (
+                          <AlertCircle className="w-5 h-5 text-red-600" />
+                        )}
+                        <span className="text-sm font-medium">{submitStatus.message}</span>
+                      </motion.div>
+                    )}
+                  </form>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Contact Information Sidebar */}
+            <motion.div
+              className="space-y-6"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              {/* Contact Methods */}
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Get in Touch</h3>
                 <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-gray-400 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <p className="text-gray-600 whitespace-pre-line">{office.address}</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <Phone className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">US Headquarters</p>
+                      <a href="tel:+1-610-457-3193" className="font-semibold text-gray-900 hover:text-blue-600">
+                        +1-610-457-3193
+                      </a>
+                    </div>
                   </div>
                   
                   <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                    </svg>
-                    <a href={`tel:${office.phone}`} className="text-blue-600 hover:text-blue-700">{office.phone}</a>
+                    <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                      <Mail className="w-5 h-5 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Email</p>
+                      <a href="mailto:hello@varahi.com" className="font-semibold text-gray-900 hover:text-green-600">
+                        hello@varahi.com
+                      </a>
+                    </div>
                   </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <a href={`mailto:${office.email}`} className="text-blue-600 hover:text-blue-700">{office.email}</a>
-                  </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span className="text-gray-600">Business Hours: 8AM-6PM {office.timezone}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Partnerships */}
-      <section id="partnerships" className="py-20">
-        <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-4xl font-bold mb-6">Partnership Opportunities</h2>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                We're always looking for strategic partners who share our commitment to enterprise excellence. 
-                Whether you're a technology vendor, systems integrator, or consulting firm, let's explore how we can 
-                create value together.
-              </p>
-              
-              <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <svg className="w-6 h-6 text-green-600 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <div>
-                    <h3 className="font-semibold mb-1">Technology Partnerships</h3>
-                    <p className="text-gray-600">Joint go-to-market strategies and solution development</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <svg className="w-6 h-6 text-green-600 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <div>
-                    <h3 className="font-semibold mb-1">Channel Partners</h3>
-                    <p className="text-gray-600">Expand your service portfolio with our expertise</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start gap-4">
-                  <svg className="w-6 h-6 text-green-600 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <div>
-                    <h3 className="font-semibold mb-1">Alliance Programs</h3>
-                    <p className="text-gray-600">Strategic alliances for market expansion</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <Clock className="w-5 h-5 text-purple-600" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-gray-500">Business Hours</p>
+                      <p className="font-semibold text-gray-900">Mon-Fri 8AM-6PM EST</p>
+                    </div>
                   </div>
                 </div>
               </div>
-              
-              <div className="mt-8">
-                <Link 
-                  to="/about/partnerships" 
-                  className="inline-flex items-center bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors"
-                >
-                  Explore Partnerships
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-            
-            <div className="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-8 h-96 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">Strategic Alliances</h3>
-                <p className="text-gray-600">Growing Together</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Investors */}
-      <section id="investors" className="py-20 bg-gradient-to-br from-blue-600 to-purple-700 text-white">
-        <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Investor Relations</h2>
-            <p className="text-xl leading-relaxed max-w-3xl mx-auto">
-              Varahi is backed by leading venture capital firms and strategic investors who share our vision 
-              for the future of enterprise AI and digital transformation.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <div className="text-center">
-              <div className="text-4xl font-bold mb-2">$50M</div>
-              <div className="text-white/80">Series B Funding</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold mb-2">300%</div>
-              <div className="text-white/80">YoY Growth</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold mb-2">500+</div>
-              <div className="text-white/80">Enterprise Clients</div>
-            </div>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white/10 backdrop-blur-sm p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Financial Information</h3>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-3">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>Quarterly Financial Reports</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>Annual Investor Presentations</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span>SEC Filings & Compliance</span>
-                </li>
-              </ul>
-            </div>
-            
-            <div className="bg-white/10 backdrop-blur-sm p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-4">Investor Contact</h3>
-              <div className="space-y-4">
-                <div>
-                  <p className="font-semibold">Sarah Mitchell</p>
-                  <p className="text-white/80">VP, Investor Relations</p>
-                </div>
+              {/* Quick Contact Options */}
+              <div className="bg-gradient-to-br from-brand-50 to-accent-50 rounded-2xl p-6 border border-brand-100">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Emergency Support</h3>
+                <p className="text-sm text-gray-600 mb-4">Critical system issues? Get 24/7 support.</p>
                 <div className="space-y-2">
-                  <a href="mailto:investors@varahi.com" className="block text-white/90 hover:text-white">
-                    investors@varahi.com
+                  <a href="tel:+1-610-457-3193" className="block bg-red-600 hover:bg-red-700 text-white text-center py-3 px-4 rounded-lg font-semibold transition-colors">
+                    🚨 Call Now: +1-610-457-3193
                   </a>
-                  <a href="tel:+1-415-555-0150" className="block text-white/90 hover:text-white">
-                    +1 (415) 555-0150
+                  <a href="tel:+91-8074926638" className="block bg-red-600 hover:bg-red-700 text-white text-center py-3 px-4 rounded-lg font-semibold transition-colors">
+                    🚨 India: +91-8074926638
                   </a>
                 </div>
               </div>
-            </div>
+
+              {/* Office Locations */}
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Global Offices</h3>
+                <div className="space-y-3">
+                  {offices.map((office) => (
+                    <div key={office.city} className="flex items-center gap-3 py-2">
+                      <span className="text-lg">{office.flag}</span>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <p className="font-semibold text-gray-900">{office.city}</p>
+                          {office.isHQ && (
+                            <span className="bg-blue-100 text-blue-600 text-xs px-2 py-0.5 rounded-full font-medium">HQ</span>
+                          )}
+                        </div>
+                        <p className="text-sm text-gray-500">{office.timezone}</p>
+                      </div>
+                      <a href={`tel:${office.phone}`} className="text-sm text-blue-600 hover:text-blue-700">
+                        <Phone className="w-4 h-4" />
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Response Time */}
+              <div className="bg-gradient-to-r from-green-500 to-blue-500 text-white rounded-2xl p-6 text-center">
+                <div className="text-3xl font-bold mb-2">&lt; 4hrs</div>
+                <p className="text-sm opacity-90">Average response time</p>
+                <p className="text-xs opacity-75 mt-1">During business hours</p>
+              </div>
+            </motion.div>
+
           </div>
         </div>
       </section>

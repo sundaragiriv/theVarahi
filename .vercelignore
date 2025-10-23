@@ -1,0 +1,5 @@
+# Deploy to Vercel
+*.vercel
+
+# Environment variables for production
+.env.production

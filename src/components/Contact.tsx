@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle, AlertCircle, Upload } from 'lucide-react';
+import EmailService, { ContactFormData } from '../services/emailService';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -28,16 +29,39 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus('idle');
     
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setSubmitStatus('success');
-      setFormData({
-        name: '', email: '', company: '', role: '', message: '',
-        isRFP: false, budget: '', timeline: '', useCase: ''
-      });
+      // Validate required fields
+      if (!formData.name || !formData.email || !formData.company || !formData.message) {
+        throw new Error('Please fill in all required fields');
+      }
+
+      // Prepare data for EmailJS
+      const contactData: ContactFormData = {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        message: formData.message,
+        inquiryType: formData.isRFP ? 'RFP Submission' : 'General Inquiry',
+        budget: formData.budget,
+        timeline: formData.timeline
+      };
+
+      // Send email via EmailJS
+      const result = await EmailService.sendContactForm(contactData);
+      
+      if (result.success) {
+        setSubmitStatus('success');
+        setFormData({
+          name: '', email: '', company: '', role: '', message: '',
+          isRFP: false, budget: '', timeline: '', useCase: ''
+        });
+      } else {
+        setSubmitStatus('error');
+      }
     } catch (error) {
+      console.error('Contact form submission error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -45,21 +69,69 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="consult" className="py-24 bg-gradient-to-br from-primary/5 via-white to-secondary/5">
+    <section id="consult" className="py-24 bg-gradient-to-br from-brand-50 to-accent-50">
       <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center mb-12"
         >
-          <h2 className="text-4xl lg:text-6xl font-bold gradient-text mb-6">
-            Let's Talk About Your CX & AI Goals
+          {/* Urgency Banner */}
+          <motion.div
+            className="inline-flex items-center gap-2 px-4 py-2 bg-accent-100 border border-accent-300 rounded-full mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <span className="w-2 h-2 bg-accent-600 rounded-full animate-pulse"></span>
+            <span className="text-sm text-accent-700 font-medium">
+              Limited Q1 2025 slots - Response within 24 hours
+            </span>
+          </motion.div>
+
+          <h2 className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-brand-700 to-accent-600 bg-clip-text text-transparent mb-6">
+            Free Strategy Call & ROI Analysis
           </h2>
-          <p className="text-2xl text-gray max-w-4xl mx-auto font-light leading-relaxed">
-            Schedule a strategic consultation to discuss your enterprise requirements and explore how we can deliver measurable business outcomes.
+          <p className="text-xl text-text-light max-w-4xl mx-auto font-light leading-relaxed mb-8">
+            Join Fortune 1000 companies who've achieved <strong className="text-accent-700">15-35% efficiency improvements</strong> with our proven SAP and CX solutions. 
+            <br/>Schedule your complimentary strategic consultation today.
           </p>
+
+          {/* Contact Options */}
+          <div className="bg-gradient-to-r from-brand-50 to-accent-50 p-6 rounded-xl border border-brand-200 mb-8">
+            <div className="text-center mb-4">
+              <h4 className="text-lg font-semibold text-text mb-4">Prefer to speak directly?</h4>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <div className="flex items-center gap-2 text-lg font-medium">
+                  <span className="w-5 h-5 bg-brand-600 rounded-full flex items-center justify-center text-white text-xs">📞</span>
+                  <a href="tel:+1-800-VARAHI" className="text-brand-700 hover:text-accent-600 transition-colors">
+                    1-800-VARAHI
+                  </a>
+                </div>
+                <div className="text-sm text-text-light bg-brand-100 px-3 py-1 rounded-full">
+                  24/7 Global Support
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 text-sm text-text-light mb-8">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-4 w-4 text-accent-600" />
+              <span>No commitment required</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-4 w-4 text-accent-600" />
+              <span>Certified enterprise experts</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-4 w-4 text-accent-600" />
+              <span>Enterprise-grade security</span>
+            </div>
+          </div>
         </motion.div>
 
         <motion.div
@@ -67,13 +139,13 @@ const Contact: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="glass-card p-12"
+          className="bg-white/80 backdrop-blur-sm rounded-2xl border border-border shadow-xl p-12"
         >
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Basic Fields */}
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <label htmlFor="name" className="block text-sm font-semibold text-dark mb-3 uppercase tracking-wider">
+                <label htmlFor="name" className="block text-sm font-semibold text-text mb-3 uppercase tracking-wider">
                   Full Name *
                 </label>
                 <input
@@ -83,12 +155,12 @@ const Contact: React.FC = () => {
                   required
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-6 py-4 rounded-sap border border-gray/30 focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 bg-white/50 backdrop-blur-sm"
+                  className="w-full px-6 py-4 rounded-lg border border-border focus:border-brand-500 focus:ring-2 focus:ring-brand-200 transition-all duration-300 bg-surface"
                   placeholder="John Smith"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-dark mb-3 uppercase tracking-wider">
+                <label htmlFor="email" className="block text-sm font-semibold text-text mb-3 uppercase tracking-wider">
                   Work Email *
                 </label>
                 <input
@@ -98,7 +170,7 @@ const Contact: React.FC = () => {
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-6 py-4 rounded-sap border border-gray/30 focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 bg-white/50 backdrop-blur-sm"
+                  className="w-full px-6 py-4 rounded-lg border border-border focus:border-brand-500 focus:ring-2 focus:ring-brand-200 transition-all duration-300 bg-surface"
                   placeholder="john@company.com"
                 />
               </div>
@@ -106,7 +178,7 @@ const Contact: React.FC = () => {
 
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <label htmlFor="company" className="block text-sm font-semibold text-dark mb-3 uppercase tracking-wider">
+                <label htmlFor="company" className="block text-sm font-semibold text-text mb-3 uppercase tracking-wider">
                   Company *
                 </label>
                 <input
@@ -116,12 +188,12 @@ const Contact: React.FC = () => {
                   required
                   value={formData.company}
                   onChange={handleInputChange}
-                  className="w-full px-6 py-4 rounded-sap border border-gray/30 focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 bg-white/50 backdrop-blur-sm"
+                  className="w-full px-6 py-4 rounded-lg border border-border focus:border-brand-500 focus:ring-2 focus:ring-brand-200 transition-all duration-300 bg-surface"
                   placeholder="Acme Corporation"
                 />
               </div>
               <div>
-                <label htmlFor="role" className="block text-sm font-semibold text-dark mb-3 uppercase tracking-wider">
+                <label htmlFor="role" className="block text-sm font-semibold text-text mb-3 uppercase tracking-wider">
                   Role *
                 </label>
                 <select
@@ -130,7 +202,7 @@ const Contact: React.FC = () => {
                   required
                   value={formData.role}
                   onChange={handleInputChange}
-                  className="w-full px-6 py-4 rounded-sap border border-gray/30 focus:border-primary focus:ring-2 focus:ring-primary/50 transition-all duration-300 bg-white/50 backdrop-blur-sm"
+                  className="w-full px-6 py-4 rounded-lg border border-border focus:border-brand-500 focus:ring-2 focus:ring-brand-200 transition-all duration-300 bg-surface"
                 >
                   <option value="">Select your role</option>
                   <option value="CTO">CTO</option>
@@ -144,7 +216,7 @@ const Contact: React.FC = () => {
             </div>
 
             {/* RFP Toggle */}
-            <div className="flex items-center space-x-4 p-6 bg-primary/5 rounded-sap border border-primary/20">
+            <div className="flex items-center space-x-4 p-6 bg-brand-50 rounded-lg border border-brand-200">
               <input
                 type="checkbox"
                 id="isRFP"
@@ -249,27 +321,59 @@ const Contact: React.FC = () => {
               />
             </div>
 
-            {/* Submit Button */}
-            <div>
+            {/* Value Proposition Before Submit */}
+            <div className="bg-gradient-to-r from-blue-50 to-emerald-50 p-6 rounded-xl border border-blue-200/30">
+              <div className="text-center mb-4">
+                <h4 className="text-lg font-semibold text-gray-800 mb-2">What happens next?</h4>
+                <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                    <span>24-hour response with initial insights</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                    <span>Free ROI analysis & strategy session</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                    <span>Customized implementation roadmap</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Enhanced Submit Button */}
+            <div className="space-y-4">
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full btn-primary flex items-center justify-center space-x-3 disabled:opacity-50 disabled:cursor-not-allowed text-xl py-6 glow-effect"
-                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                className="group w-full bg-gradient-to-r from-brand-600 to-accent-600 text-white font-bold py-6 px-8 rounded-xl shadow-lg hover:from-brand-700 hover:to-accent-700 hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-3 text-xl transform hover:scale-105 hover:-translate-y-1"
+                whileHover={{ scale: isSubmitting ? 1 : 1.05, y: isSubmitting ? 0 : -4 }}
                 whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
               >
                 {isSubmitting ? (
                   <>
                     <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    <span>Submitting...</span>
+                    <span>Connecting you with our experts...</span>
                   </>
                 ) : (
                   <>
-                    <Send className="h-6 w-6" />
-                    <span>Send Message</span>
+                    <Send className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
+                    <span>Schedule Free Strategy Call</span>
                   </>
                 )}
               </motion.button>
+
+              {/* Trust & Risk Reduction */}
+              <div className="text-center text-sm text-text-light">
+                <p className="flex items-center justify-center gap-2">
+                  <svg className="w-4 h-4 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-9a2 2 0 00-2-2H6a2 2 0 00-2 2v9a2 2 0 002 2z" />
+                  </svg>
+                  Your information is secure and will never be shared
+                </p>
+                <p className="mt-1">Join <strong className="text-accent-600">500+</strong> enterprise leaders who've improved ROI by <strong className="text-accent-600">40%</strong></p>
+              </div>
             </div>
 
             {/* Status Messages */}

@@ -4,14 +4,14 @@ import '../styles/animations.css';
 
 const TrustBar: React.FC = () => {
   const metrics = [
-    { value: '500+', label: 'Enterprise Clients' },
-    { value: '99.9%', label: 'Uptime SLA' },
-    { value: '$50M+', label: 'Client Savings' },
-    { value: '300%', label: 'Average ROI' },
-    { value: '14 Days', label: 'Time to Value' },
+    { value: '50+', label: 'Enterprise Clients' },
+    { value: '16 Years', label: 'Experience' },
+    { value: '200+', label: 'SAP Projects' },
+    { value: '15-35%', label: 'Efficiency Gains*' },
+    { value: '3-9 Months', label: 'Time to Value*' },
     { value: '24/7', label: 'Global Support' },
-    { value: '95%', label: 'Success Rate' },
-    { value: '6', label: 'Industry Verticals' }
+    { value: '85%', label: 'Client Retention' },
+    { value: '4', label: 'Industry Verticals' }
   ];
 
   return (
@@ -77,6 +77,13 @@ const TrustBar: React.FC = () => {
               </motion.div>
             ))}
         </motion.div>
+        
+        {/* Disclaimer */}
+        <div className="text-center mt-8">
+          <p className="text-xs text-gray-500 max-w-2xl mx-auto">
+            *Results based on client mix and may vary. Metrics reflect team aggregate experience since 2009.
+          </p>
+        </div>
       </div>
     </section>
   );

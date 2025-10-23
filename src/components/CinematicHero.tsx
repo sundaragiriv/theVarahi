@@ -1,0 +1,371 @@
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, CheckCircle, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import GridBackground from './GridBackground';
+
+const CinematicHero: React.FC = () => {
+  const [typingText, setTypingText] = useState('');
+  const [wordIndex, setWordIndex] = useState(0);
+  
+  const words = ['AI', 'Automation', 'Integration', 'Intelligence'];
+
+  useEffect(() => {
+    const word = words[wordIndex];
+    let charIndex = 0;
+    
+    const typeTimer = setInterval(() => {
+      if (charIndex <= word.length) {
+        setTypingText(word.slice(0, charIndex));
+        charIndex++;
+      } else {
+        clearInterval(typeTimer);
+        setTimeout(() => {
+          setWordIndex((prev) => (prev + 1) % words.length);
+        }, 2000);
+      }
+    }, 150);
+
+    return () => clearInterval(typeTimer);
+  }, [wordIndex]);
+
+  return (
+    <section className="relative h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800">
+      {/* Video Background with Fallback */}
+      <div className="absolute inset-0 z-0">
+        {/* Optimized Video Element with Accessibility */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover opacity-40 motion-reduce:hidden"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+          onError={(e) => {
+            console.error('Video loading failed, showing fallback background');
+            // Hide video and show fallback background
+            (e.target as HTMLVideoElement).style.display = 'none';
+            const fallback = document.querySelector('.video-fallback') as HTMLElement;
+            if (fallback) {
+              fallback.classList.remove('hidden');
+            }
+          }}
+          aria-hidden="true"
+          role="presentation"
+        >
+          <source src="/ai.mp4" type="video/mp4" />
+          {/* Fallback message for browsers that don't support video */}
+          <p className="sr-only">Decorative background video showing technology themes</p>
+        </video>
+        
+        {/* Fallback Background Image (shows if video fails to load or reduced motion is preferred) */}
+        <div 
+          className="video-fallback absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-40 motion-reduce:block hidden"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`
+          }}
+          aria-hidden="true"
+        />
+        
+        {/* Dark Overlay for Text Readability - Balanced for video visibility */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/30 to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/20 to-accent-900/20" />
+        
+        {/* Subtle Grid Background */}
+        <GridBackground opacity={0.08} gridSize={50} color="#ffffff" />
+      </div>
+
+      {/* Animated Tech Background */}
+      <div className="absolute inset-0 z-10">
+        {/* Animated particles/dots */}
+        <div className="absolute inset-0 opacity-20">
+          {[...Array(50)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-1 h-1 bg-blue-400 rounded-full animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${2 + Math.random() * 2}s`
+              }}
+            />
+          ))}
+        </div>
+        
+        {/* Animated gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/60 animate-pulse" 
+             style={{ animationDuration: '4s' }} />
+      </div>
+
+      {/* Floating Stats Circles - Elegant & Highly Visible */}
+      <div className="absolute inset-0 z-50 pointer-events-none hidden lg:block">
+        {/* 500+ Projects Delivered - Floating from center to top-right */}
+        <motion.div
+          className="absolute top-[30%] right-[30%] w-36 h-36"
+          initial={{ opacity: 0, x: 0, y: 0, scale: 0.3 }}
+          animate={{ 
+            opacity: [0, 0.7, 0.6, 0.8], 
+            x: [0, 80, -40, 60, 0],
+            y: [0, -100, -50, -120, 0],
+            scale: [0.3, 1, 1.03, 0.95, 1]
+          }}
+          transition={{ 
+            opacity: { duration: 2.2, delay: 1.2 },
+            scale: { duration: 1.5, delay: 1.2 },
+            x: { 
+              duration: 15, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: 1.2
+            },
+            y: { 
+              duration: 12, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: 1.8
+            }
+          }}
+        >
+          <div className="w-36 h-36 bg-gradient-to-br from-turmeric-400/20 via-turmeric-500/15 to-amber-600/10 backdrop-blur-lg rounded-full border border-turmeric-300/30 shadow-xl shadow-turmeric-500/10 flex items-center justify-center ring-1 ring-turmeric-200/20 relative overflow-hidden">
+            {/* Inner highlight */}
+            <div className="absolute inset-3 bg-gradient-to-br from-white/8 to-transparent rounded-full"></div>
+            <div className="text-center relative z-10">
+              <div className="text-2xl font-bold text-white mb-1 drop-shadow-lg tracking-wide">500+</div>
+              <div className="text-xs text-white/90 font-semibold leading-tight tracking-wider">Projects<br/>Delivered</div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* 98% Client Satisfaction - Floating from right to center */}
+        <motion.div
+          className="absolute top-[15%] right-[5%] w-32 h-32"
+          initial={{ opacity: 0, x: 100, y: 0, scale: 0.3 }}
+          animate={{ 
+            opacity: [0, 0.6, 0.8, 0.5], 
+            x: [0, -120, -80, -150, 0],
+            y: [0, 80, 200, 120, 0],
+            scale: [0.3, 1, 1.05, 0.9, 1]
+          }}
+          transition={{ 
+            opacity: { duration: 2.4, delay: 1.6 },
+            scale: { duration: 1.6, delay: 1.6 },
+            x: { 
+              duration: 18, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: 2.5
+            },
+            y: { 
+              duration: 14, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: 2
+            }
+          }}
+        >
+          <div className="w-32 h-32 bg-gradient-to-br from-brand-400/35 via-blue-500/30 to-brand-600/25 backdrop-blur-xl rounded-full border-2 border-brand-300/60 shadow-2xl shadow-brand-500/20 flex items-center justify-center ring-2 ring-brand-200/30 relative overflow-hidden">
+            {/* Inner highlight */}
+            <div className="absolute inset-3 bg-gradient-to-br from-white/15 to-transparent rounded-full"></div>
+            <div className="text-center relative z-10">
+              <div className="text-xl font-bold text-white mb-1 drop-shadow-lg tracking-wide">98%</div>
+              <div className="text-xs text-white/95 font-semibold leading-tight tracking-wider">Client<br/>Satisfaction</div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* 15+ Years Experience - Floating top to bottom */}
+        <motion.div
+          className="absolute top-[10%] right-[40%] w-28 h-28"
+          initial={{ opacity: 0, x: 0, y: -50, scale: 0.3 }}
+          animate={{ 
+            opacity: [0, 0.7, 0.5, 0.8], 
+            x: [0, -60, 40, -30, 0],
+            y: [0, 200, 350, 180, 0],
+            scale: [0.3, 1, 1.04, 0.85, 1]
+          }}
+          transition={{ 
+            opacity: { duration: 2.6, delay: 2.0 },
+            scale: { duration: 1.7, delay: 2.0 },
+            x: { 
+              duration: 16, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: 3.5
+            },
+            y: { 
+              duration: 20, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: 3
+            }
+          }}
+        >
+          <div className="w-28 h-28 bg-gradient-to-br from-accent-400/18 via-green-500/15 to-emerald-600/12 backdrop-blur-lg rounded-full border border-accent-300/25 shadow-xl shadow-accent-500/8 flex items-center justify-center ring-1 ring-accent-200/15 relative overflow-hidden">
+            {/* Inner highlight */}
+            <div className="absolute inset-3 bg-gradient-to-br from-white/6 to-transparent rounded-full"></div>
+            <div className="text-center relative z-10">
+              <div className="text-lg font-bold text-white mb-1 drop-shadow-lg tracking-wide">15+</div>
+              <div className="text-xs text-white/85 font-semibold leading-tight tracking-wider">Years<br/>Experience</div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* 40% ROI Boost - Floating center to right and bottom */}
+        <motion.div
+          className="absolute top-[50%] right-[20%] w-36 h-36"
+          initial={{ opacity: 0, x: 0, y: 0, scale: 0.2 }}
+          animate={{ 
+            opacity: [0, 0.8, 0.6, 0.9], 
+            x: [0, 100, -50, 120, 0],
+            y: [0, -80, 150, 80, 0],
+            scale: [0.2, 1, 1.06, 0.9, 1]
+          }}
+          transition={{ 
+            opacity: { duration: 2.8, delay: 2.4 },
+            scale: { duration: 1.9, delay: 2.4 },
+            x: { 
+              duration: 24, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: 4
+            },
+            y: { 
+              duration: 18, 
+              repeat: Infinity, 
+              ease: "easeInOut",
+              delay: 1
+            }
+          }}
+        >
+          <div className="w-36 h-36 bg-gradient-to-br from-turmeric-500/20 via-orange-400/15 to-amber-600/15 backdrop-blur-xl rounded-full border-3 border-turmeric-200/70 shadow-2xl shadow-turmeric-400/25 flex items-center justify-center ring-3 ring-turmeric-100/40 relative overflow-hidden">
+            {/* Multiple inner glows for premium effect */}
+            <div className="absolute inset-2 bg-gradient-to-br from-white/20 to-transparent rounded-full"></div>
+            <div className="absolute inset-4 bg-gradient-to-br from-turmeric-200/30 to-transparent rounded-full"></div>
+            <div className="text-center relative z-10">
+              <div className="text-2xl font-bold text-white mb-1 drop-shadow-lg tracking-wide">40%</div>
+              <div className="text-xs text-white font-bold leading-tight tracking-wider">Avg ROI<br/>Boost</div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-20 flex items-center h-full px-6 pt-16">
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <motion.div
+              className="w-full max-w-none"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              {/* Credibility Badge */}
+              <motion.div
+                className="mb-8 inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <CheckCircle className="h-3.5 w-3.5 text-accent-300" />
+                <span className="text-xs text-white/90 font-normal tracking-wide">
+                  trustedByFortune500Companies
+                </span>
+              </motion.div>
+
+              {/* Main Headline */}
+              <motion.h1
+                className="text-4xl lg:text-5xl font-semibold text-white mb-8 leading-[1.1] drop-shadow-lg tracking-tight min-w-0"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                Enterprise CX & AI Solutions
+                <span className="text-transparent bg-gradient-to-r from-brand-200 to-accent-200 bg-clip-text block font-medium min-h-[1.2em] overflow-visible w-full">
+                  {typingText || 'That Deliver Results'}
+                </span>
+              </motion.h1>
+
+              {/* Value Proposition */}
+              <motion.p
+                className="text-lg text-white/80 mb-10 leading-relaxed max-w-2xl drop-shadow-md font-light"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                Transform your enterprise with our proven customer experience and AI implementations. 
+                <span className="text-white font-normal"> Average 40% ROI improvement</span> in 90 days or less.
+              </motion.p>
+
+              {/* CTA Buttons */}
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.0 }}
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Link
+                    to="/contact"
+                    className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-text font-medium rounded-lg hover:bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md border border-gray-200"
+                  >
+                    <span>freeStrategyCall</span>
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+                </motion.div>
+                
+                <motion.div
+                  whileHover={{ y: -1 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Link
+                    to="/case-studies"
+                    className="group inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white font-medium rounded-lg hover:bg-white/5 hover:border-white/50 transition-all duration-300 backdrop-blur-sm"
+                  >
+                    <span>caseStudies</span>
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+                </motion.div>
+              </motion.div>
+
+              {/* Trust Indicators */}
+              <motion.div
+                className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-6 text-xs text-white/70"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.2 }}
+              >
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle className="h-3.5 w-3.5 text-accent-300" />
+                  <span className="tracking-wide">noCommitmentRequired</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle className="h-3.5 w-3.5 text-accent-300" />
+                  <span className="tracking-wide">24hourResponse</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle className="h-3.5 w-3.5 text-accent-300" />
+                  <span className="tracking-wide">enterpriseSecurity</span>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Right side - Clean space for stats circles to flow naturally */}
+            <div className="hidden lg:block relative w-full h-96">
+              {/* This space is intentionally clean to let the floating stats circles move freely across the entire right area */}
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+  );
+};
+
+export default CinematicHero;
