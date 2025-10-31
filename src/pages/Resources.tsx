@@ -267,8 +267,8 @@ const Resources: React.FC = () => {
                       <span className="font-medium">{resource.downloads} downloads</span>
                     </div>
                     
-                    <a href="/blog/ai-transformation-guide" className="block w-full bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 text-white font-bold py-4 rounded-xl hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-center">
-                      Access Premium Resource
+                    <a href="/blog/ai-transformation-guide" className="block w-full bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 text-white font-semibold py-3 rounded-lg hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 transition-all duration-300 shadow-md hover:shadow-lg text-center">
+                      Access Resource
                     </a>
                   </div>
                 </motion.div>
@@ -285,12 +285,12 @@ const Resources: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group relative bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-emerald-200 overflow-hidden hover:-translate-y-1"
+                className="group relative bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-gray-100 hover:border-emerald-200 overflow-hidden hover:-translate-y-1 flex flex-col h-full"
               >
                 {/* Enhanced Background Gradient */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${resource.gradient} opacity-0 group-hover:opacity-8 transition-opacity duration-300 rounded-2xl`}></div>
                 
-                <div className="relative">
+                <div className="relative flex flex-col h-full">
                   <div className="flex items-start justify-between mb-4">
                     <div className="text-3xl group-hover:scale-110 transition-transform duration-300">{resource.icon}</div>
                     <div className="inline-block px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
@@ -302,14 +302,14 @@ const Resources: React.FC = () => {
                     {resource.title}
                   </h3>
                   
-                  <p className="text-gray-600 mb-4 line-clamp-3 text-sm leading-relaxed">{resource.description}</p>
+                  <p className="text-gray-600 mb-4 line-clamp-3 text-sm leading-relaxed flex-grow">{resource.description}</p>
                   
                   <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
                     <span>{resource.readTime}</span>
                     <span>{resource.downloads} downloads</span>
                   </div>
                   
-                  <a href="/blog/sap-s4hana-migration" className="block w-full bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 text-white font-semibold py-3 rounded-lg hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 transition-all duration-300 shadow-md hover:shadow-lg text-center">
+                  <a href="/blog/sap-s4hana-migration" className="block w-full bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 text-white font-semibold py-3 rounded-lg hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 transition-all duration-300 shadow-md hover:shadow-lg text-center mt-auto">
                     Access Resource
                   </a>
                 </div>

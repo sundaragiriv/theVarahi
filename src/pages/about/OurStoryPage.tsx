@@ -255,7 +255,7 @@ const OurStoryPage: React.FC = () => {
             {/* Enhanced Timeline line */}
             <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-emerald-400 via-blue-500 to-purple-500 rounded-full shadow-lg" />
             
-            <div className="space-y-16">
+            <div className="space-y-8">
               {milestones.map((milestone, index) => {
                 const IconComponent = milestone.icon;
                 return (

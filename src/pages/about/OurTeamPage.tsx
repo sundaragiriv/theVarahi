@@ -4,33 +4,20 @@ import { motion } from 'framer-motion';
 const OurTeamPage: React.FC = () => {
   const teamMembers = [
     {
-      name: 'Sarah Chen',
+      name: 'Naga P Sundaragiri',
       role: 'Chief Executive Officer',
-      bio: 'Former VP of AI Strategy at a Fortune 100 technology company, Sarah brings 15+ years of experience scaling AI initiatives across global enterprises. She holds an MBA from Wharton and MS in Computer Science from Stanford.',
-      quote: 'AI transformation isn\'t about replacing human judgment—it\'s about amplifying it. Our role is to ensure every AI implementation makes people more effective, not obsolete.',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face'
+      bio: 'A passionate educator turned technology visionary, Naga brings a unique perspective to enterprise AI transformation. With dual Master\'s degrees in Science and a background in teaching, he combines deep technical knowledge with exceptional communication skills. As a great AI enthusiast, he has dedicated his career to making complex technology accessible and transformative for businesses worldwide.',
+      quote: 'Education and technology are the twin pillars of progress. My journey from the classroom to the boardroom has taught me that the best AI solutions are those that empower people to achieve more than they ever thought possible.',
+      image: '/poornis.png'
     },
     {
-      name: 'Dr. Michael Rodriguez',
+      name: 'Venkata R Sundaragiri',
       role: 'Head of Technology',
-      bio: 'PhD in Machine Learning from MIT, former Principal Scientist at leading AI research lab. Michael has published 50+ papers on enterprise AI and holds 12 patents in predictive analytics and natural language processing.',
-      quote: 'The most sophisticated AI is worthless if it doesn\'t solve real business problems. We build technology that works in the real world, not just in the lab.',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face'
+      bio: 'A seasoned technology architect with extensive experience in enterprise systems and AI implementation. Venkata specializes in building scalable, robust technology solutions that drive business transformation. His expertise spans cloud architecture, AI/ML platforms, and enterprise integration, ensuring our clients receive cutting-edge yet reliable technology solutions.',
+      quote: 'Great technology should be invisible to the user but transformative in its impact. We build systems that work seamlessly behind the scenes while delivering extraordinary business value.',
+      image: '/profile.jpg'
     },
-    {
-      name: 'Jennifer Park',
-      role: 'Head of Solutions',
-      bio: 'Former McKinsey Principal with 12 years in digital transformation consulting. Jennifer has led AI implementations for 50+ Fortune 500 companies across manufacturing, retail, and financial services.',
-      quote: 'Successful AI transformation requires equal parts technology and change management. We don\'t just implement systems—we transform organizations.',
-      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face'
-    },
-    {
-      name: 'David Kumar',
-      role: 'Head of Engineering',
-      bio: 'Former Staff Engineer at Google Cloud AI, architect of enterprise AI platforms serving millions of users. David specializes in scalable AI infrastructure and has led engineering teams of 50+ developers.',
-      quote: 'Enterprise AI demands enterprise-grade reliability. We build systems that scale with your business and evolve with your needs.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face'
-    },
+
     {
       name: 'Lisa Thompson',
       role: 'Head of Customer Success',
