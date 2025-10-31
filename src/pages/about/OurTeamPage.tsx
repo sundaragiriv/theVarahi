@@ -6,7 +6,7 @@ const OurTeamPage: React.FC = () => {
     {
       name: 'Naga P Sundaragiri',
       role: 'Chief Executive Officer',
-      bio: 'A passionate educator turned technology visionary, Naga brings a unique perspective to enterprise AI transformation. With dual Master\'s degrees in Science and a background in teaching, he combines deep technical knowledge with exceptional communication skills. As a great AI enthusiast, he has dedicated his career to making complex technology accessible and transformative for businesses worldwide.',
+      bio: 'A passionate educator turned technology visionary, Naga brings a unique perspective to enterprise AI transformation. With dual Master\'s degrees in Science and a background in teaching, she combines deep technical knowledge with exceptional communication skills. As a great AI enthusiast, she has dedicated her career to making complex technology accessible and transformative for businesses worldwide.',
       quote: 'Education and technology are the twin pillars of progress. My journey from the classroom to the boardroom has taught me that the best AI solutions are those that empower people to achieve more than they ever thought possible.',
       image: '/poornis.png'
     },
