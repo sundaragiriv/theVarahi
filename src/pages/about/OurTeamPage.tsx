@@ -80,6 +80,7 @@ const OurTeamPage: React.FC = () => {
                     src={member.image} 
                     alt={member.name}
                     className="w-64 h-64 rounded-full object-cover shadow-lg"
+                    style={{ objectPosition: member.name === 'Naga P Sundaragiri' ? 'center top' : 'center center' }}
                     loading="lazy"
                     decoding="async"
                   />
