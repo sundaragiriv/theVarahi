@@ -1,5 +1,5 @@
 @import url('./styles/grid.css');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -105,6 +105,76 @@
     border: 2px solid #000000 !important;
     box-shadow: none !important;
   }
+}
+
+/* Custom Logo Font Styles */
+.logo-custom-font {
+  font-family: 'Orbitron', 'Exo 2', 'Rajdhani', monospace !important;
+  font-weight: 700;
+  position: relative;
+}
+
+.logo-letter {
+  display: inline-block;
+  position: relative;
+}
+
+/* Custom Triangle "A" without base */
+.logo-letter-a {
+  font-family: 'Orbitron', monospace;
+  position: relative;
+}
+
+.logo-letter-a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 0.4em solid transparent;
+  border-right: 0.4em solid transparent;
+  border-bottom: 0.8em solid currentColor;
+  z-index: 1;
+}
+
+.logo-letter-a::after {
+  content: '';
+  position: absolute;
+  top: 0.15em;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 0.25em solid transparent;
+  border-right: 0.25em solid transparent;
+  border-bottom: 0.5em solid;
+  border-bottom-color: inherit;
+  z-index: 2;
+}
+
+/* Hide the original A letter */
+.logo-letter-a {
+  color: transparent !important;
+  background: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Make the triangle visible with current text color */
+.logo-letter-a::before {
+  border-bottom-color: currentColor;
+}
+
+/* For gradient text, we need to handle the triangle differently */
+.logo-custom-font .logo-letter-a::before {
+  background: linear-gradient(90deg, #0ea5e9 0%, #0284c7 100%);
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  border: none;
+  width: 0.8em;
+  height: 0.8em;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 }
 
 @keyframes marquee {

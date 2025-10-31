@@ -65,6 +65,8 @@ const WordMark: React.FC<WordMarkProps> = ({
   const config = sizeConfig[size];
   const themeClasses = getThemeClasses();
 
+
+
   // Clean Outline Corporate Icon Design
   const CorporateIcon = () => (
     <div className={`relative group ${config.icon}`}>

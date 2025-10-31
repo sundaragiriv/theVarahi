@@ -4,7 +4,7 @@ import WordMark from './WordMark';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-surface-dark text-text-inverse py-8 relative">
+    <footer className="bg-neutral-900 text-white py-8 relative">
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-6 mb-6">
           <div>

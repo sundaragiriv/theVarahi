@@ -54,7 +54,7 @@ const CinematicHero: React.FC = () => {
           aria-hidden="true"
           role="presentation"
         >
-          <source src="/ai.mp4" type="video/mp4" />
+          <source src="/ai2.mp4" type="video/mp4" />
           {/* Fallback message for browsers that don't support video */}
           <p className="sr-only">Decorative background video showing technology themes</p>
         </video>
@@ -99,66 +99,23 @@ const CinematicHero: React.FC = () => {
              style={{ animationDuration: '4s' }} />
       </div>
 
-      {/* Floating Stats Circles - Elegant & Highly Visible */}
-      <div className="absolute inset-0 z-50 pointer-events-none hidden lg:block">
-        {/* 500+ Projects Delivered - Floating from center to top-right */}
-        <motion.div
-          className="absolute top-[30%] right-[30%] w-36 h-36"
-          initial={{ opacity: 0, x: 0, y: 0, scale: 0.3 }}
-          animate={{ 
-            opacity: [0, 0.7, 0.6, 0.8], 
-            x: [0, 80, -40, 60, 0],
-            y: [0, -100, -50, -120, 0],
-            scale: [0.3, 1, 1.03, 0.95, 1]
-          }}
-          transition={{ 
-            opacity: { duration: 2.2, delay: 1.2 },
-            scale: { duration: 1.5, delay: 1.2 },
-            x: { 
-              duration: 15, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-              delay: 1.2
-            },
-            y: { 
-              duration: 12, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-              delay: 1.8
-            }
-          }}
-        >
-          <div className="w-36 h-36 bg-gradient-to-br from-turmeric-400/20 via-turmeric-500/15 to-amber-600/10 backdrop-blur-lg rounded-full border border-turmeric-300/30 shadow-xl shadow-turmeric-500/10 flex items-center justify-center ring-1 ring-turmeric-200/20 relative overflow-hidden">
-            {/* Inner highlight */}
-            <div className="absolute inset-3 bg-gradient-to-br from-white/8 to-transparent rounded-full"></div>
-            <div className="text-center relative z-10">
-              <div className="text-2xl font-bold text-white mb-1 drop-shadow-lg tracking-wide">500+</div>
-              <div className="text-xs text-white/90 font-semibold leading-tight tracking-wider">Projects<br/>Delivered</div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* 98% Client Satisfaction - Floating from right to center */}
+      {/* Vertical Stats Column - Right Side Alignment */}
+      <div className="absolute inset-0 z-30 pointer-events-none hidden lg:block">
+        {/* First stat - Top position */}
+        {/* 98% Client Satisfaction */}
         <motion.div
           className="absolute top-[15%] right-[5%] w-32 h-32"
-          initial={{ opacity: 0, x: 100, y: 0, scale: 0.3 }}
+          initial={{ opacity: 0, y: 20, scale: 0.8 }}
           animate={{ 
-            opacity: [0, 0.6, 0.8, 0.5], 
-            x: [0, -120, -80, -150, 0],
-            y: [0, 80, 200, 120, 0],
-            scale: [0.3, 1, 1.05, 0.9, 1]
+            opacity: 0.6,
+            y: [0, -8, 0],
+            scale: 1
           }}
           transition={{ 
-            opacity: { duration: 2.4, delay: 1.6 },
-            scale: { duration: 1.6, delay: 1.6 },
-            x: { 
-              duration: 18, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-              delay: 2.5
-            },
+            opacity: { duration: 1.5, delay: 1.2 },
+            scale: { duration: 1.2, delay: 1.2 },
             y: { 
-              duration: 14, 
+              duration: 8, 
               repeat: Infinity, 
               ease: "easeInOut",
               delay: 2
@@ -175,27 +132,21 @@ const CinematicHero: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* 15+ Years Experience - Floating top to bottom */}
+        {/* Second stat - Middle position */}
+        {/* 15+ Years Experience */}
         <motion.div
-          className="absolute top-[10%] right-[40%] w-28 h-28"
-          initial={{ opacity: 0, x: 0, y: -50, scale: 0.3 }}
+          className="absolute top-[35%] right-[5%] w-28 h-28"
+          initial={{ opacity: 0, y: 20, scale: 0.8 }}
           animate={{ 
-            opacity: [0, 0.7, 0.5, 0.8], 
-            x: [0, -60, 40, -30, 0],
-            y: [0, 200, 350, 180, 0],
-            scale: [0.3, 1, 1.04, 0.85, 1]
+            opacity: 0.5,
+            y: [0, -6, 0],
+            scale: 1
           }}
           transition={{ 
-            opacity: { duration: 2.6, delay: 2.0 },
-            scale: { duration: 1.7, delay: 2.0 },
-            x: { 
-              duration: 16, 
-              repeat: Infinity, 
-              ease: "easeInOut",
-              delay: 3.5
-            },
+            opacity: { duration: 1.6, delay: 1.6 },
+            scale: { duration: 1.3, delay: 1.6 },
             y: { 
-              duration: 20, 
+              duration: 10, 
               repeat: Infinity, 
               ease: "easeInOut",
               delay: 3
@@ -212,30 +163,55 @@ const CinematicHero: React.FC = () => {
           </div>
         </motion.div>
 
-        {/* 40% ROI Boost - Floating center to right and bottom */}
+        {/* Third stat - Lower middle position */}
+        {/* 500+ Projects Delivered */}
         <motion.div
-          className="absolute top-[50%] right-[20%] w-36 h-36"
-          initial={{ opacity: 0, x: 0, y: 0, scale: 0.2 }}
+          className="absolute top-[55%] right-[5%] w-36 h-36"
+          initial={{ opacity: 0, y: 20, scale: 0.8 }}
           animate={{ 
-            opacity: [0, 0.8, 0.6, 0.9], 
-            x: [0, 100, -50, 120, 0],
-            y: [0, -80, 150, 80, 0],
-            scale: [0.2, 1, 1.06, 0.9, 1]
+            opacity: 0.7,
+            y: [0, -10, 0],
+            scale: 1
           }}
           transition={{ 
-            opacity: { duration: 2.8, delay: 2.4 },
-            scale: { duration: 1.9, delay: 2.4 },
-            x: { 
-              duration: 24, 
+            opacity: { duration: 1.8, delay: 2.0 },
+            scale: { duration: 1.4, delay: 2.0 },
+            y: { 
+              duration: 6, 
               repeat: Infinity, 
               ease: "easeInOut",
               delay: 4
-            },
+            }
+          }}
+        >
+          <div className="w-36 h-36 bg-gradient-to-br from-turmeric-400/20 via-turmeric-500/15 to-amber-600/10 backdrop-blur-lg rounded-full border border-turmeric-300/30 shadow-xl shadow-turmeric-500/10 flex items-center justify-center ring-1 ring-turmeric-200/20 relative overflow-hidden">
+            {/* Inner highlight */}
+            <div className="absolute inset-3 bg-gradient-to-br from-white/8 to-transparent rounded-full"></div>
+            <div className="text-center relative z-10">
+              <div className="text-2xl font-bold text-white mb-1 drop-shadow-lg tracking-wide">500+</div>
+              <div className="text-xs text-white/90 font-semibold leading-tight tracking-wider">Projects<br/>Delivered</div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Fourth stat - Bottom position */}
+        {/* 40% ROI Boost */}
+        <motion.div
+          className="absolute top-[75%] right-[5%] w-36 h-36"
+          initial={{ opacity: 0, y: 20, scale: 0.8 }}
+          animate={{ 
+            opacity: 0.7,
+            y: [0, -8, 0],
+            scale: 1
+          }}
+          transition={{ 
+            opacity: { duration: 2.0, delay: 2.4 },
+            scale: { duration: 1.5, delay: 2.4 },
             y: { 
-              duration: 18, 
+              duration: 9, 
               repeat: Infinity, 
               ease: "easeInOut",
-              delay: 1
+              delay: 5
             }
           }}
         >
@@ -271,7 +247,7 @@ const CinematicHero: React.FC = () => {
               >
                 <CheckCircle className="h-3.5 w-3.5 text-accent-300" />
                 <span className="text-xs text-white/90 font-normal tracking-wide">
-                  trustedByFortune500Companies
+                  Trusted by Fortune 500 Companies
                 </span>
               </motion.div>
 
@@ -314,7 +290,7 @@ const CinematicHero: React.FC = () => {
                     to="/contact"
                     className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-text font-medium rounded-lg hover:bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md border border-gray-200"
                   >
-                    <span>freeStrategyCall</span>
+                    <span>Free Strategy Call</span>
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
                   </Link>
                 </motion.div>
@@ -327,7 +303,7 @@ const CinematicHero: React.FC = () => {
                     to="/case-studies"
                     className="group inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white font-medium rounded-lg hover:bg-white/5 hover:border-white/50 transition-all duration-300 backdrop-blur-sm"
                   >
-                    <span>caseStudies</span>
+                    <span>Case Studies</span>
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
                   </Link>
                 </motion.div>
