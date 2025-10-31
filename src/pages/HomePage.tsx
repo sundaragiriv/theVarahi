@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import CinematicHero from '../components/CinematicHero';
+import FinquickHero from '../components/FinquickHero';
 import WhatWeBuild from '../components/WhatWeBuild';
 import VarahiEdge from '../components/VarahiEdge';
 import IntelligenceInAction from '../components/IntelligenceInAction';
@@ -53,7 +53,7 @@ const HomePage: React.FC = () => {
         </script>
       </Helmet>
       <main>
-      <CinematicHero />
+      <FinquickHero />
       <WhatWeBuild />
       <VarahiEdge />
       <IntelligenceInAction />

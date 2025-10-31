@@ -66,69 +66,226 @@ const AboutPage: React.FC = () => {
       <ScrollSpyNav sections={sections} />
       
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-white">
-        <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12">
+      <section className="py-32 bg-gradient-to-br from-emerald-50 via-white to-blue-50 relative overflow-hidden">
+        {/* Enhanced Background */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-96 h-96 bg-emerald-100/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-20 w-80 h-80 bg-blue-100/20 rounded-full blur-3xl"></div>
+          {Array.from({ length: 12 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-3 h-3 bg-emerald-400/15 rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [-40, 40, -40],
+                opacity: [0.1, 0.4, 0.1],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: 10 + Math.random() * 5,
+                delay: Math.random() * 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          ))}
+        </div>
+        
+        <div className="max-w-8xl mx-auto px-8 relative z-10">
           <motion.div 
             className="text-center"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1 }}
           >
-            <h1 className="text-5xl font-bold mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent" style={{lineHeight: '1.2', paddingBottom: '8px'}}>
-              About Varahi
+            <motion.div
+              className="inline-flex items-center gap-3 px-6 py-3 bg-emerald-100/80 backdrop-blur-sm border border-emerald-200/50 rounded-full mb-12"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
+              <span className="text-emerald-700 font-semibold text-base">Enterprise Intelligence Leaders Since 2009</span>
+            </motion.div>
+            
+            <h1 className="text-8xl font-bold mb-12 text-blue-800" style={{lineHeight: '1.05'}}>
+              Our <span className="text-transparent bg-gradient-to-r from-emerald-500 via-blue-600 to-purple-600 bg-clip-text">Intelligence</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Leading enterprise transformation through innovative AI and SAP solutions that deliver measurable business outcomes. 
-              We're not just consultants—we're transformation partners committed to your success.
+            <p className="text-3xl text-gray-600 max-w-6xl mx-auto leading-relaxed mb-16">
+              We're not just consultants—we're <strong className="text-blue-800">transformation architects</strong> who design and deliver 
+              measurable business outcomes through cutting-edge AI and enterprise solutions.
             </p>
+            
+            {/* Key Differentiators */}
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              <motion.div 
+                className="bg-white/60 backdrop-blur-sm p-6 rounded-2xl border border-white/50 shadow-lg"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+              >
+                <div className="text-3xl font-bold text-emerald-600 mb-2">500+</div>
+                <div className="text-blue-800 font-semibold">Enterprise Clients</div>
+                <div className="text-gray-500 text-sm">Fortune 1000 Companies</div>
+              </motion.div>
+              
+              <motion.div 
+                className="bg-white/60 backdrop-blur-sm p-6 rounded-2xl border border-white/50 shadow-lg"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                <div className="text-3xl font-bold text-blue-600 mb-2">$50M+</div>
+                <div className="text-blue-800 font-semibold">Client Savings</div>
+                <div className="text-gray-500 text-sm">Documented ROI</div>
+              </motion.div>
+              
+              <motion.div 
+                className="bg-white/60 backdrop-blur-sm p-6 rounded-2xl border border-white/50 shadow-lg"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+              >
+                <div className="text-3xl font-bold text-purple-600 mb-2">16+</div>
+                <div className="text-blue-800 font-semibold">Years Experience</div>
+                <div className="text-gray-500 text-sm">Industry Leadership</div>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Company Overview */}
-      <section id="company-overview" className="py-20">
-        <div className="max-w-8xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-4xl font-bold mb-6">Transforming Enterprise Technology</h2>
-              <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                Founded in 2019, Varahi has emerged as a trusted partner for Fortune 500 companies seeking to harness 
-                the power of AI and modernize their SAP landscapes. Our unique approach combines deep technical expertise 
-                with strategic business acumen to deliver transformations that stick.
-              </p>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                With over 500 successful implementations and $50M+ in documented client savings, we've proven that 
-                the right combination of technology, methodology, and partnership can drive extraordinary results.
-              </p>
-              
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">500+</div>
-                  <div className="text-sm text-gray-600">Enterprise Clients</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-green-600 mb-2">$50M+</div>
-                  <div className="text-sm text-gray-600">Client Savings</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">99.9%</div>
-                  <div className="text-sm text-gray-600">Uptime SLA</div>
-                </div>
+      <section id="company-overview" className="py-32 bg-white relative overflow-hidden">
+        {/* Subtle Background */}
+        <div className="absolute inset-0">
+          <div className="absolute top-40 left-20 w-96 h-96 bg-emerald-50/50 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-40 right-20 w-80 h-80 bg-blue-50/50 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="max-w-8xl mx-auto px-8 relative z-10">
+          <motion.div 
+            className="text-center mb-24"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+          >
+            <h2 className="text-7xl font-bold mb-8 text-blue-800">Who We Are</h2>
+            <p className="text-2xl text-gray-600 max-w-5xl mx-auto leading-relaxed">
+              Enterprise transformation architects delivering measurable AI and SAP solutions 
+              that create <strong className="text-emerald-600">sustainable competitive advantages</strong> since 2009
+            </p>
+          </motion.div>
+
+          {/* Enhanced Story Cards */}
+          <div className="grid lg:grid-cols-3 gap-12 mb-24">
+            <motion.div 
+              className="group bg-white p-12 rounded-3xl shadow-xl border border-gray-100/50 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              <div className="w-20 h-20 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-3xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
               </div>
+              <h3 className="text-3xl font-bold text-blue-800 mb-6">Our Mission</h3>
+              <p className="text-gray-600 leading-relaxed text-lg">
+                Transform Fortune 1000 enterprises through intelligent AI and SAP solutions that deliver 
+                measurable business outcomes and create sustainable competitive advantages in the digital economy.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              className="group bg-white p-12 rounded-3xl shadow-xl border border-gray-100/50 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-blue-600 rounded-3xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <h3 className="text-3xl font-bold text-blue-800 mb-6">Our Approach</h3>
+              <p className="text-gray-600 leading-relaxed text-lg">
+                Combine deep technical expertise with strategic business acumen and human-centered design. 
+                We don't just implement technology—we architect transformations that drive lasting value.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              className="group bg-white p-12 rounded-3xl shadow-xl border border-gray-100/50 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-purple-600 rounded-3xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-3xl font-bold text-blue-800 mb-6">Our Impact</h3>
+              <p className="text-gray-600 leading-relaxed text-lg">
+                Over $50M in documented client savings across 500+ implementations with 16+ years of proven results. 
+                We measure success by the tangible outcomes we deliver for our transformation partners.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Premium Stats Section */}
+          <motion.div 
+            className="bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 rounded-3xl p-16 text-white relative overflow-hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.4 }}
+          >
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              }} />
             </div>
             
-            <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-8 h-96 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-6">
-                  <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
+            <div className="relative z-10">
+              <div className="text-center mb-12">
+                <h3 className="text-4xl font-bold mb-4">Proven Enterprise Excellence</h3>
+                <p className="text-xl text-white/90 max-w-3xl mx-auto">16 years of delivering measurable transformation outcomes for Fortune 1000 companies</p>
+              </div>
+              
+              <div className="grid md:grid-cols-4 gap-12 text-center">
+                <div>
+                  <div className="text-5xl font-bold mb-3">500+</div>
+                  <div className="text-white/90 font-semibold text-lg">Enterprise Clients</div>
+                  <div className="text-white/70 text-sm mt-2">Fortune 1000 Companies</div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">Innovation at Scale</h3>
-                <p className="text-gray-600">Delivering Enterprise Excellence</p>
+                <div>
+                  <div className="text-5xl font-bold mb-3">$50M+</div>
+                  <div className="text-white/90 font-semibold text-lg">Client Savings</div>
+                  <div className="text-white/70 text-sm mt-2">Documented ROI</div>
+                </div>
+                <div>
+                  <div className="text-5xl font-bold mb-3">99.9%</div>
+                  <div className="text-white/90 font-semibold text-lg">Uptime SLA</div>
+                  <div className="text-white/70 text-sm mt-2">Enterprise Grade</div>
+                </div>
+                <div>
+                  <div className="text-5xl font-bold mb-3">16+</div>
+                  <div className="text-white/90 font-semibold text-lg">Years Experience</div>
+                  <div className="text-white/70 text-sm mt-2">Industry Leadership</div>
+                </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 

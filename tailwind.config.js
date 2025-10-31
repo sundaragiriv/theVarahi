@@ -54,6 +54,47 @@ export default {
           500: '#f59e0b',
           600: '#d97706',
         },
+        // Finquick-inspired clean light green palette
+        'finquick': {
+          // Beautiful light green gradients inspired by Finquick
+          'gradient-start': '#10b981',
+          'gradient-middle': '#34d399', 
+          'gradient-end': '#6ee7b7',
+          // Clean light colors
+          'light': '#f0fdf4',
+          'soft': '#ecfdf5',
+          'muted': '#d1fae5',
+          'border': '#d1d5db',
+          // Professional text colors  
+          'text-dark': '#111827',
+          'text-medium': '#374151',
+          'text-light': '#6b7280',
+        },
+        // Modern light green gradient combinations
+        'gradient-finquick': {
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+          400: '#4ade80',
+          500: '#22c55e',
+          600: '#16a34a',
+          700: '#15803d',
+          800: '#166534',
+          900: '#14532d',
+        },
+        'green-clean': {
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+          400: '#4ade80',
+          500: '#22c55e',
+          600: '#16a34a',
+          700: '#15803d',
+          800: '#166534',
+          900: '#14532d',
+        },
       },
       fontFamily: {
         'sap': ['72', 'Inter', 'system-ui', 'sans-serif'],

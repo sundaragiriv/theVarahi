@@ -47,92 +47,51 @@ const WordMark: React.FC<WordMarkProps> = ({
     if (theme === 'dark') {
       return {
         text: 'text-white',
-        iconBg: 'bg-blue-600',
-        iconBorder: 'border-blue-400',
-        shadow: 'shadow-blue-500/20',
-        accent: 'bg-blue-400'
+        iconBg: 'bg-emerald-600',
+        iconBorder: 'border-emerald-400',
+        shadow: 'shadow-emerald-500/20',
+        accent: 'bg-emerald-400'
       };
     }
     return {
       text: 'text-slate-900',
-      iconBg: 'bg-blue-600', 
-      iconBorder: 'border-blue-600',
-      shadow: 'shadow-blue-600/15',
-      accent: 'bg-blue-600'
+      iconBg: 'bg-emerald-600', 
+      iconBorder: 'border-emerald-600',
+      shadow: 'shadow-emerald-600/15',
+      accent: 'bg-emerald-600'
     };
   };
 
   const config = sizeConfig[size];
   const themeClasses = getThemeClasses();
 
-  // Clean Outline Corporate Icon Design
-  const CorporateIcon = () => (
-    <div className={`relative group ${config.icon}`}>
-      {/* Transparent box with outline */}
-      <div className={`
-        w-full h-full border-2 ${themeClasses.iconBorder}
-        rounded-lg shadow-sm ${themeClasses.shadow}
-        flex items-center justify-center relative
-        transition-all duration-300 group-hover:scale-105
-        bg-transparent
-      `}>
-        {/* Clean V monogram */}
-        <svg 
-          viewBox="0 0 24 24" 
-          className={`w-3/5 h-3/5 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'} font-bold`}
-          fill="currentColor"
-        >
-          <path d="M3 4L12 20L21 4H17L12 16L7 4H3Z" />
-        </svg>
-      </div>
-      
-      {/* Subtle hover effect */}
-      <div className="absolute inset-0 rounded-lg bg-blue-50/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-    </div>
-  );
 
-  // Print-Friendly Typography 
-  const CorporateText = () => (
-    <div className="relative corporate-wordmark">
-      {/* Main text with solid colors */}
+
+  // Unique Watermark Typography
+  const WatermarkText = () => (
+    <div className="relative watermark-logo">
       <span 
         className={`
           ${config.text} ${config.letterSpacing}
-          ${themeClasses.text}
-          font-black uppercase relative logo-futuristic
+          text-blue-800
+          font-black lowercase relative
           transition-all duration-300 hover:scale-105
-          select-none cursor-default text-shadow-corporate
+          select-none cursor-default
+          watermark-text
         `}
+        style={{
+          fontFamily: 'Inter, system-ui, sans-serif',
+          fontWeight: '900',
+          textShadow: theme === 'dark' ? '0 0 20px rgba(16, 185, 129, 0.3)' : 'none'
+        }}
       >
-        VARAHI
-        {/* Subtle thin underline accent */}
-        <div className={`absolute -bottom-0.5 left-0 right-0 h-0.5 ${themeClasses.accent} opacity-60`}></div>
+        varah<span className="relative">i<span className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-500 rounded-full"></span></span>
       </span>
-      
-      {/* Corporate tagline for larger sizes */}
-      {(size === 'lg' || size === 'xl') && (
-        <div className="absolute -bottom-5 left-0 text-xs text-gray-600 uppercase tracking-[0.2em] font-semibold">
-          Enterprise Solutions
-        </div>
-      )}
     </div>
   );
 
   const LogoContent = () => {
-    if (variant === 'icon-only') {
-      return <CorporateIcon />;
-    }
-    
-    if (variant === 'text-only') {
-      return <CorporateText />;
-    }
-
-    return (
-      <div className={`inline-flex items-center ${config.gap} ${className}`}>
-        <CorporateIcon />
-        <CorporateText />
-      </div>
-    );
+    return <WatermarkText />;
   };
 
   if (animated) {

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle, Users } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import GridBackground from './GridBackground';
+import { CheckCircle } from 'lucide-react';
+import AnimatedGridBackground from './AnimatedGridBackground';
+import FluidTypography from './FluidTypography';
+import SophisticatedButton from './SophisticatedButton';
 
 const CinematicHero: React.FC = () => {
   const [typingText, setTypingText] = useState('');
@@ -30,7 +31,7 @@ const CinematicHero: React.FC = () => {
   }, [wordIndex]);
 
   return (
-    <section className="relative h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800">
+    <section className="relative h-screen overflow-hidden bg-gradient-to-br from-neutral-900 via-neutral-800 to-brand-900">
       {/* Video Background with Fallback */}
       <div className="absolute inset-0 z-0">
         {/* Optimized Video Element with Accessibility */}
@@ -73,7 +74,13 @@ const CinematicHero: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-brand-900/20 to-accent-900/20" />
         
         {/* Subtle Grid Background */}
-        <GridBackground opacity={0.08} gridSize={50} color="#ffffff" />
+        <AnimatedGridBackground 
+          opacity={0.15} 
+          gridSize="md" 
+          variant="dots" 
+          animated={true}
+          className="z-10"
+        />
       </div>
 
       {/* Animated Tech Background */}
@@ -107,7 +114,7 @@ const CinematicHero: React.FC = () => {
           className="absolute top-[15%] right-[5%] w-32 h-32"
           initial={{ opacity: 0, y: 20, scale: 0.8 }}
           animate={{ 
-            opacity: 0.6,
+            opacity: 0.7,
             y: [0, -8, 0],
             scale: 1
           }}
@@ -135,10 +142,10 @@ const CinematicHero: React.FC = () => {
         {/* Second stat - Middle position */}
         {/* 15+ Years Experience */}
         <motion.div
-          className="absolute top-[35%] right-[5%] w-28 h-28"
+          className="absolute top-[35%] right-[5%] w-32 h-32"
           initial={{ opacity: 0, y: 20, scale: 0.8 }}
           animate={{ 
-            opacity: 0.5,
+            opacity: 0.7,
             y: [0, -6, 0],
             scale: 1
           }}
@@ -153,12 +160,12 @@ const CinematicHero: React.FC = () => {
             }
           }}
         >
-          <div className="w-28 h-28 bg-gradient-to-br from-accent-400/18 via-green-500/15 to-emerald-600/12 backdrop-blur-lg rounded-full border border-accent-300/25 shadow-xl shadow-accent-500/8 flex items-center justify-center ring-1 ring-accent-200/15 relative overflow-hidden">
+          <div className="w-32 h-32 bg-gradient-to-br from-accent-400/25 via-green-500/20 to-emerald-600/18 backdrop-blur-xl rounded-full border-2 border-accent-300/40 shadow-2xl shadow-accent-500/15 flex items-center justify-center ring-2 ring-accent-200/25 relative overflow-hidden">
             {/* Inner highlight */}
-            <div className="absolute inset-3 bg-gradient-to-br from-white/6 to-transparent rounded-full"></div>
+            <div className="absolute inset-3 bg-gradient-to-br from-white/10 to-transparent rounded-full"></div>
             <div className="text-center relative z-10">
               <div className="text-lg font-bold text-white mb-1 drop-shadow-lg tracking-wide">15+</div>
-              <div className="text-xs text-white/85 font-semibold leading-tight tracking-wider">Years<br/>Experience</div>
+              <div className="text-xs text-white/90 font-semibold leading-tight tracking-wider">Years<br/>Experience</div>
             </div>
           </div>
         </motion.div>
@@ -166,7 +173,7 @@ const CinematicHero: React.FC = () => {
         {/* Third stat - Lower middle position */}
         {/* 500+ Projects Delivered */}
         <motion.div
-          className="absolute top-[55%] right-[5%] w-36 h-36"
+          className="absolute top-[55%] right-[5%] w-32 h-32"
           initial={{ opacity: 0, y: 20, scale: 0.8 }}
           animate={{ 
             opacity: 0.7,
@@ -184,11 +191,11 @@ const CinematicHero: React.FC = () => {
             }
           }}
         >
-          <div className="w-36 h-36 bg-gradient-to-br from-turmeric-400/20 via-turmeric-500/15 to-amber-600/10 backdrop-blur-lg rounded-full border border-turmeric-300/30 shadow-xl shadow-turmeric-500/10 flex items-center justify-center ring-1 ring-turmeric-200/20 relative overflow-hidden">
+          <div className="w-32 h-32 bg-gradient-to-br from-turmeric-400/25 via-turmeric-500/20 to-amber-600/18 backdrop-blur-xl rounded-full border-2 border-turmeric-300/40 shadow-2xl shadow-turmeric-500/15 flex items-center justify-center ring-2 ring-turmeric-200/25 relative overflow-hidden">
             {/* Inner highlight */}
-            <div className="absolute inset-3 bg-gradient-to-br from-white/8 to-transparent rounded-full"></div>
+            <div className="absolute inset-3 bg-gradient-to-br from-white/10 to-transparent rounded-full"></div>
             <div className="text-center relative z-10">
-              <div className="text-2xl font-bold text-white mb-1 drop-shadow-lg tracking-wide">500+</div>
+              <div className="text-xl font-bold text-white mb-1 drop-shadow-lg tracking-wide">500+</div>
               <div className="text-xs text-white/90 font-semibold leading-tight tracking-wider">Projects<br/>Delivered</div>
             </div>
           </div>
@@ -197,7 +204,7 @@ const CinematicHero: React.FC = () => {
         {/* Fourth stat - Bottom position */}
         {/* 40% ROI Boost */}
         <motion.div
-          className="absolute top-[75%] right-[5%] w-36 h-36"
+          className="absolute top-[75%] right-[5%] w-32 h-32"
           initial={{ opacity: 0, y: 20, scale: 0.8 }}
           animate={{ 
             opacity: 0.7,
@@ -215,13 +222,12 @@ const CinematicHero: React.FC = () => {
             }
           }}
         >
-          <div className="w-36 h-36 bg-gradient-to-br from-turmeric-500/20 via-orange-400/15 to-amber-600/15 backdrop-blur-xl rounded-full border-3 border-turmeric-200/70 shadow-2xl shadow-turmeric-400/25 flex items-center justify-center ring-3 ring-turmeric-100/40 relative overflow-hidden">
-            {/* Multiple inner glows for premium effect */}
-            <div className="absolute inset-2 bg-gradient-to-br from-white/20 to-transparent rounded-full"></div>
-            <div className="absolute inset-4 bg-gradient-to-br from-turmeric-200/30 to-transparent rounded-full"></div>
+          <div className="w-32 h-32 bg-gradient-to-br from-turmeric-500/25 via-orange-400/20 to-amber-600/18 backdrop-blur-xl rounded-full border-2 border-turmeric-200/40 shadow-2xl shadow-turmeric-400/15 flex items-center justify-center ring-2 ring-turmeric-100/25 relative overflow-hidden">
+            {/* Inner highlight */}
+            <div className="absolute inset-3 bg-gradient-to-br from-white/10 to-transparent rounded-full"></div>
             <div className="text-center relative z-10">
-              <div className="text-2xl font-bold text-white mb-1 drop-shadow-lg tracking-wide">40%</div>
-              <div className="text-xs text-white font-bold leading-tight tracking-wider">Avg ROI<br/>Boost</div>
+              <div className="text-xl font-bold text-white mb-1 drop-shadow-lg tracking-wide">40%</div>
+              <div className="text-xs text-white/90 font-semibold leading-tight tracking-wider">Avg ROI<br/>Boost</div>
             </div>
           </div>
         </motion.div>
@@ -251,62 +257,64 @@ const CinematicHero: React.FC = () => {
                 </span>
               </motion.div>
 
-              {/* Main Headline */}
-              <motion.h1
-                className="text-4xl lg:text-5xl font-semibold text-white mb-8 leading-[1.1] drop-shadow-lg tracking-tight min-w-0"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                Enterprise CX & AI Solutions
-                <span className="text-transparent bg-gradient-to-r from-brand-200 to-accent-200 bg-clip-text block font-medium min-h-[1.2em] overflow-visible w-full">
+              {/* Main Headline - Junos-inspired fluid typography */}
+              <div className="mb-8">
+                <FluidTypography
+                  variant="heading"
+                  animation="stagger"
+                  delay={0.2}
+                  staggerChildren={0.08}
+                  className="text-white drop-shadow-lg mb-4"
+                >
+                  Enterprise CX & AI Solutions
+                </FluidTypography>
+                
+                <FluidTypography
+                  variant="subheading"
+                  animation="slide-in"
+                  delay={0.8}
+                  className="text-transparent bg-gradient-to-r from-brand-300 to-accent-300 bg-clip-text font-medium"
+                >
                   {typingText || 'That Deliver Results'}
-                </span>
-              </motion.h1>
+                </FluidTypography>
+              </div>
 
               {/* Value Proposition */}
-              <motion.p
-                className="text-lg text-white/80 mb-10 leading-relaxed max-w-2xl drop-shadow-md font-light"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
+              <FluidTypography
+                variant="body"
+                animation="fade-up"
+                delay={1.2}
+                duration={0.8}
+                className="text-white/80 mb-10 max-w-2xl drop-shadow-md font-light"
               >
                 Transform your enterprise with our proven customer experience and AI implementations. 
-                <span className="text-white font-normal"> Average 40% ROI improvement</span> in 90 days or less.
-              </motion.p>
+                <span className="text-brand-200 font-medium"> Average 40% ROI improvement</span> in 90 days or less.
+              </FluidTypography>
 
-              {/* CTA Buttons */}
+              {/* CTA Buttons - Sophisticated Junos-inspired */}
               <motion.div
                 className="flex flex-col sm:flex-row gap-4"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.0 }}
+                transition={{ duration: 0.8, delay: 1.6 }}
               >
-                <motion.div
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
+                <SophisticatedButton
+                  to="/contact"
+                  variant="secondary"
+                  size="lg"
+                  className="font-semibold"
                 >
-                  <Link
-                    to="/contact"
-                    className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-text font-medium rounded-lg hover:bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md border border-gray-200"
-                  >
-                    <span>Free Strategy Call</span>
-                    <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-                  </Link>
-                </motion.div>
+                  Free Strategy Call
+                </SophisticatedButton>
                 
-                <motion.div
-                  whileHover={{ y: -1 }}
-                  whileTap={{ scale: 0.98 }}
+                <SophisticatedButton
+                  to="/case-studies"
+                  variant="ghost"
+                  size="lg"
+                  className="font-medium"
                 >
-                  <Link
-                    to="/case-studies"
-                    className="group inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white font-medium rounded-lg hover:bg-white/5 hover:border-white/50 transition-all duration-300 backdrop-blur-sm"
-                  >
-                    <span>Case Studies</span>
-                    <ArrowRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
-                  </Link>
-                </motion.div>
+                  Case Studies
+                </SophisticatedButton>
               </motion.div>
 
               {/* Trust Indicators */}

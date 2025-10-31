@@ -26,15 +26,15 @@ const HeaderNav: React.FC = () => {
   }, [location]);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${
-        isScrolled || !isHomePage
-          ? 'bg-white/95 backdrop-blur-xl border-b border-white/10 shadow-lg' 
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-16">
+    <header className="fixed top-4 left-4 right-4 z-[9999]">
+      <div 
+        className={`max-w-7xl mx-auto transition-all duration-300 rounded-2xl border ${
+          isScrolled || !isHomePage
+            ? 'bg-white/95 backdrop-blur-xl border-gray-200/50 shadow-lg' 
+            : 'bg-white/90 backdrop-blur-md border-white/20 shadow-md'
+        }`}
+      >
+        <div className="flex items-center justify-between h-16 px-6">
           <Link to="/" className="flex items-center group">
             <WordMark 
               animated 
@@ -45,17 +45,17 @@ const HeaderNav: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6">
+          <nav className="hidden lg:flex items-center space-x-8">
             <div
               className="relative group"
               onMouseEnter={() => setOpenPanel('whoWeAre')}
               onMouseLeave={() => {
-                setTimeout(() => setOpenPanel(null), 300);
+                setTimeout(() => setOpenPanel(null), 150);
               }}
             >
               <button 
-                className={`text-sm font-medium transition-all duration-300 px-3 py-2 relative group flex items-center ${
-                  isScrolled || !isHomePage ? 'text-text hover:text-brand-600' : 'text-white hover:text-turmeric-400'
+                className={`text-base font-medium transition-all duration-200 px-4 py-3 relative group flex items-center rounded-lg ${
+                  isScrolled || !isHomePage ? 'text-gray-700 hover:text-emerald-600 hover:bg-gray-50' : 'text-blue-800 hover:text-emerald-700 hover:bg-white/10'
                 }`}
                 onFocus={() => setOpenPanel('whoWeAre')}
                 onBlur={(e) => {
@@ -75,7 +75,7 @@ const HeaderNav: React.FC = () => {
                 aria-expanded={openPanel === 'whoWeAre'}
                 aria-haspopup="true"
               >
-                <span>About</span>
+                <span>Our Intelligence</span>
                 <svg className="w-3 h-3 inline-block ml-1 transition-transform duration-300 group-hover:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v14m7-7H5" />
                 </svg>
@@ -86,13 +86,13 @@ const HeaderNav: React.FC = () => {
                   style={{ backdropFilter: 'blur(20px)', backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
                   onMouseEnter={() => setOpenPanel('whoWeAre')}
                   onMouseLeave={() => {
-                    setTimeout(() => setOpenPanel(null), 200);
+                    setTimeout(() => setOpenPanel(null), 100);
                   }}
                   role="menu"
                   aria-labelledby="whoWeAre-button"
                 >
                   <div className="p-3">
-                    <Link to="/about" className="group block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-gradient-to-r hover:from-brand-50 hover:to-blue-50/50 rounded-lg transition-all duration-200">
+                    <Link to="/about/our-story" className="group block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-gradient-to-r hover:from-brand-50 hover:to-blue-50/50 rounded-lg transition-all duration-200">
                       <div className="flex items-start gap-3">
                         <div className="mt-0.5 w-2 h-2 rounded-full bg-blue-500 group-hover:bg-brand-600 transition-colors" />
                         <div>
@@ -136,13 +136,13 @@ const HeaderNav: React.FC = () => {
             <div
               className="relative group"
               onMouseEnter={() => setOpenPanel('whatWeDo')}
-                onMouseLeave={() => {
-                setTimeout(() => setOpenPanel(null), 300);
+              onMouseLeave={() => {
+                setTimeout(() => setOpenPanel(null), 150);
               }}
             >
               <button 
-                className={`text-sm font-medium transition-all duration-300 px-3 py-2 relative group flex items-center ${
-                  isScrolled || !isHomePage ? 'text-text hover:text-brand-600' : 'text-white hover:text-turmeric-400'
+                className={`text-base font-medium transition-all duration-200 px-4 py-3 relative group flex items-center rounded-lg ${
+                  isScrolled || !isHomePage ? 'text-gray-700 hover:text-emerald-600 hover:bg-gray-50' : 'text-blue-800 hover:text-emerald-700 hover:bg-white/10'
                 }`}
                 onFocus={() => setOpenPanel('whatWeDo')}
                 onBlur={(e) => {
@@ -162,7 +162,7 @@ const HeaderNav: React.FC = () => {
                 aria-expanded={openPanel === 'whatWeDo'}
                 aria-haspopup="true"
               >
-                <span>Solutions</span>
+                <span>Amplify</span>
                 <svg className="w-3 h-3 inline-block ml-1 transition-transform duration-300 group-hover:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v14m7-7H5" />
                 </svg>
@@ -173,7 +173,7 @@ const HeaderNav: React.FC = () => {
                   style={{ backdropFilter: 'blur(20px)', backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
                   onMouseEnter={() => setOpenPanel('whatWeDo')}
                   onMouseLeave={() => {
-                    setTimeout(() => setOpenPanel(null), 200);
+                    setTimeout(() => setOpenPanel(null), 100);
                   }}
                   role="menu"
                   aria-labelledby="whatWeDo-button"
@@ -181,7 +181,7 @@ const HeaderNav: React.FC = () => {
                   <div className="p-3">
                     <Link 
                       to="/services/sap-solutions" 
-                      className="group block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-gradient-to-r hover:from-brand-50 hover:to-blue-50/50 rounded-lg transition-all duration-200"
+                      className="group block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-emerald-600 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-emerald-50/50 rounded-lg transition-all duration-200"
                       role="menuitem"
                       onKeyDown={(e) => {
                         if (e.key === 'Escape') {
@@ -190,7 +190,7 @@ const HeaderNav: React.FC = () => {
                       }}
                     >
                       <div className="flex items-start gap-3">
-                        <div className="mt-0.5 w-2 h-2 rounded-full bg-blue-500 group-hover:bg-brand-600 transition-colors" />
+                        <div className="mt-0.5 w-2 h-2 rounded-full bg-emerald-500 group-hover:bg-emerald-600 transition-colors" />
                         <div>
                           <div className="font-semibold">SAP Solutions & S/4HANA</div>
                           <div className="text-xs text-gray-500 mt-0.5">ERP transformation & cloud migration</div>
@@ -199,7 +199,7 @@ const HeaderNav: React.FC = () => {
                     </Link>
                     <Link 
                       to="/services/enterprise-cx" 
-                      className="group block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-gradient-to-r hover:from-brand-50 hover:to-blue-50/50 rounded-lg transition-all duration-200"
+                      className="group block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-emerald-600 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-emerald-50/50 rounded-lg transition-all duration-200"
                       role="menuitem"
                       onKeyDown={(e) => {
                         if (e.key === 'Escape') {
@@ -208,7 +208,7 @@ const HeaderNav: React.FC = () => {
                       }}
                     >
                       <div className="flex items-start gap-3">
-                        <div className="mt-0.5 w-2 h-2 rounded-full bg-green-500 group-hover:bg-brand-600 transition-colors" />
+                        <div className="mt-0.5 w-2 h-2 rounded-full bg-emerald-600 group-hover:bg-emerald-700 transition-colors" />
                         <div>
                           <div className="font-semibold">Enterprise Customer Experience</div>
                           <div className="text-xs text-gray-500 mt-0.5">Service, Sales & Field Service platforms</div>
@@ -217,7 +217,7 @@ const HeaderNav: React.FC = () => {
                     </Link>
                     <Link 
                       to="/services/ai-orchestration" 
-                      className="group block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-gradient-to-r hover:from-brand-50 hover:to-blue-50/50 rounded-lg transition-all duration-200"
+                      className="group block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-emerald-600 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-emerald-50/50 rounded-lg transition-all duration-200"
                       role="menuitem"
                       onKeyDown={(e) => {
                         if (e.key === 'Escape') {
@@ -226,7 +226,7 @@ const HeaderNav: React.FC = () => {
                       }}
                     >
                       <div className="flex items-start gap-3">
-                        <div className="mt-0.5 w-2 h-2 rounded-full bg-purple-500 group-hover:bg-brand-600 transition-colors" />
+                        <div className="mt-0.5 w-2 h-2 rounded-full bg-emerald-400 group-hover:bg-emerald-600 transition-colors" />
                         <div>
                           <div className="font-semibold">AI Orchestration & Automation</div>
                           <div className="text-xs text-gray-500 mt-0.5">RAG, predictive analytics & conversational AI</div>
@@ -235,7 +235,7 @@ const HeaderNav: React.FC = () => {
                     </Link>
                     <Link 
                       to="/services/joule-enablement" 
-                      className="group block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-gradient-to-r hover:from-brand-50 hover:to-blue-50/50 rounded-lg transition-all duration-200"
+                      className="group block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-emerald-600 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-emerald-50/50 rounded-lg transition-all duration-200"
                       role="menuitem"
                       onKeyDown={(e) => {
                         if (e.key === 'Escape') {
@@ -244,7 +244,7 @@ const HeaderNav: React.FC = () => {
                       }}
                     >
                       <div className="flex items-start gap-3">
-                        <div className="mt-0.5 w-2 h-2 rounded-full bg-amber-500 group-hover:bg-brand-600 transition-colors" />
+                        <div className="mt-0.5 w-2 h-2 rounded-full bg-emerald-300 group-hover:bg-emerald-600 transition-colors" />
                         <div>
                           <div className="font-semibold">SAP Joule Enablement</div>
                           <div className="text-xs text-gray-500 mt-0.5">AI assistant integration & user training</div>
@@ -253,7 +253,7 @@ const HeaderNav: React.FC = () => {
                     </Link>
                     <Link 
                       to="/services/upgrade-sap" 
-                      className="group block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-brand-600 hover:bg-gradient-to-r hover:from-brand-50 hover:to-blue-50/50 rounded-lg transition-all duration-200"
+                      className="group block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-emerald-600 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-emerald-50/50 rounded-lg transition-all duration-200"
                       role="menuitem"
                       onKeyDown={(e) => {
                         if (e.key === 'Escape') {
@@ -262,7 +262,7 @@ const HeaderNav: React.FC = () => {
                       }}
                     >
                       <div className="flex items-start gap-3">
-                        <div className="mt-0.5 w-2 h-2 rounded-full bg-red-500 group-hover:bg-brand-600 transition-colors" />
+                        <div className="mt-0.5 w-2 h-2 rounded-full bg-emerald-700 group-hover:bg-emerald-800 transition-colors" />
                         <div>
                           <div className="font-semibold">Upgrade SAP Infrastructure</div>
                           <div className="text-xs text-gray-500 mt-0.5">Managed services & 24/7 support</div>
@@ -270,7 +270,7 @@ const HeaderNav: React.FC = () => {
                       </div>
                     </Link>
                     <div className="border-t border-gray-200/50 mt-3 pt-3">
-                      <Link to="/solutions" className="block px-3 py-2 text-brand-600 hover:text-brand-700 hover:bg-brand-50/80 rounded-lg transition-all duration-200 font-medium text-sm">
+                      <Link to="/solutions" className="block px-3 py-2 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50/80 rounded-lg transition-all duration-200 font-medium text-sm">
                         <div className="flex items-center justify-between">
                           <span>View All Solutions</span>
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,22 +284,16 @@ const HeaderNav: React.FC = () => {
               )}
             </div>
 
-            <Link to="/resources/case-studies" className={`relative text-sm font-medium transition-all duration-300 px-3 py-2 group ${
-              isScrolled || !isHomePage ? 'text-text hover:text-brand-600' : 'text-white hover:text-turmeric-400'
+            <Link to="/resources/case-studies" className={`text-base font-medium transition-all duration-200 px-4 py-3 relative group rounded-lg ${
+              isScrolled || !isHomePage ? 'text-gray-700 hover:text-emerald-600 hover:bg-gray-50' : 'text-blue-800 hover:text-emerald-700 hover:bg-white/10'
             }`}>
-              <span className="relative z-10">Case Studies</span>
-              <div className={`absolute inset-0 rounded-md scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 ease-out ${
-                isScrolled || !isHomePage ? 'bg-brand-50' : 'bg-white/10'
-              }`} />
+              Success Stories
             </Link>
 
-            <Link to="/resources" className={`relative text-sm font-medium transition-all duration-300 px-3 py-2 group ${
-              isScrolled || !isHomePage ? 'text-text hover:text-brand-600' : 'text-white hover:text-turmeric-400'
+            <Link to="/resources" className={`text-base font-medium transition-all duration-200 px-4 py-3 relative group rounded-lg ${
+              isScrolled || !isHomePage ? 'text-gray-700 hover:text-emerald-600 hover:bg-gray-50' : 'text-blue-800 hover:text-emerald-700 hover:bg-white/10'
             }`}>
-              <span className="relative z-10">Resources</span>
-              <div className={`absolute inset-0 rounded-md scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-200 ease-out ${
-                isScrolled || !isHomePage ? 'bg-brand-50' : 'bg-white/10'
-              }`} />
+              Knowledge Hub
             </Link>
           </nav>
 
@@ -309,7 +303,7 @@ const HeaderNav: React.FC = () => {
           className={`lg:hidden p-2 rounded-lg transition-colors duration-200 ${
             isScrolled || !isHomePage
               ? 'text-text hover:bg-gray-100' 
-              : 'text-white hover:bg-white/10'
+              : 'text-blue-800 hover:bg-white/10'
           }`}
           aria-expanded={isMobileMenuOpen}
           aria-controls="mobile-menu"
@@ -329,19 +323,12 @@ const HeaderNav: React.FC = () => {
             )}
           </svg>
         </button>          {/* CTA Button */}
-          <div className="hidden lg:flex items-center ml-6">
+          <div className="hidden lg:flex items-center ml-8">
             <Link
               to="/contact"
-              className={`group relative px-5 py-2.5 text-sm font-semibold rounded-lg transition-all duration-300 backdrop-blur-sm ${
-                isScrolled || !isHomePage
-                  ? 'text-white bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 shadow-lg hover:shadow-xl' 
-                  : 'text-brand-600 bg-white/95 hover:bg-white shadow-lg hover:shadow-xl'
-              }`}
+              className="px-6 py-3 text-base font-semibold rounded-xl transition-all duration-200 text-white bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-sm hover:shadow-md"
             >
-              <span className="relative z-10">Free Strategy Call</span>
-              <svg className="w-4 h-4 inline-block ml-2 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+              Get Started
             </Link>
           </div>
         </div>

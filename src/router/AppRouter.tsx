@@ -67,6 +67,14 @@ import GeneralInquiryPage from '../pages/contact/GeneralInquiryPage';
 import SupportPage from '../pages/contact/SupportPage';
 import InvestorsPage from '../pages/contact/InvestorsPage';
 
+// New Pages
+import Solutions from '../pages/Solutions';
+import CaseStudies from '../pages/CaseStudies';
+import Resources from '../pages/Resources';
+import Contact from '../pages/Contact';
+import BlogPost from '../pages/BlogPost';
+import CaseStudyDetail from '../pages/CaseStudyDetail';
+
 const AppRouter: React.FC = () => {
   return (
     <Router>
@@ -124,24 +132,33 @@ const AppRouter: React.FC = () => {
             <Route path="/about/careers" element={<CareersPage />} />
             <Route path="/about/partnerships" element={<PartnershipsPage />} />
             
-            {/* Resources - Unified with filtering */}
-            <Route path="/resources" element={<ResourcesPage />} />
-            <Route path="/resources/case-studies" element={<CaseStudiesPage />} />
+            {/* New Pages */}
+            <Route path="/solutions" element={<Solutions />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/resources/case-studies" element={<CaseStudies />} />
+            <Route path="/contact" element={<Contact />} />
+            
+            {/* Blog and Case Study Details */}
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/case-study/:slug" element={<CaseStudyDetail />} />
+            
+            {/* Legacy Resources */}
+            <Route path="/resources-legacy" element={<ResourcesPage />} />
             <Route path="/resources/blog" element={<BlogPage />} />
             <Route path="/resources/whitepapers" element={<WhitepapersPage />} />
             <Route path="/resources/videos" element={<VideosPage />} />
             <Route path="/resources/thought-leadership" element={<ThoughtLeadershipPage />} />
             <Route path="/resources/research-reports" element={<ResearchReportsPage />} />
             <Route path="/resources/events" element={<EventsPage />} />
-            <Route path="/case-studies" element={<CaseStudiesPage />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/insights" element={<BlogPage />} />
             <Route path="/tech-updates" element={<BlogPage />} />
             
-            {/* Solutions Page */}
-            <Route path="/solutions" element={<SolutionsPage />} />
+            {/* Legacy Solutions Page */}
+            <Route path="/solutions-legacy" element={<SolutionsPage />} />
             
-            {/* Contact */}
-            <Route path="/contact" element={<ContactPage />} />
+            {/* Legacy Contact */}
+            <Route path="/contact-legacy" element={<ContactPage />} />
             <Route path="/contact/sales-inquiry" element={<SalesInquiryPage />} />
             <Route path="/contact/general-inquiry" element={<GeneralInquiryPage />} />
             <Route path="/contact/support" element={<SupportPage />} />

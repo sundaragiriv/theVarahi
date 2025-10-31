@@ -12,11 +12,11 @@ const Footer: React.FC = () => {
             <p className="text-text-muted text-sm">Enterprise SAP & CX solutions since 2009.</p>
             <div className="flex gap-4 text-xs mt-2">
               <div>
-                <div className="text-accent-400 font-bold">200+</div>
+                <div className="text-emerald-400 font-bold">36+</div>
                 <div className="text-text-muted">Projects</div>
               </div>
               <div>
-                <div className="text-brand-400 font-bold">16</div>
+                <div className="text-emerald-400 font-bold">23</div>
                 <div className="text-text-muted">Years</div>
               </div>
             </div>
@@ -35,8 +35,8 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="font-semibold mb-3 text-text-inverse">Contact</h3>
             <div className="text-sm text-text-muted space-y-1">
-              <div>Philadelphia, PA</div>
-              <div>Mumbai, India</div>
+              <div>Cary, NC USA</div>
+              <div>Hyderabad, India</div>
               <Link to="/contact" className="text-accent-400 hover:text-accent-300 transition-colors font-medium">
                 Get Started 
               </Link>

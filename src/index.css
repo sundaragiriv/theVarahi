@@ -1,26 +1,18 @@
 @import url('./styles/grid.css');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Corporate WordMark Typography */
-.font-logo {
-  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif !important;
-  font-feature-settings: 'kern' 1, 'liga' 1, 'ss01' 1;
+/* Simplified Typography - Inter Only */
+.font-logo,
+.logo-futuristic {
+  font-family: 'Inter', system-ui, sans-serif !important;
   font-weight: 900;
   letter-spacing: 0.2em;
   text-rendering: optimizeLegibility;
-}
-
-.logo-futuristic {
-  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif !important;
-  font-weight: 900;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  text-rendering: optimizeLegibility;
-  font-feature-settings: 'kern' 1, 'liga' 1, 'ss01' 1;
+  font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 /* Corporate Logo Effects */
@@ -107,10 +99,10 @@
   }
 }
 
-/* Custom Logo Font Styles */
+/* Simplified Logo Font */
 .logo-custom-font {
-  font-family: 'Orbitron', 'Exo 2', 'Rajdhani', monospace !important;
-  font-weight: 700;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  font-weight: 900;
   position: relative;
 }
 
@@ -229,10 +221,10 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-gradient-to-r from-brand-600 to-accent-600 text-white px-8 py-4 rounded-lg font-semibold hover:from-brand-700 hover:to-accent-700 focus:ring-2 focus:ring-brand-200 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
+    @apply bg-gradient-to-r from-brand-600 to-accent-600 text-blue-800 px-8 py-4 rounded-lg font-semibold hover:from-brand-700 hover:to-accent-700 focus:ring-2 focus:ring-brand-200 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
   }
   .btn-accent {
-    @apply bg-gradient-to-r from-brand-600 to-accent-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-brand-700 hover:to-accent-700 focus:ring-2 focus:ring-brand-200 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
+    @apply bg-gradient-to-r from-brand-600 to-accent-600 text-blue-800 px-6 py-3 rounded-lg font-semibold hover:from-brand-700 hover:to-accent-700 focus:ring-2 focus:ring-brand-200 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
   }
   .link-accent {
     color: #0070F2;
@@ -244,7 +236,7 @@
   .border-brand { border-color: #0070F2 !important; }
   
   .btn-secondary {
-    @apply bg-transparent text-brand-600 border-2 border-brand-600 px-8 py-4 rounded-lg font-semibold hover:bg-brand-600 hover:text-white focus:ring-2 focus:ring-brand-200 transition-all duration-300 transform hover:scale-105;
+    @apply bg-transparent text-brand-600 border-2 border-brand-600 px-8 py-4 rounded-lg font-semibold hover:bg-brand-600 hover:text-blue-800 focus:ring-2 focus:ring-brand-200 transition-all duration-300 transform hover:scale-105;
   }
   
   .card {
@@ -252,7 +244,7 @@
   }
   
   .nav-pill {
-    @apply px-6 py-3 rounded-lg text-text-light hover:bg-gradient-to-r hover:from-brand-600 hover:to-accent-600 hover:text-white focus:bg-gradient-to-r focus:from-brand-600 focus:to-accent-600 focus:text-white transition-all duration-300 transform hover:scale-105 font-semibold;
+    @apply px-6 py-3 rounded-lg text-text-light hover:bg-gradient-to-r hover:from-brand-600 hover:to-accent-600 hover:text-blue-800 focus:bg-gradient-to-r focus:from-brand-600 focus:to-accent-600 focus:text-blue-800 transition-all duration-300 transform hover:scale-105 font-semibold;
   }
   
   .gradient-text {
@@ -271,11 +263,20 @@
     background: linear-gradient(180deg, #F5F5F5 0%, #FFFFFF 100%);
   }
   
-  /* Single Font System */
+  /* Single Font System - Inter Only */
   .font-primary,
   .font-secondary,
-  .font-accent {
-    font-family: 'Inter', sans-serif;
+  .font-accent,
+  * {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  /* Vibrant green gradient utility */
+  .text-vibrant-green {
+    background: linear-gradient(135deg, var(--vibrant-green-start), var(--vibrant-green-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 
@@ -298,16 +299,26 @@
   100% { transform: translateX(100%); }
 }
 
-/* Clean Brand Color System */
+/* FinQuick Green Color System - Enhanced Contrast */
 :root {
-  --brand-primary: #3B82F6;
-  --brand-secondary: #1E40AF;
-  --brand-accent: #60A5FA;
+  --brand-primary: #047857;
+  --brand-secondary: #065f46;
+  --brand-accent: #059669;
   --brand-dark: #111827;
   --brand-gray: #6B7280;
-  --brand-light: #F9FAFB;
-  --brand-white: #FFFFFF;
-  --brand-bg: #0F172A;
+  --brand-light: #f0fdf4;
+  --brand-white: #1e3a8a;
+  --brand-bg: #ecfdf5;
+  
+  /* Vibrant lime green gradient - Regulink inspired */
+  --finquick-gradient-start: #22c55e; /* green-500 */
+  --finquick-gradient-middle: #16a34a; /* green-600 */
+  --finquick-gradient-end: #15803d; /* green-700 */
+  --finquick-text-dark: #1e3a8a; /* navy blue */
+  
+  /* Vibrant accent colors */
+  --vibrant-green-start: #84cc16; /* lime-500 */
+  --vibrant-green-end: #22c55e; /* green-500 */
 }
 
 @media (prefers-reduced-motion: no-preference) {
