@@ -27,24 +27,27 @@ const HeaderNav: React.FC = () => {
 
   return (
     <header className="fixed top-4 left-4 right-4 z-[9999]">
-      <div 
-        className={`max-w-7xl mx-auto transition-all duration-300 rounded-2xl border ${
-          isScrolled || !isHomePage
-            ? 'bg-white/95 backdrop-blur-xl border-gray-200/50 shadow-lg' 
-            : 'bg-white/90 backdrop-blur-md border-white/20 shadow-md'
-        }`}
-      >
-        <div className="flex items-center justify-between h-16 px-6">
-          <Link to="/" className="flex items-center group">
-            <WordMark 
-              animated 
-              size="md" 
-              theme={isScrolled || !isHomePage ? 'light' : 'dark'} 
-              className="transition-all duration-300" 
-            />
-          </Link>
+      <div className="max-w-7xl mx-auto flex items-center justify-between h-16">
+        {/* Logo - No Background */}
+        <Link to="/" className="flex items-center group px-6">
+          <WordMark 
+            animated 
+            size={isHomePage ? "homepage" : "xl"} 
+            theme={isScrolled || !isHomePage ? 'light' : 'dark'} 
+            className="transition-all duration-300" 
+          />
+        </Link>
+        
+        {/* Centered Navigation with Background */}
+        <div className="flex-1 flex justify-center">
+          <div 
+            className={`flex items-center transition-all duration-300 rounded-full border px-8 ${
+              isScrolled || !isHomePage
+                ? 'bg-white/95 backdrop-blur-xl border-gray-200/50 shadow-lg' 
+                : 'bg-white/90 backdrop-blur-md border-white/20 shadow-md'
+            }`}
+          >
 
-          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             <div
               className="relative group"
@@ -54,7 +57,7 @@ const HeaderNav: React.FC = () => {
               }}
             >
               <button 
-                className={`text-base font-medium transition-all duration-200 px-4 py-3 relative group flex items-center rounded-lg ${
+                className={`text-base font-medium transition-all duration-300 px-4 py-3 relative group flex items-center rounded-full overflow-hidden ${
                   isScrolled || !isHomePage ? 'text-gray-700 hover:text-emerald-600 hover:bg-gray-50' : 'text-blue-800 hover:text-emerald-700 hover:bg-white/10'
                 }`}
                 onFocus={() => setOpenPanel('whoWeAre')}
@@ -75,8 +78,11 @@ const HeaderNav: React.FC = () => {
                 aria-expanded={openPanel === 'whoWeAre'}
                 aria-haspopup="true"
               >
-                <span>Our Intelligence</span>
-                <svg className="w-3 h-3 inline-block ml-1 transition-transform duration-300 group-hover:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span className="relative z-10 bg-gradient-to-r from-current to-current bg-clip-text group-hover:from-emerald-600 group-hover:to-blue-600 transition-all duration-500">
+                  Our Intelligence
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 to-blue-500/0 group-hover:from-emerald-500/10 group-hover:to-blue-500/10 transition-all duration-500 rounded-full" />
+                <svg className="w-3 h-3 inline-block ml-1 transition-all duration-300 group-hover:rotate-45 group-hover:scale-110 z-10 relative" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v14m7-7H5" />
                 </svg>
               </button>
@@ -141,7 +147,7 @@ const HeaderNav: React.FC = () => {
               }}
             >
               <button 
-                className={`text-base font-medium transition-all duration-200 px-4 py-3 relative group flex items-center rounded-lg ${
+                className={`text-base font-medium transition-all duration-300 px-4 py-3 relative group flex items-center rounded-full overflow-hidden ${
                   isScrolled || !isHomePage ? 'text-gray-700 hover:text-emerald-600 hover:bg-gray-50' : 'text-blue-800 hover:text-emerald-700 hover:bg-white/10'
                 }`}
                 onFocus={() => setOpenPanel('whatWeDo')}
@@ -162,8 +168,11 @@ const HeaderNav: React.FC = () => {
                 aria-expanded={openPanel === 'whatWeDo'}
                 aria-haspopup="true"
               >
-                <span>Amplify</span>
-                <svg className="w-3 h-3 inline-block ml-1 transition-transform duration-300 group-hover:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span className="relative z-10 bg-gradient-to-r from-current to-current bg-clip-text group-hover:from-emerald-600 group-hover:to-purple-600 transition-all duration-500">
+                  Amplify
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/0 to-purple-500/0 group-hover:from-emerald-500/10 group-hover:to-purple-500/10 transition-all duration-500 rounded-full" />
+                <svg className="w-3 h-3 inline-block ml-1 transition-all duration-300 group-hover:rotate-45 group-hover:scale-110 z-10 relative" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v14m7-7H5" />
                 </svg>
               </button>
@@ -284,53 +293,63 @@ const HeaderNav: React.FC = () => {
               )}
             </div>
 
-            <Link to="/resources/case-studies" className={`text-base font-medium transition-all duration-200 px-4 py-3 relative group rounded-lg ${
+            <Link to="/resources/case-studies" className={`text-base font-medium transition-all duration-300 px-4 py-3 relative group rounded-full overflow-hidden ${
               isScrolled || !isHomePage ? 'text-gray-700 hover:text-emerald-600 hover:bg-gray-50' : 'text-blue-800 hover:text-emerald-700 hover:bg-white/10'
             }`}>
-              Success Stories
+              <span className="relative z-10 bg-gradient-to-r from-current to-current bg-clip-text group-hover:from-blue-600 group-hover:to-emerald-600 transition-all duration-500">
+                Success Stories
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 to-emerald-500/0 group-hover:from-blue-500/10 group-hover:to-emerald-500/10 transition-all duration-500 rounded-full" />
             </Link>
 
-            <Link to="/resources" className={`text-base font-medium transition-all duration-200 px-4 py-3 relative group rounded-lg ${
+            <Link to="/resources" className={`text-base font-medium transition-all duration-300 px-4 py-3 relative group rounded-full overflow-hidden ${
               isScrolled || !isHomePage ? 'text-gray-700 hover:text-emerald-600 hover:bg-gray-50' : 'text-blue-800 hover:text-emerald-700 hover:bg-white/10'
             }`}>
-              Knowledge Hub
+              <span className="relative z-10 bg-gradient-to-r from-current to-current bg-clip-text group-hover:from-purple-600 group-hover:to-blue-600 transition-all duration-500">
+                Knowledge Hub
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 to-blue-500/0 group-hover:from-purple-500/10 group-hover:to-blue-500/10 transition-all duration-500 rounded-full" />
             </Link>
           </nav>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className={`lg:hidden p-2 rounded-lg transition-colors duration-200 ${
-            isScrolled || !isHomePage
-              ? 'text-text hover:bg-gray-100' 
-              : 'text-blue-800 hover:bg-white/10'
-          }`}
-          aria-expanded={isMobileMenuOpen}
-          aria-controls="mobile-menu"
-          aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className={`lg:hidden p-2 rounded-lg transition-colors duration-200 ${
+              isScrolled || !isHomePage
+                ? 'text-text hover:bg-gray-100' 
+                : 'text-blue-800 hover:bg-white/10'
+            }`}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
           >
-            {isMobileMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>          {/* CTA Button */}
-          <div className="hidden lg:flex items-center ml-8">
-            <Link
-              to="/contact"
-              className="px-6 py-3 text-base font-semibold rounded-xl transition-all duration-200 text-white bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-sm hover:shadow-md"
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
             >
-              Get Started
-            </Link>
+              {isMobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+          
           </div>
+        </div>
+        
+        {/* CTA Button - Separated to the right */}
+        <div className="hidden lg:flex items-center">
+          <Link
+            to="/contact"
+            className="px-6 py-3 text-base font-semibold rounded-full transition-all duration-200 text-white bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 shadow-sm hover:shadow-md"
+          >
+            Get Started
+          </Link>
         </div>
       </div>
 

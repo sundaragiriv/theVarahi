@@ -1,18 +1,40 @@
-/* Subtle blueprint grid overlay */
-.grid-bg {
-  position: relative;
-  isolation: isolate;
+/* Grid Background Styles */
+.grid-background {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
-.grid-bg::before {
-  content: "";
-  position: absolute; inset: 0;
-  background:
-    linear-gradient(to right, rgba(15,23,42,.06) 1px, transparent 1px) 0 0 / 32px 32px,
-    linear-gradient(to bottom, rgba(15,23,42,.06) 1px, transparent 1px) 0 0 / 32px 32px;
-  opacity: .6;
-  z-index: -1;
-  pointer-events: none;
+
+.grid-background-subtle {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
-@media (prefers-color-scheme: dark){
-  .grid-bg::before { opacity: .25; }
+
+.grid-background-fine {
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+
+/* Animated Grid */
+@keyframes grid-fade {
+  0%, 100% { opacity: 0.02; }
+  50% { opacity: 0.05; }
+}
+
+.grid-animated {
+  animation: grid-fade 4s ease-in-out infinite;
+}
+
+/* Responsive Grid */
+@media (max-width: 768px) {
+  .grid-background,
+  .grid-background-subtle,
+  .grid-background-fine {
+    background-size: 15px 15px;
+  }
 }

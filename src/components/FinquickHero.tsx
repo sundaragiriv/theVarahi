@@ -20,27 +20,26 @@ const FinquickHero: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden">
+    <section className="relative min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50 overflow-hidden will-change-transform">
       
-      {/* Enhanced Animated Blinds Background */}
+      {/* Enhanced Animated Background - Original Style */}
       <div className="absolute inset-0 z-5 overflow-hidden">
-        {/* Vertical Blinds Animation - Enhanced with Blue */}
-        {Array.from({ length: 12 }).map((_, i) => (
+        {/* Vertical Blinds Animation */}
+        {Array.from({ length: 10 }).map((_, i) => (
           <motion.div
             key={`blind-${i}`}
-            className="absolute top-0 bottom-0 bg-gradient-to-b from-emerald-300/60 via-blue-400/50 to-purple-300/55"
+            className="absolute top-0 bottom-0 bg-gradient-to-b from-emerald-300/50 via-blue-400/40 to-purple-300/45"
             style={{
-              left: `${(i * 100) / 12}%`,
-              width: `${100 / 12}%`,
+              left: `${(i * 100) / 10}%`,
+              width: `${100 / 10}%`,
             }}
             animate={{
-              scaleY: [1, 0.1, 1],
-              opacity: [0.5, 0.9, 0.5],
-              rotateY: [0, 25, 0],
-              scaleX: [1, 1.1, 1],
+              scaleY: [1, 0.2, 1],
+              opacity: [0.4, 0.8, 0.4],
+              rotateY: [0, 15, 0],
             }}
             transition={{
-              duration: 6,
+              duration: 5,
               delay: i * 0.3,
               repeat: Infinity,
               ease: "easeInOut"
@@ -48,24 +47,23 @@ const FinquickHero: React.FC = () => {
           />
         ))}
         
-        {/* Horizontal Ripple Lines - Enhanced with Blue */}
+        {/* Horizontal Ripple Lines */}
         {Array.from({ length: 6 }).map((_, i) => (
           <motion.div
             key={`ripple-${i}`}
-            className="absolute left-0 right-0 bg-gradient-to-r from-transparent via-blue-500/45 to-transparent"
+            className="absolute left-0 right-0 bg-gradient-to-r from-transparent via-blue-500/40 to-transparent"
             style={{
               top: `${(i * 100) / 6}%`,
               height: '3px',
-              boxShadow: '0 0 12px rgba(59, 130, 246, 0.5)'
+              boxShadow: '0 0 10px rgba(59, 130, 246, 0.4)'
             }}
             animate={{
-              x: ['-120%', '120%'],
-              opacity: [0, 0.8, 0],
-              scaleX: [0.2, 2, 0.2],
-              scaleY: [1, 1.5, 1],
+              x: ['-100%', '100%'],
+              opacity: [0, 0.7, 0],
+              scaleX: [0.3, 1.8, 0.3],
             }}
             transition={{
-              duration: 8,
+              duration: 6,
               delay: i * 0.8,
               repeat: Infinity,
               ease: "easeInOut"
@@ -73,23 +71,22 @@ const FinquickHero: React.FC = () => {
           />
         ))}
         
-        {/* Diagonal Sweep Effect - Enhanced with Blue */}
-        {Array.from({ length: 4 }).map((_, i) => (
+        {/* Diagonal Sweep Effect */}
+        {Array.from({ length: 3 }).map((_, i) => (
           <motion.div
             key={`sweep-${i}`}
-            className="absolute w-full h-full bg-gradient-to-br from-emerald-400/35 via-blue-500/25 to-purple-400/30"
+            className="absolute w-full h-full bg-gradient-to-br from-emerald-400/25 via-blue-500/20 to-purple-400/25"
             style={{
-              transform: `rotate(${i * 45}deg)`,
+              transform: `rotate(${i * 30}deg)`,
               transformOrigin: 'center',
-              filter: 'blur(1px)'
             }}
             animate={{
-              opacity: [0, 0.7, 0],
-              scale: [0.6, 1.4, 0.6],
-              rotate: [i * 45, i * 45 + 10, i * 45],
+              opacity: [0, 0.6, 0],
+              scale: [0.7, 1.3, 0.7],
+              rotate: [i * 30, i * 30 + 8, i * 30],
             }}
             transition={{
-              duration: 10,
+              duration: 8,
               delay: i * 2,
               repeat: Infinity,
               ease: "easeInOut"
@@ -97,32 +94,32 @@ const FinquickHero: React.FC = () => {
           />
         ))}
         
-        {/* Floating Particles - Enhanced with Blue */}
-        {Array.from({ length: 12 }).map((_, i) => (
+        {/* Floating Particles */}
+        {Array.from({ length: 10 }).map((_, i) => (
           <motion.div
             key={`particle-${i}`}
-            className={`absolute w-6 h-6 rounded-full ${
-              i % 3 === 0 ? 'bg-blue-500/70' : i % 3 === 1 ? 'bg-emerald-500/70' : 'bg-purple-500/70'
+            className={`absolute w-5 h-5 rounded-full ${
+              i % 3 === 0 ? 'bg-blue-500/60' : i % 3 === 1 ? 'bg-emerald-500/60' : 'bg-purple-500/60'
             }`}
             style={{
-              left: `${5 + (i * 8)}%`,
-              top: `${15 + (i * 6)}%`,
+              left: `${5 + (i * 9)}%`,
+              top: `${15 + (i * 7)}%`,
               boxShadow: i % 3 === 0 
-                ? '0 0 15px rgba(59, 130, 246, 0.6)' 
+                ? '0 0 12px rgba(59, 130, 246, 0.5)' 
                 : i % 3 === 1 
-                ? '0 0 15px rgba(16, 185, 129, 0.6)' 
-                : '0 0 15px rgba(147, 51, 234, 0.6)'
+                ? '0 0 12px rgba(16, 185, 129, 0.5)' 
+                : '0 0 12px rgba(147, 51, 234, 0.5)'
             }}
             animate={{
-              y: [-30, 30, -30],
-              x: [-25, 25, -25],
-              scale: [1, 2, 1],
-              opacity: [0.4, 0.9, 0.4],
-              rotate: [0, 360, 0],
+              y: [-25, 25, -25],
+              x: [-20, 20, -20],
+              scale: [1, 2.2, 1],
+              opacity: [0.3, 0.8, 0.3],
+              rotate: [0, 180, 0],
             }}
             transition={{
-              duration: 6 + Math.random() * 4,
-              delay: Math.random() * 4,
+              duration: 5 + Math.random() * 3,
+              delay: Math.random() * 3,
               repeat: Infinity,
               ease: "easeInOut"
             }}
@@ -193,53 +190,21 @@ const FinquickHero: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              animate={{ 
-                boxShadow: [
-                  "0 10px 25px rgba(4, 120, 87, 0.25)",
-                  "0 15px 35px rgba(4, 120, 87, 0.4)",
-                  "0 10px 25px rgba(4, 120, 87, 0.25)"
-                ]
-              }}
-              transition={{ 
-                boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" },
-                scale: { duration: 0.2 }
-              }}
+            <Link
+              to="/contact"
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 text-white font-semibold rounded-full shadow-lg hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105"
             >
-              <Link
-                to="/contact"
-                className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 transition-all duration-300"
-              >
-                <span>Get Free Strategy Call</span>
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </motion.div>
+              <span>Get Free Strategy Call</span>
+              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
             
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              animate={{ 
-                borderColor: [
-                  "rgba(107, 114, 128, 0.3)",
-                  "rgba(4, 120, 87, 0.5)",
-                  "rgba(107, 114, 128, 0.3)"
-                ]
-              }}
-              transition={{ 
-                borderColor: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-                scale: { duration: 0.2 }
-              }}
+            <Link
+              to="/case-studies"
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-white/90 border-2 border-finquick-border text-finquick-text-dark font-semibold rounded-full hover:bg-finquick-soft/90 transition-all duration-300 backdrop-blur-sm hover:scale-105"
             >
-              <Link
-                to="/case-studies"
-                className="group inline-flex items-center gap-3 px-8 py-4 bg-white/90 border-2 border-finquick-border text-finquick-text-dark font-semibold rounded-xl hover:bg-finquick-soft/90 transition-all duration-300 backdrop-blur-sm"
-              >
-                <span>View Case Studies</span>
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </motion.div>
+              <span>View Case Studies</span>
+              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </motion.div>
         </div>
       </div>

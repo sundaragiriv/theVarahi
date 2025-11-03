@@ -66,7 +66,7 @@ const SophisticatedButton: React.FC<SophisticatedButtonProps> = ({
     group inline-flex items-center gap-2 
     ${sizeClasses[size]} 
     ${variantClasses[variant]}
-    rounded-xl font-medium transition-all duration-300 
+    rounded-full font-medium transition-all duration-300 
     transform hover:scale-105 hover:-translate-y-1
     backdrop-blur-sm
     ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
@@ -118,7 +118,7 @@ const SophisticatedButton: React.FC<SophisticatedButtonProps> = ({
       
       {/* Animated background overlay */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-white/0 to-white/10 rounded-xl opacity-0"
+        className="absolute inset-0 bg-gradient-to-r from-white/0 to-white/10 rounded-full opacity-0"
         whileHover={{ opacity: disabled ? 0 : 1 }}
         transition={{ duration: 0.3 }}
       />

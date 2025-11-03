@@ -88,7 +88,7 @@ const BuildTogether: React.FC = () => {
             >
               <Link
                 to="/contact"
-                className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 text-white font-bold rounded-xl hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg shadow-emerald-500/25"
+                className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 text-white font-bold rounded-full hover:from-emerald-700 hover:via-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg shadow-emerald-500/25"
               >
                 <span>Get My Free ROI Analysis</span>
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -101,7 +101,7 @@ const BuildTogether: React.FC = () => {
             >
               <Link
                 to="/case-studies"
-                className="group inline-flex items-center gap-3 px-8 py-4 border-2 border-emerald-500 text-emerald-600 font-semibold rounded-xl hover:bg-emerald-50 hover:border-emerald-600 transition-all duration-300"
+                className="group inline-flex items-center gap-3 px-8 py-4 border-2 border-emerald-500 text-emerald-600 font-semibold rounded-full hover:bg-emerald-50 hover:border-emerald-600 transition-all duration-300"
               >
                 <span>View Success Stories</span>
                 <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
