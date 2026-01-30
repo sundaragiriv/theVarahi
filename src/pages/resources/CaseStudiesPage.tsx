@@ -280,7 +280,7 @@ const CaseStudiesPage: React.FC = () => {
                           <div className="space-y-3">
                             <h4 className="font-semibold text-gray-900">Key Deliverables</h4>
                             <div className="space-y-2">
-                              {study.artifacts.map((artifact, artifactIndex) => (
+                              {study.artifacts.map((artifact) => (
                                 <div 
                                   key={artifact} 
                                   className="flex items-center gap-2 text-sm text-brand-700 bg-brand-50 px-3 py-2 rounded-lg"

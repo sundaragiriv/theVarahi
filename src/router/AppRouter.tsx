@@ -35,39 +35,42 @@ import ConversationalPage from '../pages/solutions/ai/ConversationalPage';
 import TelemetryPage from '../pages/solutions/ai/TelemetryPage';
 
 // Industries
-import IndustriesPage from '../pages/IndustriesPage';
 import ManufacturingPage from '../pages/industries/ManufacturingPage';
 import CPGPage from '../pages/industries/CPGPage';
 import UtilitiesPage from '../pages/industries/UtilitiesPage';
 import FinancialServicesPage from '../pages/industries/FinancialServicesPage';
 
+// About Pages
 import About from '../components/About';
 import OurStoryPage from '../pages/about/OurStoryPage';
 import OurTeamPage from '../pages/about/OurTeamPage';
 import CareersPage from '../pages/about/CareersPage';
 import PartnershipsPage from '../pages/about/PartnershipsPage';
 
-// New About components
+// About components
 import Leadership from '../components/Leadership';
 import Careers from '../components/Careers';
 import InvestorRelations from '../components/InvestorRelations';
 import Partnerships from '../components/Partnerships';
 import Alliances from '../components/Alliances';
+
+// Resources
 import ResourcesPage from '../pages/ResourcesPage';
-import CaseStudiesPage from '../pages/resources/CaseStudiesPage';
 import BlogPage from '../pages/resources/BlogPage';
 import WhitepapersPage from '../pages/resources/WhitepapersPage';
 import VideosPage from '../pages/resources/VideosPage';
 import ThoughtLeadershipPage from '../pages/resources/ThoughtLeadershipPage';
 import ResearchReportsPage from '../pages/resources/ResearchReportsPage';
 import EventsPage from '../pages/resources/EventsPage';
+
+// Contact
 import ContactPage from '../pages/ContactPage';
 import SalesInquiryPage from '../pages/contact/SalesInquiryPage';
 import GeneralInquiryPage from '../pages/contact/GeneralInquiryPage';
 import SupportPage from '../pages/contact/SupportPage';
 import InvestorsPage from '../pages/contact/InvestorsPage';
 
-// New Pages
+// Main Pages
 import Solutions from '../pages/Solutions';
 import CaseStudies from '../pages/CaseStudies';
 import Resources from '../pages/Resources';
@@ -75,32 +78,35 @@ import Contact from '../pages/Contact';
 import BlogPost from '../pages/BlogPost';
 import CaseStudyDetail from '../pages/CaseStudyDetail';
 
+// 404 Page
+import NotFoundPage from '../pages/NotFoundPage';
+
 const AppRouter: React.FC = () => {
   return (
     <Router>
       <div className="min-h-screen flex flex-col relative">
         {/* Subtle Grid Background for all pages */}
         <GridBackground opacity={0.02} gridSize={40} color="#000000" />
-        
+
         <HeaderNav />
-        
+
         <main className="flex-grow relative">
           <Routes>
             {/* Home */}
             <Route path="/" element={<HomePage />} />
-            
+
             {/* Services */}
             <Route path="/services" element={<SolutionsPage />} />
             <Route path="/ai" element={<AIStrategyPage />} />
             <Route path="/system" element={<IndustrySolutionsPage />} />
-            
+
             {/* New Service Pages */}
             <Route path="/services/sap-solutions" element={<SAPSolutionsPage />} />
             <Route path="/services/enterprise-cx" element={<EnterpriseCXPage />} />
             <Route path="/services/ai-orchestration" element={<AIOrchestrationPage />} />
             <Route path="/services/joule-enablement" element={<JouleEnablementPage />} />
             <Route path="/services/upgrade-sap" element={<UpgradeSAPPage />} />
-            
+
             {/* SAP Services */}
             <Route path="/solutions/cx" element={<CXServicesPage />} />
             <Route path="/solutions/s4hana" element={<S4HANAPage />} />
@@ -109,7 +115,7 @@ const AppRouter: React.FC = () => {
             <Route path="/solutions/cdc" element={<CDCPage />} />
             <Route path="/solutions/commerce-cpq" element={<CommerceCPQPage />} />
             <Route path="/solutions/managed-sap" element={<ManagedSAPPage />} />
-            
+
             {/* AI Strategy */}
             <Route path="/solutions/ai/assessment" element={<AssessmentPage />} />
             <Route path="/solutions/ai/governance" element={<GovernancePage />} />
@@ -117,9 +123,14 @@ const AppRouter: React.FC = () => {
             <Route path="/solutions/ai/predictive" element={<PredictivePage />} />
             <Route path="/solutions/ai/conversational" element={<ConversationalPage />} />
             <Route path="/solutions/ai/telemetry" element={<TelemetryPage />} />
-            
 
-            
+            {/* Industries */}
+            <Route path="/industries" element={<IndustrySolutionsPage />} />
+            <Route path="/industries/manufacturing" element={<ManufacturingPage />} />
+            <Route path="/industries/cpg" element={<CPGPage />} />
+            <Route path="/industries/utilities" element={<UtilitiesPage />} />
+            <Route path="/industries/financial-services" element={<FinancialServicesPage />} />
+
             {/* About */}
             <Route path="/about" element={<About />} />
             <Route path="/leadership" element={<Leadership />} />
@@ -131,41 +142,46 @@ const AppRouter: React.FC = () => {
             <Route path="/about/our-team" element={<OurTeamPage />} />
             <Route path="/about/careers" element={<CareersPage />} />
             <Route path="/about/partnerships" element={<PartnershipsPage />} />
-            
-            {/* New Pages */}
+
+            {/* Solutions (Main) */}
             <Route path="/solutions" element={<Solutions />} />
+
+            {/* Resources */}
             <Route path="/resources" element={<Resources />} />
             <Route path="/resources/case-studies" element={<CaseStudies />} />
-            <Route path="/contact" element={<Contact />} />
-            
-            {/* Blog and Case Study Details */}
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/case-study/:slug" element={<CaseStudyDetail />} />
-            
-            {/* Legacy Resources */}
-            <Route path="/resources-legacy" element={<ResourcesPage />} />
             <Route path="/resources/blog" element={<BlogPage />} />
             <Route path="/resources/whitepapers" element={<WhitepapersPage />} />
             <Route path="/resources/videos" element={<VideosPage />} />
             <Route path="/resources/thought-leadership" element={<ThoughtLeadershipPage />} />
             <Route path="/resources/research-reports" element={<ResearchReportsPage />} />
             <Route path="/resources/events" element={<EventsPage />} />
+
+            {/* Blog and Case Study Details */}
+            <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/case-study/:slug" element={<CaseStudyDetail />} />
+
+            {/* Alternate routes (for SEO/backwards compatibility) */}
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/insights" element={<BlogPage />} />
             <Route path="/tech-updates" element={<BlogPage />} />
-            
-            {/* Legacy Solutions Page */}
-            <Route path="/solutions-legacy" element={<SolutionsPage />} />
-            
-            {/* Legacy Contact */}
-            <Route path="/contact-legacy" element={<ContactPage />} />
+
+            {/* Contact */}
+            <Route path="/contact" element={<Contact />} />
             <Route path="/contact/sales-inquiry" element={<SalesInquiryPage />} />
             <Route path="/contact/general-inquiry" element={<GeneralInquiryPage />} />
             <Route path="/contact/support" element={<SupportPage />} />
             <Route path="/contact/investors" element={<InvestorsPage />} />
+
+            {/* Legacy redirects - keep for backwards compatibility */}
+            <Route path="/resources-legacy" element={<ResourcesPage />} />
+            <Route path="/solutions-legacy" element={<SolutionsPage />} />
+            <Route path="/contact-legacy" element={<ContactPage />} />
+
+            {/* 404 - Catch all unmatched routes */}
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
-        
+
         <Footer />
       </div>
     </Router>

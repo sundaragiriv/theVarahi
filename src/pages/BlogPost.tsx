@@ -1,13 +1,24 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, Clock, User, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+
+interface BlogPostData {
+  title: string;
+  author: string;
+  date: string;
+  readTime: string;
+  category: string;
+  abstract: string;
+  topics: string[];
+  content: string;
+}
 
 const BlogPost: React.FC = () => {
   const { slug } = useParams();
 
   // Sample blog content - in real app this would come from API/CMS
-  const blogPosts: Record<string, any> = {
+  const blogPosts: Record<string, BlogPostData> = {
     'ai-transformation-guide': {
       title: 'The Complete Guide to AI Transformation in Enterprise',
       author: 'Dr. Sarah Chen',
@@ -587,7 +598,7 @@ const BlogPost: React.FC = () => {
                   '--tw-prose-bold': '#1e3a8a',
                   '--tw-prose-p': '#374151',
                   '--tw-prose-li': '#374151',
-                } as any}
+                } as React.CSSProperties}
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
               
@@ -653,7 +664,7 @@ const BlogPost: React.FC = () => {
                 >
                   <h3 className="text-lg font-bold text-blue-800 mb-6">Keep Reading</h3>
                   <div className="space-y-6">
-                    {relatedPosts.slice(0, 3).map((relatedPost, index) => (
+                    {relatedPosts.slice(0, 3).map((relatedPost) => (
                       <Link
                         key={relatedPost.slug}
                         to={`/blog/${relatedPost.slug}`}

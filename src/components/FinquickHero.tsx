@@ -3,18 +3,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+// Constant array moved outside component to avoid dependency issues
+const ROTATING_TEXTS = [
+  'CX & AI Solutions',
+  'Digital Transformation',
+  'SAP S/4HANA Excellence',
+  'Intelligent Automation'
+];
+
 const FinquickHero: React.FC = () => {
   const [currentText, setCurrentText] = useState(0);
-  const rotatingTexts = [
-    'CX & AI Solutions',
-    'Digital Transformation',
-    'SAP S/4HANA Excellence',
-    'Intelligent Automation'
-  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentText((prev) => (prev + 1) % rotatingTexts.length);
+      setCurrentText((prev) => (prev + 1) % ROTATING_TEXTS.length);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -164,7 +166,7 @@ const FinquickHero: React.FC = () => {
                     className="font-bold text-emerald-600"
                     style={{ fontWeight: '800' }}
                   >
-                    {rotatingTexts[currentText]}
+                    {ROTATING_TEXTS[currentText]}
                   </motion.span>
                 </AnimatePresence>
               </span>

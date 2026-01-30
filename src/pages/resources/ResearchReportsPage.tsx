@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Download, FileText, TrendingUp, Users, Calendar, ExternalLink, BarChart3, Lightbulb } from 'lucide-react';
+import { Download, FileText, Users, Lightbulb } from 'lucide-react';
 import GridBackground from '../../components/GridBackground';
 import NewsletterSubscription from '../../components/NewsletterSubscription';
 

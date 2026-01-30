@@ -44,4 +44,4 @@ const GridBackground: React.FC<GridBackgroundProps> = ({
   );
 };
 
-export default GridBackground;
+export default React.memo(GridBackground);

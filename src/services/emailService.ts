@@ -54,8 +54,6 @@ export class EmailService {
         submitted_at: new Date().toLocaleString()
       };
 
-      console.log('Sending contact form with EmailJS:', templateParams);
-
       const response = await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID_CONTACT,
@@ -116,8 +114,6 @@ export class EmailService {
         subscribed_at: new Date().toLocaleString(),
         reply_to: 'noreply@varahi.com'
       };
-
-      console.log('Sending newsletter subscription with EmailJS:', templateParams);
 
       const response = await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,

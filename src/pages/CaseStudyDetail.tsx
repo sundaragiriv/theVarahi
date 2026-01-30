@@ -1,12 +1,31 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, TrendingUp, Users, Clock, CheckCircle, ArrowRight, Building2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Building2 } from 'lucide-react';
+
+interface CaseStudyResults {
+  roi: string;
+  efficiency: string;
+  downtime: string;
+  quality: string;
+}
+
+interface CaseStudyData {
+  title: string;
+  client: string;
+  industry: string;
+  challenge: string;
+  solution: string;
+  results: CaseStudyResults;
+  timeline: string;
+  teamSize: string;
+  content: string;
+}
 
 const CaseStudyDetail: React.FC = () => {
   const { slug } = useParams();
 
-  const caseStudies: Record<string, any> = {
+  const caseStudies: Record<string, CaseStudyData> = {
     'fortune-500-manufacturer': {
       title: 'Fortune 500 Manufacturer Achieves 340% ROI with AI-Powered Operations',
       client: 'Global Manufacturing Leader',
@@ -469,7 +488,7 @@ const CaseStudyDetail: React.FC = () => {
                   '--tw-prose-bold': '#1e3a8a',
                   '--tw-prose-p': '#374151',
                   '--tw-prose-li': '#374151',
-                } as any}
+                } as React.CSSProperties}
                 dangerouslySetInnerHTML={{ __html: caseStudy.content }}
               />
               
@@ -536,7 +555,7 @@ const CaseStudyDetail: React.FC = () => {
                 >
                   <h3 className="text-lg font-bold text-blue-800 mb-6">Keep Reading</h3>
                   <div className="space-y-6">
-                    {relatedCaseStudies.slice(0, 3).map((relatedCase, index) => (
+                    {relatedCaseStudies.slice(0, 3).map((relatedCase) => (
                       <Link
                         key={relatedCase.slug}
                         to={`/case-studies/${relatedCase.slug}`}

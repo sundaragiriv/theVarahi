@@ -21,8 +21,8 @@ export default defineConfig({
     },
     // Increase chunk size warning limit
     chunkSizeWarningLimit: 1000,
-    // Enable source maps for production debugging
-    sourcemap: true,
+    // Only enable source maps in development (security: don't expose code structure in production)
+    sourcemap: process.env.NODE_ENV !== 'production',
   },
   // Optimize dev server
   server: {

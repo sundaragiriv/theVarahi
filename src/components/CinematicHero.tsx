@@ -5,16 +5,17 @@ import AnimatedGridBackground from './AnimatedGridBackground';
 import FluidTypography from './FluidTypography';
 import SophisticatedButton from './SophisticatedButton';
 
+// Constant array moved outside component to avoid dependency issues
+const TYPING_WORDS = ['AI', 'Automation', 'Integration', 'Intelligence'];
+
 const CinematicHero: React.FC = () => {
   const [typingText, setTypingText] = useState('');
   const [wordIndex, setWordIndex] = useState(0);
-  
-  const words = ['AI', 'Automation', 'Integration', 'Intelligence'];
 
   useEffect(() => {
-    const word = words[wordIndex];
+    const word = TYPING_WORDS[wordIndex];
     let charIndex = 0;
-    
+
     const typeTimer = setInterval(() => {
       if (charIndex <= word.length) {
         setTypingText(word.slice(0, charIndex));
@@ -22,7 +23,7 @@ const CinematicHero: React.FC = () => {
       } else {
         clearInterval(typeTimer);
         setTimeout(() => {
-          setWordIndex((prev) => (prev + 1) % words.length);
+          setWordIndex((prev) => (prev + 1) % TYPING_WORDS.length);
         }, 2000);
       }
     }, 150);

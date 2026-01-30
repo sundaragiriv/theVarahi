@@ -1,26 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { CheckCircle, AlertCircle, Send, Loader2 } from 'lucide-react';
+import { useContactForm } from '../../hooks/useContactForm';
 
 const GeneralInquiryPage: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    subject: '',
-    message: ''
-  });
+  const {
+    formData,
+    status,
+    errorMessage,
+    handleChange,
+    handleSubmit,
+  } = useContactForm({ inquiryType: 'General Inquiry' });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const isSubmitting = status === 'submitting';
 
   return (
     <div className="pt-20">
@@ -55,7 +46,8 @@ const GeneralInquiryPage: React.FC = () => {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
                       placeholder="Your full name"
                     />
                   </div>
@@ -70,12 +62,13 @@ const GeneralInquiryPage: React.FC = () => {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
                       placeholder="your.email@company.com"
                     />
                   </div>
                 </div>
-                
+
                 <div>
                   <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
                     Company
@@ -86,11 +79,12 @@ const GeneralInquiryPage: React.FC = () => {
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
                     placeholder="Your company name"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
                     Subject *
@@ -101,18 +95,19 @@ const GeneralInquiryPage: React.FC = () => {
                     required
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
                   >
                     <option value="">Select a subject</option>
-                    <option value="partnership">Partnership Opportunities</option>
-                    <option value="services">Services Information</option>
-                    <option value="pricing">Pricing Inquiry</option>
-                    <option value="technical">Technical Questions</option>
-                    <option value="media">Media & Press</option>
-                    <option value="other">Other</option>
+                    <option value="Partnership Opportunities">Partnership Opportunities</option>
+                    <option value="Services Information">Services Information</option>
+                    <option value="Pricing Inquiry">Pricing Inquiry</option>
+                    <option value="Technical Questions">Technical Questions</option>
+                    <option value="Media & Press">Media & Press</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
-                
+
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                     Message *
@@ -124,16 +119,43 @@ const GeneralInquiryPage: React.FC = () => {
                     rows={6}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    disabled={isSubmitting}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
                     placeholder="Tell us more about your inquiry..."
                   />
                 </div>
-                
+
+                {/* Status Messages */}
+                {status === 'success' && (
+                  <div className="flex items-center gap-2 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700">
+                    <CheckCircle className="h-5 w-5 flex-shrink-0" />
+                    <span>Thank you! Your message has been sent. We'll respond within 24 hours.</span>
+                  </div>
+                )}
+
+                {status === 'error' && (
+                  <div className="flex items-center gap-2 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+                    <AlertCircle className="h-5 w-5 flex-shrink-0" />
+                    <span>{errorMessage || 'Failed to send message. Please try again or email us directly.'}</span>
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                  disabled={isSubmitting}
+                  className="w-full bg-blue-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-blue-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="h-5 w-5" />
+                      Send Message
+                    </>
+                  )}
                 </button>
               </form>
             </div>
@@ -141,7 +163,7 @@ const GeneralInquiryPage: React.FC = () => {
             {/* Contact Information */}
             <div>
               <h2 className="text-3xl font-bold mb-8">Get in Touch</h2>
-              
+
               <div className="space-y-8">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -157,7 +179,7 @@ const GeneralInquiryPage: React.FC = () => {
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -167,12 +189,12 @@ const GeneralInquiryPage: React.FC = () => {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Phone</h3>
                     <p className="text-gray-600 mb-2">Speak with our team directly</p>
-                    <a href="tel:+1-800-VARAHI-0" className="text-green-600 hover:text-green-700 font-medium">
-                      1-800-VARAHI-0
+                    <a href="tel:+1-610-457-3193" className="text-green-600 hover:text-green-700 font-medium">
+                      +1 (610) 457-3193
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -183,19 +205,18 @@ const GeneralInquiryPage: React.FC = () => {
                   <div>
                     <h3 className="text-xl font-semibold mb-2">Office</h3>
                     <p className="text-gray-600">
-                      123 Enterprise Way<br />
-                      Suite 500<br />
-                      San Francisco, CA 94105
+                      Philadelphia, PA<br />
+                      United States
                     </p>
                   </div>
                 </div>
               </div>
-              
+
               {/* Response Time */}
               <div className="mt-12 p-6 bg-blue-50 rounded-xl">
                 <h3 className="text-lg font-semibold mb-3">Response Time</h3>
                 <p className="text-gray-600">
-                  We typically respond to general inquiries within 24 hours during business days. 
+                  We typically respond to general inquiries within 24 hours during business days.
                   For urgent matters, please call our main number.
                 </p>
               </div>

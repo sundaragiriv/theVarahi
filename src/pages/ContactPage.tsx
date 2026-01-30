@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Clock, MessageSquare, Zap, Shield, Globe, CheckCircle, ArrowRight, AlertCircle } from 'lucide-react';
+import { Phone, Mail, Clock, MessageSquare, Zap, Shield, Globe, CheckCircle, ArrowRight, AlertCircle } from 'lucide-react';
 import GridBackground from '../components/GridBackground';
 import EmailService, { ContactFormData } from '../services/emailService';
 

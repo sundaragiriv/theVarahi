@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Users, ExternalLink, Clock, MapPin, Video, Mic } from 'lucide-react';
+import { Calendar, Users, Clock, MapPin, Video } from 'lucide-react';
 import GridBackground from '../../components/GridBackground';
 import NewsletterSubscription from '../../components/NewsletterSubscription';
 

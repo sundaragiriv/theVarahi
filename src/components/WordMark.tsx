@@ -9,12 +9,10 @@ interface WordMarkProps {
   variant?: 'full' | 'icon-only' | 'text-only';
 }
 
-const WordMark: React.FC<WordMarkProps> = ({ 
-  className = '', 
-  size = 'md', 
+const WordMark: React.FC<WordMarkProps> = ({
+  size = 'md',
   animated = false,
   theme = 'auto',
-  variant = 'full'
 }) => {
   const sizeConfig = {
     sm: { 
@@ -69,7 +67,8 @@ const WordMark: React.FC<WordMarkProps> = ({
   };
 
   const config = sizeConfig[size];
-  const themeClasses = getThemeClasses();
+  // Theme classes available for future use
+  void getThemeClasses;
 
 
 

@@ -25,8 +25,8 @@ interface Resource {
 }
 
 const ResourcesPage: React.FC = () => {
-  // Comprehensive resource data with realistic examples
-  const allResources: Resource[] = [
+  // Comprehensive resource data with realistic examples - memoized to prevent recreation
+  const allResources = useMemo<Resource[]>(() => [
     // Case Studies
     {
       id: 'cs-001',
@@ -207,7 +207,7 @@ const ResourcesPage: React.FC = () => {
       downloadUrl: '/downloads/manufacturing-4-guide.pdf',
       link: '/resources/whitepapers'
     }
-  ];
+  ], []);
 
   // Filter state management
   const [activeFilters, setActiveFilters] = useState<{
