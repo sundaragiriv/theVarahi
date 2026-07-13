@@ -960,8 +960,13 @@ export const ArticlePage: React.FC<{ kind: 'work' | 'insights' }> = ({ kind }) =
  * client with everything pre-filled. Deliberate: a fallback that works beats a
  * button that silently does nothing, which is what shipped before.
  */
-const CONTACT_ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined;
-const CONTACT_EMAIL = (import.meta.env.VITE_CONTACT_EMAIL as string | undefined) ?? 'hello@thevarahi.com';
+// In production the form POSTs to the Worker at /api/contact (which emails via
+// Resend). In local dev there's no Worker, so fall back to a pre-filled mailto.
+// An explicit VITE_CONTACT_ENDPOINT overrides either (e.g. Formspree).
+const CONTACT_ENDPOINT =
+  (import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined) ||
+  (import.meta.env.PROD ? '/api/contact' : undefined);
+const CONTACT_EMAIL = (import.meta.env.VITE_CONTACT_EMAIL as string | undefined) ?? 'venkata@thevarahi.com';
 
 type FormState = 'idle' | 'sending' | 'sent' | 'error';
 
