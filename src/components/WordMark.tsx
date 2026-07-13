@@ -1,121 +1,56 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import type React from 'react';
 
 interface WordMarkProps {
   className?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'homepage';
-  animated?: boolean;
-  theme?: 'light' | 'dark' | 'auto';
-  variant?: 'full' | 'icon-only' | 'text-only';
+  /** 'group' renders "Varahi Group" — footer / parent-company contexts only. */
+  variant?: 'practice' | 'group';
+  size?: number;
 }
 
-const WordMark: React.FC<WordMarkProps> = ({
-  size = 'md',
-  animated = false,
-  theme = 'auto',
-}) => {
-  const sizeConfig = {
-    sm: { 
-      text: 'text-xl', 
-      icon: 'w-24 h-24', 
-      gap: 'gap-2',
-      letterSpacing: 'tracking-[0.15em]'
-    },
-    md: { 
-      text: 'text-2xl', 
-      icon: 'w-32 h-32', 
-      gap: 'gap-3',
-      letterSpacing: 'tracking-[0.2em]'
-    },
-    lg: { 
-      text: 'text-4xl', 
-      icon: 'w-40 h-40', 
-      gap: 'gap-4',
-      letterSpacing: 'tracking-[0.25em]'
-    },
-    xl: { 
-      text: 'text-5xl', 
-      icon: 'w-48 h-48', 
-      gap: 'gap-5',
-      letterSpacing: 'tracking-[0.3em]'
-    },
-    homepage: { 
-      text: 'text-6xl', 
-      icon: 'w-64 h-64', 
-      gap: 'gap-6',
-      letterSpacing: 'tracking-[0.35em]'
-    }
-  };
+/**
+ * The Varahi mark — exact geometry from the master logo, flattened.
+ *
+ * The master is a dark-background SVG with three gradients, a drop shadow and a
+ * floor glow. Those don't survive: they're invisible on the light default and
+ * turn to mush below ~40px. The PATHS are kept verbatim; only the fills change.
+ *
+ *   bracket    -> var(--vn-teal)  (the action blue, both modes)
+ *   V + notch  -> currentColor    (silver in the master; inverts with the theme)
+ *
+ * Keep the master (with gradients) for decks, LinkedIn and anywhere it sits on
+ * a dark field. This is the UI cut.
+ */
+const VarahiMark: React.FC<{ size?: number }> = ({ size = 30 }) => (
+  <svg
+    height={size}
+    viewBox="0 0 250 292"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
+    focusable="false"
+    style={{ width: 'auto', flexShrink: 0 }}
+  >
+    <path d="M0 0 H250 V42 H42 V250 H185 V292 H0 Z" fill="var(--vn-teal)" />
+    <path d="M208 208 H250 V292 H166 V250 H208 Z" fill="currentColor" />
+    <path d="M77 76 H125 L151 182 L179 76 H226 L174 215 H128 Z" fill="currentColor" />
+  </svg>
+);
 
-  const getThemeClasses = () => {
-    if (theme === 'dark') {
-      return {
-        text: 'text-white',
-        iconBg: 'bg-emerald-600',
-        iconBorder: 'border-emerald-400',
-        shadow: 'shadow-emerald-500/20',
-        accent: 'bg-emerald-400'
-      };
-    }
-    return {
-      text: 'text-slate-900',
-      iconBg: 'bg-emerald-600', 
-      iconBorder: 'border-emerald-600',
-      shadow: 'shadow-emerald-600/15',
-      accent: 'bg-emerald-600'
-    };
-  };
-
-  const config = sizeConfig[size];
-  // Theme classes available for future use
-  void getThemeClasses;
-
-
-
-  // Logo Image Only
-  const LogoContent = () => (
-    <div className="relative logo-container">
-      <img 
-        src="/logos/Varahi9.png" 
-        alt="Varahi"
-        className={`
-          ${config.icon}
-          transition-all duration-300 hover:scale-105
-          select-none cursor-default
-          object-contain
-        `}
-        style={{
-          backgroundColor: 'transparent',
-          mixBlendMode: 'multiply'
-        }}
-        onError={(e) => {
-          console.error('Logo failed to load:', e);
-          // Fallback to text if image fails
-          e.currentTarget.style.display = 'none';
-        }}
-      />
-      {/* Fallback text logo if image fails */}
-      <div className="hidden fallback-logo text-blue-800 font-bold text-xl">
-        varahi
-      </div>
-    </div>
-  );
-
-  if (animated) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        whileHover={{ scale: 1.05 }}
-        transition={{ duration: 0.6 }}
-        className="cursor-pointer"
-      >
-        <LogoContent />
-      </motion.div>
-    );
-  }
-
-  return <LogoContent />;
-};
+const WordMark: React.FC<WordMarkProps> = ({ className = '', variant = 'practice', size = 30 }) => (
+  <span
+    className={`vn-wordmark ${className}`.trim()}
+    aria-label={variant === 'group' ? 'Varahi Group' : 'Varahi'}
+  >
+    <VarahiMark size={size} />
+    <span className="vn-wordmark__text">
+      <strong>Varahi</strong>
+      {/* Turmeric full stop. The only warm colour in the system, and the only place
+          it appears in the lockup. It says "sentence finished" — and it stops the
+          wordmark from being three shades of blue and nothing else. */}
+      <span className="vn-wordmark__dot" aria-hidden="true" />
+      {variant === 'group' && <span className="vn-wordmark__sub">Group</span>}
+    </span>
+  </span>
+);
 
 export default WordMark;

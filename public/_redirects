@@ -1,0 +1,4 @@
+# Cloudflare Pages SPA fallback — every route serves the app so client-side
+# routing and the /agentic, /what-we-do, /how-we-work, /contact/* etc. redirects
+# resolve on deep links and refresh. Pages Functions (/api/*) run before this.
+/*    /index.html    200

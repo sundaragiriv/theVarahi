@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#030812"/>
+      <stop offset="55%" stop-color="#07111f"/>
+      <stop offset="100%" stop-color="#02050b"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#16b8ff"/>
+      <stop offset="50%" stop-color="#1687e8"/>
+      <stop offset="100%" stop-color="#1c4ea8"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#d7dde5"/>
+      <stop offset="100%" stop-color="#9aa6b5"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g transform="translate(180,255)" filter="url(#shadow)">
+    <path d="M0 0 H250 V42 H42 V250 H185 V292 H0 Z" fill="url(#blue)"/>
+    <path d="M208 208 H250 V292 H166 V250 H208 Z" fill="url(#silver)"/>
+    <path d="M77 76 H125 L151 182 L179 76 H226 L174 215 H128 Z" fill="url(#silver)"/>
+    <text x="320" y="150" font-family="Montserrat, Arial, Helvetica, sans-serif" font-size="150" font-weight="700" letter-spacing="4" fill="url(#silver)">VARAHI</text>
+    <text x="342" y="245" font-family="Montserrat, Arial, Helvetica, sans-serif" font-size="72" font-weight="500" letter-spacing="30" fill="url(#blue)">GROUP</text>
+  </g>
+  <ellipse cx="820" cy="650" rx="420" ry="24" fill="#167fe8" opacity="0.25" filter="url(#glow)"/>
+</svg>

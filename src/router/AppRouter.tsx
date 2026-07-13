@@ -1,191 +1,121 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import HeaderNav from '../components/HeaderNav';
 import Footer from '../components/Footer';
-import GridBackground from '../components/GridBackground';
+import {
+  AboutVisionPage,
+  ArticlePage,
+  EngagePage,
+  HomeVisionPage,
+  HowWeWorkPage,
+  NotFoundVisionPage,
+  PillarVisionPage,
+  ProofPage,
+  WhatWeDoPage,
+} from '../pages/varahi/VisionPages';
 
-// Page Components
-import HomePage from '../pages/HomePage';
-import SolutionsPage from '../pages/SolutionsPage';
-import AIStrategyPage from '../pages/solutions/AIStrategyPage';
-import IndustrySolutionsPage from '../pages/solutions/IndustrySolutionsPage';
+const ScrollManager: React.FC = () => {
+  const location = useLocation();
 
-// SAP Services
-import CXServicesPage from '../pages/solutions/CXServicesPage';
-import S4HANAPage from '../pages/solutions/S4HANAPage';
-import FSMPage from '../pages/solutions/FSMPage';
-import BTPCPIPage from '../pages/solutions/BTPCPIPage';
-import CDCPage from '../pages/solutions/CDCPage';
-import CommerceCPQPage from '../pages/solutions/CommerceCPQPage';
-import ManagedSAPPage from '../pages/solutions/ManagedSAPPage';
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => {
+      if (location.hash) {
+        const target = document.querySelector(location.hash);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [location.pathname, location.hash]);
 
-// New Service Pages
-import SAPSolutionsPage from '../pages/services/SAPSolutionsPage';
-import EnterpriseCXPage from '../pages/services/EnterpriseCXPage';
-import AIOrchestrationPage from '../pages/services/AIOrchestrationPage';
-import JouleEnablementPage from '../pages/services/JouleEnablementPage';
-import UpgradeSAPPage from '../pages/services/UpgradeSAPPage';
+  return null;
+};
 
-// AI Strategy
-import AssessmentPage from '../pages/solutions/ai/AssessmentPage';
-import GovernancePage from '../pages/solutions/ai/GovernancePage';
-import RASPPage from '../pages/solutions/ai/RASPPage';
-import PredictivePage from '../pages/solutions/ai/PredictivePage';
-import ConversationalPage from '../pages/solutions/ai/ConversationalPage';
-import TelemetryPage from '../pages/solutions/ai/TelemetryPage';
+const RoutedApp: React.FC = () => {
+  const location = useLocation();
 
-// Industries
-import ManufacturingPage from '../pages/industries/ManufacturingPage';
-import CPGPage from '../pages/industries/CPGPage';
-import UtilitiesPage from '../pages/industries/UtilitiesPage';
-import FinancialServicesPage from '../pages/industries/FinancialServicesPage';
+  useEffect(() => {
+    document.body.classList.add('vn-body');
+    return () => document.body.classList.remove('vn-body');
+  }, []);
 
-// About Pages
-import About from '../components/About';
-import OurStoryPage from '../pages/about/OurStoryPage';
-import OurTeamPage from '../pages/about/OurTeamPage';
-import CareersPage from '../pages/about/CareersPage';
-import PartnershipsPage from '../pages/about/PartnershipsPage';
-
-// About components
-import Leadership from '../components/Leadership';
-import Careers from '../components/Careers';
-import InvestorRelations from '../components/InvestorRelations';
-import Partnerships from '../components/Partnerships';
-import Alliances from '../components/Alliances';
-
-// Resources
-import ResourcesPage from '../pages/ResourcesPage';
-import BlogPage from '../pages/resources/BlogPage';
-import WhitepapersPage from '../pages/resources/WhitepapersPage';
-import VideosPage from '../pages/resources/VideosPage';
-import ThoughtLeadershipPage from '../pages/resources/ThoughtLeadershipPage';
-import ResearchReportsPage from '../pages/resources/ResearchReportsPage';
-import EventsPage from '../pages/resources/EventsPage';
-
-// Contact
-import ContactPage from '../pages/ContactPage';
-import SalesInquiryPage from '../pages/contact/SalesInquiryPage';
-import GeneralInquiryPage from '../pages/contact/GeneralInquiryPage';
-import SupportPage from '../pages/contact/SupportPage';
-import InvestorsPage from '../pages/contact/InvestorsPage';
-
-// Main Pages
-import Solutions from '../pages/Solutions';
-import CaseStudies from '../pages/CaseStudies';
-import Resources from '../pages/Resources';
-import Contact from '../pages/Contact';
-import BlogPost from '../pages/BlogPost';
-import CaseStudyDetail from '../pages/CaseStudyDetail';
-
-// 404 Page
-import NotFoundPage from '../pages/NotFoundPage';
-
-const AppRouter: React.FC = () => {
   return (
-    <Router>
-      <div className="min-h-screen flex flex-col relative">
-        {/* Subtle Grid Background for all pages */}
-        <GridBackground opacity={0.02} gridSize={40} color="#000000" />
+    <div className="vn-site">
+      <ScrollManager />
+      <HeaderNav />
 
-        <HeaderNav />
+      <main>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Routes location={location}>
+              <Route path="/" element={<HomeVisionPage />} />
+              <Route path="/practice" element={<WhatWeDoPage />} />
+              <Route path="/what-we-do" element={<Navigate to="/practice" replace />} />
+              <Route path="/sap" element={<PillarVisionPage pillarKey="sap" />} />
+              <Route path="/ai" element={<PillarVisionPage pillarKey="ai" />} />
+              <Route path="/cx" element={<PillarVisionPage pillarKey="cx" />} />
+              <Route path="/agentic" element={<Navigate to="/cx" replace />} />
+              <Route path="/approach" element={<HowWeWorkPage />} />
+              <Route path="/how-we-work" element={<Navigate to="/approach" replace />} />
 
-        <main className="flex-grow relative">
-          <Routes>
-            {/* Home */}
-            <Route path="/" element={<HomePage />} />
+              <Route path="/our-thinking" element={<ProofPage />} />
+              <Route path="/our-thinking/work/:slug" element={<ArticlePage kind="work" />} />
+              <Route path="/our-thinking/insights/:slug" element={<ArticlePage kind="insights" />} />
+              <Route path="/proof" element={<Navigate to="/our-thinking" replace />} />
+              <Route path="/out-thinking" element={<Navigate to="/our-thinking" replace />} />
+              <Route path="/perspectives" element={<Navigate to="/our-thinking" replace />} />
+              <Route path="/case-studies" element={<Navigate to="/our-thinking" replace />} />
+              <Route path="/resources" element={<Navigate to="/our-thinking" replace />} />
+              <Route path="/resources/case-studies" element={<Navigate to="/our-thinking" replace />} />
+              <Route path="/resources/blog" element={<Navigate to="/our-thinking" replace />} />
 
-            {/* Services */}
-            <Route path="/services" element={<SolutionsPage />} />
-            <Route path="/ai" element={<AIStrategyPage />} />
-            <Route path="/system" element={<IndustrySolutionsPage />} />
+              <Route path="/about" element={<AboutVisionPage />} />
+              <Route path="/leadership" element={<Navigate to="/about" replace />} />
+              <Route path="/careers" element={<Navigate to="/about" replace />} />
+              <Route path="/investor-relations" element={<Navigate to="/about" replace />} />
 
-            {/* New Service Pages */}
-            <Route path="/services/sap-solutions" element={<SAPSolutionsPage />} />
-            <Route path="/services/enterprise-cx" element={<EnterpriseCXPage />} />
-            <Route path="/services/ai-orchestration" element={<AIOrchestrationPage />} />
-            <Route path="/services/joule-enablement" element={<JouleEnablementPage />} />
-            <Route path="/services/upgrade-sap" element={<UpgradeSAPPage />} />
+              <Route path="/engage" element={<EngagePage />} />
+              <Route path="/connect-with-us" element={<Navigate to="/engage" replace />} />
+              <Route path="/contact" element={<Navigate to="/engage" replace />} />
+              <Route path="/contact/*" element={<Navigate to="/engage" replace />} />
 
-            {/* SAP Services */}
-            <Route path="/solutions/cx" element={<CXServicesPage />} />
-            <Route path="/solutions/s4hana" element={<S4HANAPage />} />
-            <Route path="/solutions/fsm" element={<FSMPage />} />
-            <Route path="/solutions/btp-cpi" element={<BTPCPIPage />} />
-            <Route path="/solutions/cdc" element={<CDCPage />} />
-            <Route path="/solutions/commerce-cpq" element={<CommerceCPQPage />} />
-            <Route path="/solutions/managed-sap" element={<ManagedSAPPage />} />
+              <Route path="/services" element={<Navigate to="/practice" replace />} />
+              <Route path="/solutions" element={<Navigate to="/practice" replace />} />
+              <Route path="/services/sap-solutions" element={<Navigate to="/sap" replace />} />
+              <Route path="/services/upgrade-sap" element={<Navigate to="/sap" replace />} />
+              <Route path="/solutions/s4hana" element={<Navigate to="/sap" replace />} />
+              <Route path="/solutions/fsm" element={<Navigate to="/sap" replace />} />
+              <Route path="/solutions/btp-cpi" element={<Navigate to="/sap" replace />} />
+              <Route path="/industries/*" element={<Navigate to="/sap" replace />} />
+              <Route path="/services/ai-orchestration" element={<Navigate to="/ai" replace />} />
+              <Route path="/services/joule-enablement" element={<Navigate to="/ai" replace />} />
+              <Route path="/services/enterprise-cx" element={<Navigate to="/cx" replace />} />
 
-            {/* AI Strategy */}
-            <Route path="/solutions/ai/assessment" element={<AssessmentPage />} />
-            <Route path="/solutions/ai/governance" element={<GovernancePage />} />
-            <Route path="/solutions/ai/rasp" element={<RASPPage />} />
-            <Route path="/solutions/ai/predictive" element={<PredictivePage />} />
-            <Route path="/solutions/ai/conversational" element={<ConversationalPage />} />
-            <Route path="/solutions/ai/telemetry" element={<TelemetryPage />} />
+              <Route path="*" element={<NotFoundVisionPage />} />
+            </Routes>
+          </motion.div>
+        </AnimatePresence>
+      </main>
 
-            {/* Industries */}
-            <Route path="/industries" element={<IndustrySolutionsPage />} />
-            <Route path="/industries/manufacturing" element={<ManufacturingPage />} />
-            <Route path="/industries/cpg" element={<CPGPage />} />
-            <Route path="/industries/utilities" element={<UtilitiesPage />} />
-            <Route path="/industries/financial-services" element={<FinancialServicesPage />} />
-
-            {/* About */}
-            <Route path="/about" element={<About />} />
-            <Route path="/leadership" element={<Leadership />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/investor-relations" element={<InvestorRelations />} />
-            <Route path="/partnerships" element={<Partnerships />} />
-            <Route path="/alliances" element={<Alliances />} />
-            <Route path="/about/our-story" element={<OurStoryPage />} />
-            <Route path="/about/our-team" element={<OurTeamPage />} />
-            <Route path="/about/careers" element={<CareersPage />} />
-            <Route path="/about/partnerships" element={<PartnershipsPage />} />
-
-            {/* Solutions (Main) */}
-            <Route path="/solutions" element={<Solutions />} />
-
-            {/* Resources */}
-            <Route path="/resources" element={<Resources />} />
-            <Route path="/resources/case-studies" element={<CaseStudies />} />
-            <Route path="/resources/blog" element={<BlogPage />} />
-            <Route path="/resources/whitepapers" element={<WhitepapersPage />} />
-            <Route path="/resources/videos" element={<VideosPage />} />
-            <Route path="/resources/thought-leadership" element={<ThoughtLeadershipPage />} />
-            <Route path="/resources/research-reports" element={<ResearchReportsPage />} />
-            <Route path="/resources/events" element={<EventsPage />} />
-
-            {/* Blog and Case Study Details */}
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/case-study/:slug" element={<CaseStudyDetail />} />
-
-            {/* Alternate routes (for SEO/backwards compatibility) */}
-            <Route path="/case-studies" element={<CaseStudies />} />
-            <Route path="/insights" element={<BlogPage />} />
-            <Route path="/tech-updates" element={<BlogPage />} />
-
-            {/* Contact */}
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/contact/sales-inquiry" element={<SalesInquiryPage />} />
-            <Route path="/contact/general-inquiry" element={<GeneralInquiryPage />} />
-            <Route path="/contact/support" element={<SupportPage />} />
-            <Route path="/contact/investors" element={<InvestorsPage />} />
-
-            {/* Legacy redirects - keep for backwards compatibility */}
-            <Route path="/resources-legacy" element={<ResourcesPage />} />
-            <Route path="/solutions-legacy" element={<SolutionsPage />} />
-            <Route path="/contact-legacy" element={<ContactPage />} />
-
-            {/* 404 - Catch all unmatched routes */}
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </main>
-
-        <Footer />
-      </div>
-    </Router>
+      <Footer />
+    </div>
   );
 };
+
+const AppRouter: React.FC = () => (
+  <Router>
+    <RoutedApp />
+  </Router>
+);
 
 export default AppRouter;

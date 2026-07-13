@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
   optimizeDeps: {
     exclude: ['lucide-react'],
@@ -22,7 +22,7 @@ export default defineConfig({
     // Increase chunk size warning limit
     chunkSizeWarningLimit: 1000,
     // Only enable source maps in development (security: don't expose code structure in production)
-    sourcemap: process.env.NODE_ENV !== 'production',
+    sourcemap: mode !== 'production',
   },
   // Optimize dev server
   server: {
@@ -30,4 +30,4 @@ export default defineConfig({
       overlay: false,
     },
   },
-});
+}));
