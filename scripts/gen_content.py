@@ -134,5 +134,47 @@ export const byPillar = (pillar: Pillar) => allContent.filter((c) => c.pillar ==
     for i in insights:
         print(f"    insights/{i['slug']}  [{i['pillar']}]")
 
+    write_sitemap(insights, work)
+
+BASE = "https://thevarahi.com"
+# Canonical, indexable pages only — never list the /agentic, /what-we-do,
+# /services/* etc. redirects.
+STATIC_ROUTES = [
+    ("/", "1.0", "weekly"),
+    ("/practice", "0.9", "monthly"),
+    ("/sap", "0.9", "monthly"),
+    ("/ai", "0.9", "monthly"),
+    ("/cx", "0.9", "monthly"),
+    ("/approach", "0.8", "monthly"),
+    ("/our-thinking", "0.8", "weekly"),
+    ("/about", "0.7", "monthly"),
+    ("/engage", "0.6", "monthly"),
+]
+
+def write_sitemap(insights, work):
+    out = os.path.join(ROOT, "public", "sitemap.xml")
+    today = max([i["pubDate"] for i in insights + work] + ["2026-07-13"])
+    rows = []
+    for path, prio, freq in STATIC_ROUTES:
+        rows.append(
+            f"  <url>\n    <loc>{BASE}{path}</loc>\n    <lastmod>{today}</lastmod>\n"
+            f"    <changefreq>{freq}</changefreq>\n    <priority>{prio}</priority>\n  </url>"
+        )
+    for c in work + insights:
+        loc = f"{BASE}/our-thinking/{c['kind']}/{c['slug']}"
+        rows.append(
+            f"  <url>\n    <loc>{loc}</loc>\n    <lastmod>{c['pubDate']}</lastmod>\n"
+            f"    <changefreq>yearly</changefreq>\n    <priority>0.7</priority>\n  </url>"
+        )
+    xml = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + "\n".join(rows)
+        + "\n</urlset>\n"
+    )
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(xml)
+    print(f"  sitemap -> public/sitemap.xml ({len(STATIC_ROUTES) + len(work) + len(insights)} urls)")
+
 if __name__ == "__main__":
     main()

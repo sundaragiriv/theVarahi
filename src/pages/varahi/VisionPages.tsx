@@ -32,7 +32,15 @@ import {
 import { allContent, caseStudies, insights } from '../../data/content.generated';
 import type { CaseStudy, Insight } from '../../data/content.generated';
 
+const SITE_URL = 'https://thevarahi.com';
 const pageTitle = (title: string) => `${title} | Varahi`;
+
+// Keyword-forward <title>s for the pillar pages (front-loaded search terms).
+const PILLAR_SEO_TITLE: Record<PillarKey, string> = {
+  sap: 'SAP S/4HANA, Service Cloud & FSM Consulting',
+  ai: 'Enterprise AI & Agentic AI for SAP',
+  cx: 'SAP CX & Customer Experience Consulting',
+};
 
 const heroStagger: Variants = {
   hidden: {},
@@ -43,17 +51,35 @@ const heroFadeUp: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const Seo: React.FC<{ title: string; description: string; path?: string }> = ({
-  title,
-  description,
-  path = '',
-}) => (
-  <Helmet>
-    <title>{pageTitle(title)}</title>
-    <meta name="description" content={description} />
-    <link rel="canonical" href={`https://thevarahi.com${path}`} />
-  </Helmet>
-);
+const Seo: React.FC<{
+  title: string;
+  description: string;
+  path?: string;
+  type?: string;
+  image?: string;
+  jsonLd?: object | object[];
+}> = ({ title, description, path = '', type = 'website', image = '/og-image.png', jsonLd }) => {
+  const url = `${SITE_URL}${path}`;
+  const img = image.startsWith('http') ? image : `${SITE_URL}${image}`;
+  const fullTitle = pageTitle(title);
+  return (
+    <Helmet>
+      <title>{fullTitle}</title>
+      <meta name="description" content={description} />
+      <link rel="canonical" href={url} />
+      <meta property="og:type" content={type} />
+      <meta property="og:title" content={fullTitle} />
+      <meta property="og:description" content={description} />
+      <meta property="og:url" content={url} />
+      <meta property="og:image" content={img} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={img} />
+      {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
+    </Helmet>
+  );
+};
 
 const ArrowLink: React.FC<{ to: string; children: React.ReactNode; variant?: 'primary' | 'quiet' }> = ({
   to,
@@ -138,8 +164,8 @@ export const HomeVisionPage: React.FC = () => {
   return (
   <>
     <Seo
-      title="Enterprise Software That Thinks"
-      description="Varahi engineers SAP, AI, and customer experience as one design problem — not three procurements. Service-led enterprise delivery across Raleigh, India, and Canada."
+      title="SAP, AI & CX Consulting"
+      description="Varahi engineers SAP, AI, and customer experience as one design problem — S/4HANA, Service Cloud, Field Service Management, CPQ, BTP and applied AI. Principal-led, 23 years of SAP delivery."
     />
     <section className="vn-hero">
       <div className="vn-hero-motion" aria-hidden="true">
@@ -376,7 +402,7 @@ export const PillarVisionPage: React.FC<{ pillarKey: PillarKey }> = ({ pillarKey
 
   return (
     <>
-      <Seo title={pillar.label} description={pillar.headline} path={pillar.path} />
+      <Seo title={PILLAR_SEO_TITLE[pillarKey]} description={pillar.headline} path={pillar.path} />
       <section className={`vn-page-hero vn-page-hero--${pillarKey}`}>
         <div className="vn-container vn-page-hero__grid">
           <div>
@@ -464,8 +490,8 @@ export const WhatWeDoPage: React.FC = () => {
   return (
     <>
       <Seo
-        title="The Practice"
-        description="Varahi runs SAP, AI, and CX as three layers of one practice — platform, cognition, and human — on a single backlog with one delivery lead."
+        title="SAP, AI & CX Consulting Services"
+        description="Varahi runs SAP, AI, and CX as three layers of one practice — platform, cognition, and human — on a single backlog with one delivery lead. S/4HANA, FSM, Service Cloud, CPQ, BTP and applied AI."
         path="/practice"
       />
       <section className="vn-what-we-do-hero">
@@ -779,8 +805,8 @@ export const ProofPage: React.FC = () => {
   return (
     <>
       <Seo
-        title="Our Thinking"
-        description="Case studies from delivered engagements and points of view on SAP, AI, and customer experience. Clients anonymized, metrics as measured."
+        title="SAP, AI & CX Insights & Case Studies"
+        description="Case studies and points of view on SAP S/4HANA, Field Service Management, Service Cloud, CX, and applied AI — from 23 years of enterprise SAP delivery. Real clients, real numbers."
         path="/our-thinking"
       />
       <section className="vn-proof-hero">
@@ -861,12 +887,41 @@ export const ArticlePage: React.FC<{ kind: 'work' | 'insights' }> = ({ kind }) =
     .filter((item) => item.pillar === entry.pillar && item.slug !== entry.slug)
     .slice(0, 3);
 
+  const articleUrl = `${SITE_URL}/our-thinking/${entry.kind}/${entry.slug}`;
+  const articleLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: entry.title,
+    description: entry.description,
+    url: articleUrl,
+    mainEntityOfPage: articleUrl,
+    datePublished: entry.pubDate,
+    author: { '@type': 'Person', name: 'Venkata R. Sundaragiri', jobTitle: 'VP, SAP & AI Consulting' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Varahi',
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo-varahi.svg` },
+    },
+    about: pillars[entry.pillar].label,
+    keywords: entry.tags.join(', '),
+  };
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Our Thinking', item: `${SITE_URL}/our-thinking` },
+      { '@type': 'ListItem', position: 2, name: entry.title, item: articleUrl },
+    ],
+  };
+
   return (
     <>
       <Seo
         title={entry.title}
         description={entry.description}
         path={`/our-thinking/${entry.kind}/${entry.slug}`}
+        type="article"
+        jsonLd={[articleLd, breadcrumbLd]}
       />
 
       <section className="vn-article-hero">
@@ -1107,8 +1162,28 @@ export const AboutVisionPage: React.FC = () => (
   <>
     <Seo
       title="About"
-      description="Varahi is an independent enterprise consulting firm that treats SAP, AI, and customer experience as one design problem. Senior, deliberately small, delivery-led."
+      description="Varahi is a women-owned enterprise consulting firm that treats SAP, AI, and customer experience as one design problem. Principal-led, deliberately small, delivery-led."
       path="/about"
+      jsonLd={[
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Naga Poornima',
+          jobTitle: 'Founder & CEO',
+          image: `${SITE_URL}/logos/naga.png`,
+          worksFor: { '@type': 'Organization', name: 'Varahi' },
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Venkata R. Sundaragiri',
+          jobTitle: 'VP, SAP & AI Consulting',
+          image: `${SITE_URL}/logos/1772931170879.jpg`,
+          worksFor: { '@type': 'Organization', name: 'Varahi' },
+          sameAs: ['https://www.linkedin.com/in/sundaragiri'],
+          knowsAbout: ['SAP S/4HANA', 'SAP CX', 'SAP Field Service Management', 'SAP CPQ', 'Agentic AI', 'SAP BTP'],
+        },
+      ]}
     />
     <section className="vn-about-hero">
       <div className="vn-container vn-about-hero__layout">

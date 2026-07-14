@@ -1,51 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://varahi.com/</loc>
-    <lastmod>2024-01-15</lastmod>
+    <loc>https://thevarahi.com/</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://varahi.com/services</loc>
-    <lastmod>2024-01-15</lastmod>
+    <loc>https://thevarahi.com/practice</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://varahi.com/ai</loc>
-    <lastmod>2024-01-15</lastmod>
+    <loc>https://thevarahi.com/sap</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://varahi.com/system</loc>
-    <lastmod>2024-01-15</lastmod>
+    <loc>https://thevarahi.com/ai</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/cx</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/approach</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://varahi.com/case-studies</loc>
-    <lastmod>2024-01-15</lastmod>
+    <loc>https://thevarahi.com/our-thinking</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://varahi.com/insights</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://thevarahi.com/about</loc>
+    <lastmod>2026-07-13</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://varahi.com/about</loc>
-    <lastmod>2024-01-15</lastmod>
+    <loc>https://thevarahi.com/engage</loc>
+    <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://varahi.com/contact</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://thevarahi.com/our-thinking/work/zoox-autonomous-fleet-service</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/work/yaskawa-robotics-service-transformation</loc>
+    <lastmod>2025-11-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/work/argano-cx-s4-integration</loc>
+    <lastmod>2025-06-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/work/carlisle-lbfoster-sales-service-cpq</loc>
+    <lastmod>2024-12-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/work/weyerhaeuser-service-transformation</loc>
+    <lastmod>2023-12-10</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/work/heavy-machinery-connected-service</loc>
+    <lastmod>2022-09-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/work/carestream-capital-equipment-service</loc>
+    <lastmod>2019-10-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/insights/agentic-ai-handoff-problem</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/insights/industrial-field-service-cx-gap</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/insights/s4hana-rise-migration-decisions</loc>
+    <lastmod>2026-05-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/insights/agent-governance-for-enterprises</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/insights/core-ai-evaluation-playbook</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/insights/s4-clean-core-ai-readiness</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/insights/sap-ai-copilot-role-design</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/insights/sap-ai-use-cases-that-scale</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/insights/sap-service-ops-data-contracts</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thevarahi.com/our-thinking/insights/sap-needs-an-ai-plan</loc>
+    <lastmod>2026-04-22</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
 </urlset>
