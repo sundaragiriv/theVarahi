@@ -1,0 +1,109 @@
+/* ============================================================================
+   ORB FIELD — the slow atmosphere behind a hero.
+
+   Three soft bodies of colour on long, unequal periods, so they never resync
+   into a pulse. Deliberately cheap: pure CSS transforms on three divs, no
+   rAF loop, no JS.
+
+   Each page gets its own variant. Same component, different air — so the
+   background is not a repeated asset from page to page.
+   ========================================================================= */
+
+.vn-orbs {
+  position: absolute;
+  inset: -18% -10%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.vn-orbs__o {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+}
+
+/* Light mode needs the colour pulled right back or type loses its ground.
+   Dark mode can carry the full value. */
+.vn-orbs__o { opacity: 0.4; }
+html[data-theme='dark'] .vn-orbs__o { opacity: 1; }
+
+@keyframes vnOrbA {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33%      { transform: translate3d(4%, -3%, 0) scale(1.12); }
+  66%      { transform: translate3d(-3%, 2%, 0) scale(0.94); }
+}
+
+@keyframes vnOrbB {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.04); }
+  40%      { transform: translate3d(-5%, 3%, 0) scale(0.92); }
+  70%      { transform: translate3d(2%, -4%, 0) scale(1.1); }
+}
+
+@keyframes vnOrbC {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.96); }
+  50%      { transform: translate3d(3%, 4%, 0) scale(1.14); }
+}
+
+/* the three periods are coprime-ish so the field never repeats visibly */
+.vn-orbs__o:nth-child(1) { animation: vnOrbA 34s ease-in-out infinite; }
+.vn-orbs__o:nth-child(2) { animation: vnOrbB 47s ease-in-out infinite; }
+.vn-orbs__o:nth-child(3) { animation: vnOrbC 59s ease-in-out infinite; }
+
+/* ---------------------------------------------------------------------------
+   HOME — blue dominant, violet high, turmeric low and warm.
+   ------------------------------------------------------------------------ */
+.vn-orbs--home .vn-orbs__o:nth-child(1) {
+  top: -6%; left: 42%; width: 52vw; height: 52vw;
+  background: radial-gradient(circle, rgba(var(--vn-accent-rgb), 0.55), transparent 68%);
+}
+.vn-orbs--home .vn-orbs__o:nth-child(2) {
+  top: 30%; left: 62%; width: 40vw; height: 40vw;
+  background: radial-gradient(circle, rgba(var(--vn-violet-rgb), 0.42), transparent 66%);
+}
+.vn-orbs--home .vn-orbs__o:nth-child(3) {
+  bottom: -18%; left: 14%; width: 44vw; height: 38vw;
+  background: radial-gradient(circle, rgba(var(--vn-gold-rgb), 0.3), transparent 68%);
+}
+
+/* ---------------------------------------------------------------------------
+   PRACTICE — violet led, cooler, weighted to the left.
+   ------------------------------------------------------------------------ */
+.vn-orbs--practice .vn-orbs__o:nth-child(1) {
+  top: 8%; left: -6%; width: 46vw; height: 46vw;
+  background: radial-gradient(circle, rgba(var(--vn-violet-rgb), 0.5), transparent 68%);
+}
+.vn-orbs--practice .vn-orbs__o:nth-child(2) {
+  bottom: -14%; left: 46%; width: 50vw; height: 44vw;
+  background: radial-gradient(circle, rgba(var(--vn-accent-rgb), 0.44), transparent 68%);
+}
+.vn-orbs--practice .vn-orbs__o:nth-child(3) {
+  top: 34%; right: -8%; width: 34vw; height: 34vw;
+  background: radial-gradient(circle, rgba(var(--vn-gold-rgb), 0.26), transparent 70%);
+}
+
+/* ---------------------------------------------------------------------------
+   APPROACH — warm, low and wide, sitting under the timeline.
+   ------------------------------------------------------------------------ */
+.vn-orbs--approach .vn-orbs__o:nth-child(1) {
+  bottom: -20%; left: 8%; width: 56vw; height: 40vw;
+  background: radial-gradient(circle, rgba(var(--vn-gold-rgb), 0.34), transparent 70%);
+}
+.vn-orbs--approach .vn-orbs__o:nth-child(2) {
+  top: -10%; right: 4%; width: 42vw; height: 42vw;
+  background: radial-gradient(circle, rgba(var(--vn-accent-rgb), 0.46), transparent 68%);
+}
+.vn-orbs--approach .vn-orbs__o:nth-child(3) {
+  top: 44%; left: 30%; width: 30vw; height: 30vw;
+  background: radial-gradient(circle, rgba(var(--vn-violet-rgb), 0.3), transparent 70%);
+}
+
+@media (max-width: 860px) {
+  .vn-orbs__o { filter: blur(56px); }
+}
+
+/* The field is atmosphere, not information — it stops entirely when asked. */
+@media (prefers-reduced-motion: reduce) {
+  .vn-orbs__o { animation: none; }
+}

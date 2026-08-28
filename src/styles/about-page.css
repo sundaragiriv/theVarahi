@@ -1,0 +1,323 @@
+/* ============================================================================
+   ABOUT — the one page that is not a technical document.
+
+   Every other page on this site speaks in the same voice: hairline four-fold
+   geometry, tabular numerals, uppercase mono metadata, a drifting orb field.
+   That voice is right for an argument about architecture. It is wrong for a
+   page about two people.
+
+   So About breaks it, deliberately and completely:
+     · no geometry, no orb field — nothing drawn at all
+     · no uppercase mono labels; this page speaks in sentence case
+     · body copy at a real reading measure and leading, not card-sized
+     · the portraits are the only photography on the site, so they run large
+     · references are set as pull-quotes, not boxed in a grid
+
+   If a rule here contradicts the rest of the system, that is the point.
+   ========================================================================= */
+
+.vn-about {
+  --about-measure: 62ch;
+}
+
+/* ---------------------------------------------------------------------------
+   OPENING — a statement, then the two faces.
+   ------------------------------------------------------------------------ */
+.vn-about__open {
+  padding: calc(var(--vn-nav-h) + clamp(3rem, 10vh, 7rem)) 0 clamp(2.5rem, 7vh, 4.5rem);
+}
+
+.vn-about__kicker {
+  margin: 0 0 1.1rem;
+  color: var(--vn-muted);
+  font-family: var(--vn-font-body);
+  font-size: 0.95rem;
+  font-style: italic;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.vn-about__open h1 {
+  margin: 0;
+  max-width: 15ch;
+  font-size: clamp(2.6rem, 7vw, 5.6rem);
+  font-weight: var(--vn-display-weight);
+  line-height: 0.96;
+  letter-spacing: -0.034em;
+}
+
+.vn-about__lede {
+  max-width: var(--about-measure);
+  margin: clamp(1.4rem, 3vh, 2.2rem) 0 0;
+  color: var(--vn-ink);
+  font-size: clamp(1.1rem, 1.5vw, 1.32rem);
+  line-height: 1.66;
+}
+
+.vn-about__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2.6rem;
+  margin-top: clamp(1.8rem, 4vh, 2.6rem);
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--vn-line);
+}
+
+.vn-about__fact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.vn-about__fact span {
+  color: var(--vn-muted);
+  font-size: 0.85rem;
+}
+
+.vn-about__fact strong {
+  font-family: var(--vn-font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* ---------------------------------------------------------------------------
+   THE PRACTICE — running text at a real measure, not a card grid.
+   ------------------------------------------------------------------------ */
+.vn-about__story {
+  padding: clamp(3rem, 8vh, 5rem) 0;
+  background: var(--vn-paper-2);
+}
+
+.vn-about__storyGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.5fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.vn-about__storyGrid h2 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: var(--vn-display-weight);
+  letter-spacing: -0.02em;
+}
+
+.vn-about__prose p {
+  max-width: var(--about-measure);
+  margin: 0 0 1.15rem;
+  color: var(--vn-muted);
+  font-size: 1.05rem;
+  line-height: 1.82;
+}
+
+.vn-about__prose p:last-child {
+  margin-bottom: 0;
+}
+
+.vn-about__prose strong {
+  color: var(--vn-ink);
+  font-weight: 500;
+}
+
+/* ---------------------------------------------------------------------------
+   PROFILES — the only photography on the site, so it runs large.
+   ------------------------------------------------------------------------ */
+.vn-about__people {
+  padding: clamp(3.5rem, 9vh, 6rem) 0;
+}
+
+.vn-person {
+  display: grid;
+  grid-template-columns: minmax(0, 0.62fr) minmax(0, 1fr);
+  gap: clamp(1.8rem, 5vw, 4.5rem);
+  align-items: start;
+  padding: clamp(2.5rem, 6vh, 4rem) 0;
+  border-top: 1px solid var(--vn-line);
+}
+
+.vn-person:last-child {
+  border-bottom: 1px solid var(--vn-line);
+}
+
+/* the second profile mirrors, so the two faces look at the page not the edge */
+.vn-person--flip .vn-person__media {
+  order: 2;
+}
+
+.vn-person__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--vn-paper-2);
+}
+
+.vn-person__media picture {
+  display: block;
+}
+
+.vn-person__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: saturate(0.94) contrast(1.02);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1),
+              filter 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vn-person:hover .vn-person__media img {
+  transform: scale(1.03);
+  filter: saturate(1) contrast(1.02);
+}
+
+.vn-person__mono {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  color: var(--vn-muted);
+  font-family: var(--vn-font-display);
+  font-size: 4rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+}
+
+.vn-person__name {
+  margin: 0;
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  font-weight: var(--vn-display-weight);
+  line-height: 1;
+  letter-spacing: -0.028em;
+}
+
+.vn-person__title {
+  margin: 0.5rem 0 0;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid var(--vn-line);
+  color: var(--vn-muted);
+  font-size: 1rem;
+}
+
+.vn-person__bio {
+  max-width: var(--about-measure);
+  margin: 1.4rem 0 0;
+  color: var(--vn-muted);
+  font-size: 1.05rem;
+  line-height: 1.82;
+}
+
+/* ---------------------------------------------------------------------------
+   REFERENCES — pull-quotes. No boxes, no grid of equal cards.
+   ------------------------------------------------------------------------ */
+.vn-about__refs {
+  padding: clamp(3rem, 8vh, 5rem) 0 clamp(3.5rem, 9vh, 6rem);
+  background: var(--vn-paper-2);
+}
+
+.vn-about__refsHead {
+  max-width: 46ch;
+  margin: 0 0 clamp(2rem, 5vh, 3rem);
+}
+
+.vn-about__refsHead h2 {
+  margin: 0.4rem 0 0;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: var(--vn-display-weight);
+  letter-spacing: -0.02em;
+}
+
+.vn-quote {
+  max-width: 68ch;
+  margin: 0 0 clamp(2rem, 5vh, 3rem);
+  padding-left: clamp(0rem, 4vw, 3.5rem);
+}
+
+/* stagger them so the column has a rhythm instead of a stack */
+.vn-quote:nth-child(even) {
+  margin-left: auto;
+  padding-left: 0;
+  padding-right: clamp(0rem, 4vw, 3.5rem);
+}
+
+.vn-quote:last-child {
+  margin-bottom: 0;
+}
+
+.vn-quote blockquote {
+  position: relative;
+  margin: 0;
+  color: var(--vn-ink);
+  font-family: var(--vn-font-body);
+  font-size: clamp(1.1rem, 1.9vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.58;
+  letter-spacing: -0.006em;
+}
+
+.vn-quote blockquote::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.16em;
+  left: -0.46em;
+  color: var(--vn-gold);
+  font-family: var(--vn-font-display);
+  font-size: 2.6em;
+  line-height: 1;
+  opacity: 0.55;
+}
+
+.vn-quote figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.7rem;
+  margin-top: 1rem;
+}
+
+.vn-quote figcaption strong {
+  font-family: var(--vn-font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.vn-quote figcaption span {
+  color: var(--vn-muted);
+  font-size: 0.92rem;
+}
+
+/* ---------------------------------------------------------------------------
+   NARROW
+   ------------------------------------------------------------------------ */
+@media (max-width: 860px) {
+  .vn-about__storyGrid,
+  .vn-person {
+    grid-template-columns: 1fr;
+  }
+
+  .vn-person--flip .vn-person__media {
+    order: 0;
+  }
+
+  .vn-person__media {
+    max-width: 20rem;
+  }
+
+  .vn-quote,
+  .vn-quote:nth-child(even) {
+    padding-left: 1.4rem;
+    padding-right: 0;
+    margin-left: 0;
+  }
+
+  .vn-quote blockquote::before {
+    left: -0.34em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vn-person__media img {
+    transition-duration: 1ms;
+  }
+}

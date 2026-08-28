@@ -1,0 +1,182 @@
+/* ============================================================================
+   GEOMETRY — the site's visual system.
+
+   The method is FORM: Frame, Orchestrate, Realize, Maintain. Four steps, so
+   every figure is built on four-fold symmetry. Hairline construction, drawn
+   with a compass-and-straightedge logic rather than illustrated.
+
+   The rule that keeps it from becoming noise: a figure CONSTRUCTS ITSELF ONCE
+   on mount and then holds still. Nothing loops. The only thing that moves
+   after the page settles is the orb field behind it, and that is atmosphere.
+
+   Three figures, one per landing page — never the same figure twice:
+     axis    Home      bilateral + four-fold, the type sits inside it
+     vortex  Practice  fourteen squares rotating into depth
+     tail    Approach  one axis, two spans, the second never closes
+   ========================================================================= */
+
+.vn-fig {
+  position: absolute;
+  z-index: 1;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.vn-fig * {
+  vector-effect: non-scaling-stroke;
+}
+
+/* ---------------------------------------------------------------------------
+   STROKES — each one carries its own path length so the dash resolves cleanly.
+   ------------------------------------------------------------------------ */
+.vn-fig__s {
+  fill: none;
+  stroke: rgba(var(--vn-accent-rgb), 0.32);
+  stroke-width: 1;
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--len);
+  animation: vnFigDraw 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--wait, 0s);
+}
+
+html[data-theme='dark'] .vn-fig__s {
+  stroke: rgba(var(--vn-accent-rgb), 0.44);
+}
+
+.vn-fig__s--faint {
+  stroke: rgba(var(--vn-ink-rgb), 0.12);
+}
+
+@keyframes vnFigDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ---------------------------------------------------------------------------
+   NODES + LABELS — the four FORM points.
+   ------------------------------------------------------------------------ */
+.vn-fig__n {
+  fill: var(--vn-teal);
+  opacity: 0;
+  animation: vnFigIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--wait, 0s);
+}
+
+/* Maintain is the step nobody sells you, so it is the one that is not blue. */
+.vn-fig__n--hold {
+  fill: var(--vn-gold);
+}
+
+.vn-fig__l {
+  fill: var(--vn-muted);
+  font-family: var(--vn-font-display);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  opacity: 0;
+  animation: vnFigIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--wait, 0s);
+}
+
+.vn-fig__l--hold {
+  fill: var(--vn-gold);
+}
+
+@keyframes vnFigIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   PLACEMENT — each figure sits differently in its hero.
+   ------------------------------------------------------------------------ */
+.vn-fig--axis {
+  top: 50%;
+  left: 50%;
+  width: min(118vh, 94%);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 900px) {
+  .vn-fig--axis {
+    width: 155%;
+    opacity: 0.5;
+  }
+}
+
+/* Reduced motion: the figure is already resolved, it just does not draw. */
+@media (prefers-reduced-motion: reduce) {
+  .vn-fig__s {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .vn-fig__n,
+  .vn-fig__l {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   VORTEX — Practice. Sits right and runs off the edge.
+   ------------------------------------------------------------------------ */
+.vn-fig--vortex {
+  top: 50%;
+  right: -14%;
+  width: 58%;
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 900px) {
+  .vn-fig--vortex {
+    top: auto;
+    right: -34%;
+    bottom: -10%;
+    width: 105%;
+    opacity: 0.42;
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   TAIL — Approach. Full width, low, and the blue span leaves the frame.
+   ------------------------------------------------------------------------ */
+.vn-fig--tail {
+  position: absolute;
+  inset: auto 0 14% 0;
+  width: 100%;
+  height: 30%;
+  min-height: 150px;
+}
+
+.vn-fig__tailAxis,
+.vn-fig__tailMarks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.vn-fig__tailStop {
+  stroke: rgba(var(--vn-ink-rgb), 0.16);
+  stroke-width: 2.5;
+}
+
+.vn-fig__tailRun {
+  stroke: var(--vn-teal);
+  stroke-width: 2.5;
+  /* the span that never closes takes longer to draw than the one that stops */
+  animation-duration: 2.2s;
+}
+
+@media (max-width: 900px) {
+  .vn-fig--tail {
+    inset: auto 0 6% 0;
+    height: 24%;
+  }
+  .vn-fig__l {
+    font-size: 21px;
+  }
+}

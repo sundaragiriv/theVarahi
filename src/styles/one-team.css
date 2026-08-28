@@ -1,0 +1,126 @@
+/* ============================================================================
+   ONE TEAM — filled plates, no lines.
+
+   Three squares on a shared centre, rotated 0/30/60. Each carries one brand
+   channel at low alpha, so the region where all three overlap accumulates into
+   a single dense core. That overlap is the whole argument: nothing is labelled,
+   nothing points at anything.
+
+   This block appears exactly once on the site.
+   ========================================================================= */
+
+.vn-oneteam {
+  padding: clamp(4rem, 11vh, 7rem) 0;
+  border-top: 1px solid var(--vn-line);
+}
+
+.vn-oneteam__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 5rem);
+}
+
+/* ---------------------------------------------------------------------------
+   THE MARK
+   ------------------------------------------------------------------------ */
+.vn-oneteam__mark {
+  position: relative;
+  justify-self: center;
+  width: min(340px, 78%);
+  aspect-ratio: 1;
+}
+
+.vn-oneteam__plate {
+  position: absolute;
+  inset: 12%;
+  border-radius: 4px;
+  will-change: transform;
+}
+
+/* Alpha stacks: one plate reads as a wash, two as a tint, three as a solid.
+   Kept low enough that the triple overlap lands near 0.65 rather than black. */
+.vn-oneteam__plate--accent { background: rgba(var(--vn-accent-rgb), 0.3); }
+.vn-oneteam__plate--violet { background: rgba(var(--vn-violet-rgb), 0.3); }
+.vn-oneteam__plate--gold   { background: rgba(var(--vn-gold-rgb), 0.3); }
+
+/* Dark mode needs a touch more value or the plates disappear into the paper. */
+html[data-theme='dark'] .vn-oneteam__plate--accent { background: rgba(var(--vn-accent-rgb), 0.38); }
+html[data-theme='dark'] .vn-oneteam__plate--violet { background: rgba(var(--vn-violet-rgb), 0.34); }
+html[data-theme='dark'] .vn-oneteam__plate--gold   { background: rgba(var(--vn-gold-rgb), 0.28); }
+
+/* ---------------------------------------------------------------------------
+   THE WORDS
+   ------------------------------------------------------------------------ */
+.vn-oneteam__copy h2 {
+  margin: 0.6rem 0 0;
+  max-width: 20ch;
+  font-size: clamp(1.7rem, 3.4vw, 2.8rem);
+  letter-spacing: -0.02em;
+}
+
+.vn-oneteam__copy > p {
+  max-width: 52ch;
+  margin: 1.1rem 0 0;
+  color: var(--vn-muted);
+  line-height: 1.68;
+}
+
+.vn-oneteam__cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.7rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  background: var(--vn-teal);
+  color: #fff;
+  font-family: var(--vn-font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vn-oneteam__cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.26) 50%, transparent 70%);
+  transform: translateX(-110%);
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vn-oneteam__cta:hover,
+.vn-oneteam__cta:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 38px rgba(var(--vn-accent-rgb), 0.38);
+}
+
+.vn-oneteam__cta:hover::before,
+.vn-oneteam__cta:focus-visible::before {
+  transform: translateX(110%);
+}
+
+.vn-oneteam__cta svg {
+  position: relative;
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vn-oneteam__cta:hover svg,
+.vn-oneteam__cta:focus-visible svg {
+  transform: translateX(4px);
+}
+
+@media (max-width: 820px) {
+  .vn-oneteam__grid {
+    grid-template-columns: 1fr;
+  }
+  .vn-oneteam__mark {
+    width: min(260px, 62%);
+    justify-self: start;
+  }
+}
