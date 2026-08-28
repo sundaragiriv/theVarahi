@@ -9,6 +9,36 @@ There is **no Next.js and no shadcn/ui here.** Do not run `create-next-app` or `
 against this repo — it already has a hand-built design system that shadcn's token layer would
 overwrite. Use the shadcn MCP to *read* component patterns, then port them onto our tokens.
 
+## Deploying
+
+Cloudflare Workers, Assets model. `wrangler` is a devDependency — never call it
+through `npx`, which has repeatedly resolved a broken copy on this machine.
+
+```
+npm run cf:login    # one-time, opens a browser for OAuth
+npm run deploy      # vite build && wrangler deploy
+```
+
+Non-interactive (CI, or an agent session): set `CLOUDFLARE_API_TOKEN` instead of
+logging in. Without it wrangler exits with
+"In a non-interactive environment, it's necessary to set a CLOUDFLARE_API_TOKEN".
+
+**Known breakage:** `node_modules/@cloudflare/workerd-windows-64/bin/` installs
+empty on this machine, so the native `workerd.exe` is missing. Reinstalling does
+not fix it — suspect antivirus quarantine of the binary. This breaks
+`wrangler dev` and `wrangler deploy --dry-run`, which load miniflare. It does
+**not** break `wrangler deploy`, which never touches workerd. Use `npm run dev`
+(Vite) for local work and deploy normally.
+
+**Verifying a deploy actually landed.** `not_found_handling` is
+`single-page-application`, so *every* missing path returns HTTP 200 with
+`index.html`. A 200 proves nothing. Compare the asset hash instead:
+
+```
+grep -oE 'assets/index-[A-Za-z0-9_-]+\.css' dist/index.html
+curl -s https://thevarahi.com/ | grep -oE 'assets/index-[A-Za-z0-9_-]+\.css'
+```
+
 ## The repo is PUBLIC
 `github.com/sundaragiriv/theVarahi`. Never put an API key, token, or client name into a tracked
 file. Secrets go in `.env` (gitignored) or user-scoped config, never `.mcp.json`.
