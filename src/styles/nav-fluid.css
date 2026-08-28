@@ -1,0 +1,292 @@
+/* ============================================================================
+   NAV — fluid header.
+
+   Replaces the full-bleed white bar with a header that has three states and
+   moves between them on scroll, the way zoox.com does:
+
+     top        transparent. No bar, no blur, no border. Brand hard-left,
+                nav centred, actions hard-right. The hero owns the screen.
+     condensed  the centred nav grows a highlighted capsule behind it; the
+                nav numbers collapse to zero width and the socials fade. The
+                logo is never touched — it renders at full size in every
+                state. The nav is absolutely centred so nothing can shove it.
+     hidden     scrolling *down* past the first screen lifts the whole header
+                away. Any upward scroll brings it back, condensed.
+
+   Hover (or keyboard focus) on a condensed header re-expands it — that is the
+   zoox expand/collapse without needing a scroll direction to trigger it.
+
+   Everything here is scoped to .vn-header--fluid so it out-specifies the old
+   .vn-header rules in index.css without a single !important.
+   ========================================================================= */
+
+:root {
+  --vn-nav-h: 78px;
+  --vn-nav-h-sm: 62px;
+  --vn-nav-t: 420ms;
+  --vn-nav-t-fast: 220ms;
+  --vn-nav-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Shrinking the token rather than the rule keeps the header height, the page
+   offset and the hero bleed in agreement on small screens. */
+@media (max-width: 640px) {
+  :root {
+    --vn-nav-h: 64px;
+    --vn-nav-h-sm: 58px;
+  }
+}
+
+.vn-header.vn-header--fluid {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 90;
+  background: transparent;
+  border-bottom: 0;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: transform var(--vn-nav-t) var(--vn-nav-ease);
+  will-change: transform;
+}
+
+.vn-header--fluid[data-state="hidden"] {
+  transform: translate3d(0, -125%, 0);
+}
+
+/* The band itself is inert — only the controls inside it take clicks, so the
+   empty space either side of the nav does not swallow hero interactions. */
+.vn-header--fluid .vn-header__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: var(--vn-nav-h);
+  pointer-events: none;
+  transition: min-height var(--vn-nav-t) var(--vn-nav-ease);
+}
+
+.vn-header--fluid .vn-header__inner > * {
+  pointer-events: auto;
+}
+
+.vn-header--fluid:not([data-state="top"]) .vn-header__inner {
+  min-height: var(--vn-nav-h-sm);
+}
+
+/* ---------------------------------------------------------------------------
+   THE CENTRED CAPSULE.
+   Absolutely centred on the header, not laid out between brand and actions —
+   so the capsule stays put while the things either side of it resize.
+   ------------------------------------------------------------------------ */
+.vn-header--fluid .vn-nav {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.34rem 0.42rem;
+  border-radius: 999px;
+  pointer-events: auto;
+}
+
+.vn-header--fluid .vn-nav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border: 1px solid transparent;
+  border-radius: inherit;
+  background: transparent;
+  opacity: 0;
+  transform: scale(0.93);
+  pointer-events: none;
+  transition: opacity var(--vn-nav-t) var(--vn-nav-ease),
+              transform var(--vn-nav-t) var(--vn-nav-ease);
+}
+
+/* the highlighted centre bar — only once you have left the top of the page */
+.vn-header--fluid:not([data-state="top"]) .vn-nav::before {
+  opacity: 1;
+  transform: scale(1);
+  border-color: rgba(var(--vn-ink-rgb), 0.1);
+  background: rgba(var(--vn-surface-rgb), 0.66);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+  box-shadow: 0 12px 36px rgba(var(--vn-shadow-rgb), 0.16);
+}
+
+/* ---------------------------------------------------------------------------
+   NAV ITEMS — no hover box. A single pill slides between them instead.
+   ------------------------------------------------------------------------ */
+.vn-header--fluid .vn-nav a {
+  position: relative;
+  z-index: 1;
+  padding: 0.5rem 0.88rem;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--vn-muted);
+  font-weight: 500;
+  letter-spacing: 0.012em;
+  white-space: nowrap;
+  transition: color var(--vn-nav-t-fast) var(--vn-nav-ease);
+}
+
+.vn-header--fluid .vn-nav a:hover,
+.vn-header--fluid .vn-nav a:focus-visible,
+.vn-header--fluid .vn-nav a.active,
+.vn-header--fluid .vn-nav a[aria-current="page"] {
+  background: transparent;
+  color: var(--vn-ink);
+}
+
+/* the sliding indicator — one element, moved by framer-motion's layout engine */
+.vn-header--fluid .vn-nav__pill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 999px;
+  background: rgba(var(--vn-accent-rgb), 0.13);
+  box-shadow: inset 0 0 0 1px rgba(var(--vn-accent-rgb), 0.24);
+}
+
+.vn-header--fluid .vn-nav__num {
+  display: inline-block;
+  overflow: hidden;
+  max-width: 2.4rem;
+  margin-right: 0.42rem;
+  color: var(--vn-teal);
+  font-size: 0.72em;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+  white-space: nowrap;
+  transition: max-width var(--vn-nav-t) var(--vn-nav-ease),
+              margin-right var(--vn-nav-t) var(--vn-nav-ease),
+              opacity var(--vn-nav-t-fast) var(--vn-nav-ease);
+}
+
+.vn-header--fluid[data-compact="true"] .vn-nav__num {
+  max-width: 0;
+  margin-right: 0;
+  opacity: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   ACTIONS — socials collapse with the rest; the CTA never disappears.
+   ------------------------------------------------------------------------ */
+.vn-header--fluid .vn-header__actions {
+  gap: 0.44rem;
+}
+
+.vn-header--fluid .vn-header__social {
+  overflow: hidden;
+  max-width: 6rem;
+  opacity: 1;
+  transition: max-width var(--vn-nav-t) var(--vn-nav-ease),
+              opacity var(--vn-nav-t-fast) var(--vn-nav-ease);
+}
+
+.vn-header--fluid[data-compact="true"] .vn-header__social {
+  max-width: 0;
+  opacity: 0;
+}
+
+.vn-header--fluid .vn-header__social a {
+  border-color: transparent;
+  background: transparent;
+  color: var(--vn-muted);
+}
+
+.vn-header--fluid .vn-header__social a:hover,
+.vn-header--fluid .vn-header__social a:focus-visible {
+  border-color: rgba(var(--vn-ink-rgb), 0.12);
+  background: rgba(var(--vn-ink-rgb), 0.05);
+  color: var(--vn-ink);
+}
+
+.vn-header--fluid .vn-header__cta {
+  padding: 0.58rem 1.05rem;
+  border-radius: 999px;
+  background: var(--vn-teal);
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: padding var(--vn-nav-t) var(--vn-nav-ease),
+              box-shadow var(--vn-nav-t-fast) var(--vn-nav-ease),
+              transform var(--vn-nav-t-fast) var(--vn-nav-ease);
+}
+
+.vn-header--fluid .vn-header__cta:hover,
+.vn-header--fluid .vn-header__cta:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(var(--vn-accent-rgb), 0.34);
+}
+
+.vn-header--fluid[data-compact="true"] .vn-header__cta {
+  padding: 0.5rem 0.9rem;
+}
+
+/* The theme toggle keeps its edge — a control you cannot find is a regression,
+   not a design choice — but loses the filled plate. */
+.vn-header--fluid .vn-header__actions > button {
+  border-color: rgba(var(--vn-ink-rgb), 0.12);
+  background: rgba(var(--vn-surface-rgb), 0.4);
+}
+
+/* ---------------------------------------------------------------------------
+   NARROW — the centred capsule has nowhere to go, so the inline nav is
+   dropped entirely and the burger takes over (unchanged behaviour).
+   ------------------------------------------------------------------------ */
+/* Socials go first — the capsule needs the room before the nav itself has to. */
+@media (max-width: 1080px) {
+  .vn-header--fluid .vn-header__social {
+    display: none;
+  }
+}
+
+/* 980px is where index.css swaps the inline nav for the burger. Matching it
+   exactly matters: hiding the nav any earlier leaves a band with no navigation
+   in it at all, because the burger has not appeared yet. */
+@media (max-width: 980px) {
+  .vn-header--fluid .vn-nav {
+    display: none;
+  }
+
+}
+
+/* the mobile sheet has to read against a transparent header, and cannot run
+   off the bottom of a fixed one */
+.vn-header--fluid .vn-mobile-menu {
+  max-height: calc(100svh - var(--vn-nav-h-sm));
+  overflow-y: auto;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background: rgba(var(--vn-paper-2-rgb), 0.94);
+}
+
+/* ---------------------------------------------------------------------------
+   PAGE OFFSET. The header is fixed now, so content needs to start below it —
+   except full-bleed heroes, which deliberately run underneath.
+   ------------------------------------------------------------------------ */
+.vn-site > main {
+  padding-top: var(--vn-nav-h);
+}
+
+.vn-hero-bleed {
+  margin-top: calc(var(--vn-nav-h) * -1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vn-header.vn-header--fluid,
+  .vn-header--fluid .vn-nav::before,
+  .vn-header--fluid .vn-nav__num,
+  .vn-header--fluid .vn-header__social {
+    transition-duration: 1ms;
+  }
+  .vn-header--fluid[data-state="hidden"] {
+    transform: none;
+  }
+}

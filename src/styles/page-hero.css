@@ -1,0 +1,197 @@
+/* ============================================================================
+   PAGE HERO — the shell Practice and Approach share.
+
+   Shared mechanics, never shared content: the reveal sequence, the claim mask,
+   the rail. What differs per page is the geometry behind it, the copy, and the
+   alignment. Home has its own file because it is the only centred one.
+   ========================================================================= */
+
+.vn-ph {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 92svh;
+  padding-top: var(--vn-nav-h);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.vn-ph__stage {
+  position: relative;
+  z-index: 2;
+  width: min(var(--vn-max), calc(100% - 44px));
+  margin: 0 auto;
+  padding-bottom: clamp(2rem, 5vh, 3.5rem);
+}
+
+.vn-ph__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 clamp(1.1rem, 2.6vh, 1.8rem);
+  color: var(--vn-muted);
+  font-family: var(--vn-font-mono);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.vn-ph__eyebrow::before {
+  content: "";
+  width: clamp(26px, 5vw, 52px);
+  height: 1px;
+  background: var(--vn-gold);
+}
+
+.vn-ph__claim {
+  margin: 0;
+  max-width: 17ch;
+  font-size: clamp(2.1rem, 5vw, 4.4rem);
+  font-weight: var(--vn-display-weight);
+  line-height: 0.98;
+  letter-spacing: -0.032em;
+}
+
+.vn-ph__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.vn-ph__line > span {
+  display: block;
+  transform: translateY(108%);
+  animation: vnPhRise 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--wait, 0s);
+}
+
+@keyframes vnPhRise {
+  to { transform: translateY(0); }
+}
+
+.vn-ph__beat {
+  margin: clamp(0.8rem, 2vh, 1.3rem) 0 0;
+  color: var(--vn-teal);
+  font-family: var(--vn-font-display);
+  font-size: clamp(1.5rem, 3vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  animation: vnPhIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.95s forwards;
+}
+
+.vn-ph__support {
+  max-width: 50ch;
+  margin: clamp(1rem, 2.4vh, 1.5rem) 0 0;
+  color: var(--vn-muted);
+  font-size: clamp(0.95rem, 1.05vw, 1.04rem);
+  line-height: 1.68;
+  opacity: 0;
+  animation: vnPhIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
+}
+
+@keyframes vnPhIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   THE FOUR — Practice only. Who else is in the room, and what each one misses.
+   Four rows, because the system is built on four.
+   ------------------------------------------------------------------------ */
+.vn-ph__four {
+  display: grid;
+  max-width: 46rem;
+  margin-top: clamp(1.8rem, 4vh, 2.6rem);
+  border-top: 1px solid var(--vn-line);
+  opacity: 0;
+  animation: vnPhIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1.45s forwards;
+}
+
+.vn-ph__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+  gap: 0.2rem 1.4rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--vn-line);
+  transition: padding-left 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vn-ph__row::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: var(--vn-gold);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 440ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vn-ph__row:hover {
+  padding-left: 1.1rem;
+}
+
+.vn-ph__row:hover::before {
+  transform: scaleY(1);
+}
+
+.vn-ph__who {
+  color: var(--vn-ink);
+  font-family: var(--vn-font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.vn-ph__miss {
+  color: var(--vn-muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+/* ---------------------------------------------------------------------------
+   APPROACH — the hero holds the top, the tail figure owns the bottom.
+   ------------------------------------------------------------------------ */
+.vn-ph--form {
+  justify-content: flex-start;
+  padding-top: calc(var(--vn-nav-h) + clamp(2rem, 7vh, 5rem));
+}
+
+.vn-ph--form .vn-ph__stage {
+  padding-bottom: clamp(9rem, 24vh, 15rem);
+}
+
+.vn-ph__word {
+  color: var(--vn-teal);
+}
+
+@media (max-width: 900px) {
+  .vn-ph {
+    min-height: auto;
+    padding-top: calc(var(--vn-nav-h) + 2rem);
+    padding-bottom: 2.5rem;
+  }
+  .vn-ph__claim {
+    max-width: none;
+    font-size: clamp(2rem, 8.4vw, 3.1rem);
+  }
+  .vn-ph__row {
+    grid-template-columns: 1fr;
+  }
+  .vn-ph--form .vn-ph__stage {
+    padding-bottom: clamp(7rem, 22vh, 11rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vn-ph__line > span { transform: none; animation: none; }
+  .vn-ph__beat,
+  .vn-ph__support,
+  .vn-ph__four { opacity: 1; animation: none; }
+}

@@ -52,3 +52,7 @@ Thumbs.db
 
 # Documentation and analysis files
 CLEANUP_ANALYSIS.md
+
+# Business documents — invoices carry EIN, tax ID and bank routing details.
+# This repo is public; these must never be committed.
+letterhead/

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { motion, useReducedMotion, type Variants } from 'framer-motion';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import {
   ArrowRight,
@@ -8,7 +7,6 @@ import {
   FileText,
   Layers3,
   Network,
-  ShieldCheck,
   Users,
 } from 'lucide-react';
 import {
@@ -19,16 +17,20 @@ import {
   owner,
   principal,
   methodSteps,
-  operatingPrinciples,
   pillarOrder,
   pillars,
   PillarKey,
   proofStandards,
   stats,
   testimonials,
-  thesis,
-  thinkingCategories,
 } from '../../data/varahiVision';
+import AxisHero from '../../rebuild/components/AxisHero';
+import OneTeam from '../../rebuild/components/OneTeam';
+import GapHero from '../../rebuild/components/GapHero';
+import DetailSheet from '../../rebuild/components/DetailSheet';
+import '../../styles/work-page.css';
+import '../../styles/about-page.css';
+import FormHero from '../../rebuild/components/FormHero';
 import { allContent, caseStudies, insights } from '../../data/content.generated';
 import type { CaseStudy, Insight } from '../../data/content.generated';
 
@@ -42,14 +44,6 @@ const PILLAR_SEO_TITLE: Record<PillarKey, string> = {
   cx: 'SAP CX & Customer Experience Consulting',
 };
 
-const heroStagger: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.09, delayChildren: 0.08 } },
-};
-const heroFadeUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-};
 
 const Seo: React.FC<{
   title: string;
@@ -159,114 +153,31 @@ const Artifact: React.FC<{ title: string; rows: readonly string[]; tone?: Pillar
   </div>
 );
 
-export const HomeVisionPage: React.FC = () => {
-  const reduce = useReducedMotion();
-  return (
+/**
+ * HOME — owns the promise, and nothing else.
+ *
+ * It does not preview the method, the record, the layers or the insights; it
+ * links to them. That single rule is what stops this page being a shorter copy
+ * of every other page on the site. The only content it owns outright is the
+ * delivery record at a glance, which appears nowhere else.
+ */
+
+/** Why you would leave this page — one reason each, none of them a summary. */
+const NEXT = [
+  { to: '/practice', n: '01', label: 'Practice', line: 'Why we exist in the gap the large firms leave open.' },
+  { to: '/approach', n: '02', label: 'Approach', line: 'The four steps, and what skipping each one costs you.' },
+  { to: '/our-thinking?view=work', n: '03', label: 'Work', line: 'Seven engagements. Named clients, measured numbers.' },
+  { to: '/about', n: '04', label: 'About', line: 'Who actually shows up when the work starts.' },
+];
+
+export const HomeVisionPage: React.FC = () => (
   <>
     <Seo
       title="SAP, AI & CX Consulting"
       description="Varahi engineers SAP, AI, and customer experience as one design problem — S/4HANA, Service Cloud, Field Service Management, CPQ, BTP and applied AI. Principal-led, 23 years of SAP delivery."
     />
-    <section className="vn-hero">
-      <div className="vn-hero-motion" aria-hidden="true">
-        <span className="vn-hero-motion__band vn-hero-motion__band--one" />
-        <span className="vn-hero-motion__band vn-hero-motion__band--two" />
-        <span className="vn-hero-motion__mesh" />
-        <span className="vn-hero-motion__pulse vn-hero-motion__pulse--one" />
-        <span className="vn-hero-motion__pulse vn-hero-motion__pulse--two" />
-      </div>
-      <div className="vn-container vn-hero__stage">
-        <motion.div
-          className="vn-hero__topline"
-          initial={reduce ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="vn-eyebrow">Now operating · {locations.join(' · ')}</p>
-          <dl className="vn-hero__meta">
-            <div>
-              <dt>Focus</dt>
-              <dd>Service-led enterprise</dd>
-            </div>
-            <div>
-              <dt>Sectors</dt>
-              <dd>Utilities · Industrial · Manufacturing</dd>
-            </div>
-            <div>
-              <dt>Model</dt>
-              <dd>Principal-led delivery</dd>
-            </div>
-          </dl>
-        </motion.div>
-        <div className="vn-hero__grid">
-          <motion.div
-            className="vn-hero__copy"
-            initial={reduce ? false : 'hidden'}
-            animate="show"
-            variants={heroStagger}
-          >
-            <motion.h1 variants={heroFadeUp}>Enterprise Software That Thinks.</motion.h1>
-            <motion.p className="vn-hero__sub" variants={heroFadeUp}>
-              SAP × AI × CX — engineered as one.
-            </motion.p>
-            <motion.p variants={heroFadeUp}>
-              The firms that win the next decade will treat SAP, AI, and customer experience as
-              one design problem, not three procurements. Varahi is the firm you call when all
-              three need to land on the same calendar, with the same delivery lead.
-            </motion.p>
-            <motion.div className="vn-actions" variants={heroFadeUp}>
-              <ArrowLink to="/practice" variant="primary">See the practice</ArrowLink>
-              <ArrowLink to="/engage">Start a conversation</ArrowLink>
-            </motion.div>
-          </motion.div>
 
-          <motion.aside
-            className="vn-hero-stack"
-            aria-label="The intelligent stack"
-            initial={reduce ? false : { opacity: 0, x: 28 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="vn-hero-stack__head">
-              <span className="vn-hero-stack__label">The intelligent stack</span>
-              <span className="vn-hero-stack__live"><i />running</span>
-            </div>
-            <div className="vn-hero-stack__body">
-              <span className="vn-hero-stack__spine" aria-hidden="true">
-                {!reduce && <span className="vn-hero-stack__pulse" />}
-              </span>
-              {pillarOrder.map((key, index) => {
-                const pillar = pillars[key];
-                return (
-                  <motion.div
-                    key={key}
-                    initial={reduce ? false : { opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.4 + index * 0.14, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    <Link className="vn-hero-stack__layer" to={pillar.path}>
-                      <span className="vn-hero-stack__glyph">
-                        <PillarGlyph pillar={key} />
-                      </span>
-                      <span className="vn-hero-stack__text">
-                        <strong>{pillar.label}</strong>
-                        <small>{pillar.layer}</small>
-                      </span>
-                      <span className="vn-hero-stack__num">{String(index + 1).padStart(2, '0')}</span>
-                      <ArrowRight className="vn-hero-stack__arrow" size={16} strokeWidth={1.9} />
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </div>
-            <div className="vn-hero-stack__foot">
-              <span>One backlog</span>
-              <span>One delivery lead</span>
-            </div>
-          </motion.aside>
-        </div>
-      </div>
-    </section>
+    <AxisHero />
 
     <section className="vn-section vn-section--paper vn-cred">
       <div className="vn-container">
@@ -290,112 +201,23 @@ export const HomeVisionPage: React.FC = () => {
 
     <section className="vn-section">
       <div className="vn-container">
-        <SectionIntro
-          eyebrow="What we do"
-          title="Platform, cognition, human — engineered as one."
-          text="SAP, AI, and CX are one design problem, not three procurements. Start with the layer that hurts; the rest joins the same backlog."
-        />
-        <PillarGateway />
-        <div className="vn-section__more">
-          <ArrowLink to="/practice">See the whole practice</ArrowLink>
-        </div>
-      </div>
-    </section>
-
-    <section className="vn-section vn-section--paper">
-      <div className="vn-container">
-        <SectionIntro
-          eyebrow="Selected work"
-          title="A delivery record you can check."
-          text="Named clients, named roles, real numbers — programs we've architected across 23 years, from autonomous fleets to regulated medical equipment. Principal-led, so the work is checkable."
-        />
-        <div className="vn-thinking-grid">
-          {caseStudies.slice(0, 3).map((entry) => (
-            <ContentCard entry={entry} key={`${entry.kind}-${entry.slug}`} />
-          ))}
-        </div>
-        <div className="vn-section__more">
-          <ArrowLink to="/our-thinking?view=work">See all work</ArrowLink>
-        </div>
-      </div>
-    </section>
-
-    <section className="vn-section">
-      <div className="vn-container">
-        <SectionIntro
-          eyebrow="From our thinking"
-          title="Where SAP, AI, and CX actually meet."
-          text="Points of view from 23 years in SAP service — and where most programs quietly go wrong before anyone writes code."
-        />
-        <div className="vn-thinking-grid">
-          {insights.slice(0, 3).map((entry) => (
-            <ContentCard entry={entry} key={`${entry.kind}-${entry.slug}`} />
-          ))}
-        </div>
-        <div className="vn-section__more">
-          <ArrowLink to="/our-thinking?view=insights">See all insights</ArrowLink>
-        </div>
-      </div>
-    </section>
-
-    <section className="vn-section vn-section--paper">
-      <div className="vn-container vn-two-col">
-        <SectionIntro
-          eyebrow="How we work"
-          title="FORM: Frame. Orchestrate. Realize. Maintain."
-          text="We start with what hurts, prove it in software fast, build it for production, and stay long enough to be sure it sticks. One delivery lead, one backlog, one number to call."
-        />
-        <div className="vn-form-teaser">
-          {methodSteps.map((step) => (
-            <Link className="vn-form-teaser__item" to="/approach" key={step.letter}>
-              <strong>{step.letter}</strong>
-              <span>{step.label}</span>
+        <p className="vn-eyebrow">Where to go from here</p>
+        <nav className="vn-next" aria-label="Continue">
+          {NEXT.map((item) => (
+            <Link className="vn-next__item" to={item.to} key={item.to}>
+              <span className="vn-next__n">{item.n}</span>
+              <span className="vn-next__label">{item.label}</span>
+              <span className="vn-next__line">{item.line}</span>
+              <span className="vn-next__arrow" aria-hidden="true">
+                <ArrowRight size={17} strokeWidth={1.8} />
+              </span>
             </Link>
           ))}
-        </div>
+        </nav>
       </div>
     </section>
-
-    <FinalCta />
   </>
-  );
-};
-
-const PillarGateway: React.FC = () => (
-  <div className="vn-gateway-grid">
-    {pillarOrder.map((key) => {
-      const pillar = pillars[key];
-      const entry = entryPoints.find((item) => item.path === pillar.path);
-      return (
-        <Link className={`vn-gateway-card vn-gateway-card--${key}`} to={pillar.path} key={key}>
-          <span className="vn-gateway-card__icon" aria-hidden="true">
-            <PillarGlyph pillar={key} />
-          </span>
-          <span>{entry?.prompt}</span>
-          <h3>{pillar.label}</h3>
-          <p>{pillar.short}</p>
-          <strong>
-            {entry?.response}
-            <ArrowRight size={16} />
-          </strong>
-        </Link>
-      );
-    })}
-    <Link className="vn-gateway-card vn-gateway-card--neutral" to="/engage">
-      <span className="vn-gateway-card__icon" aria-hidden="true">
-        <ShieldCheck size={20} strokeWidth={1.8} />
-      </span>
-      <span>I am not sure where to start.</span>
-      <h3>Discovery</h3>
-      <p>Bring the SAP estate, the AI ambition, or the customer journey you need to move.</p>
-      <strong>
-        Start here
-        <ArrowRight size={16} />
-      </strong>
-    </Link>
-  </div>
 );
-
 
 export const PillarVisionPage: React.FC<{ pillarKey: PillarKey }> = ({ pillarKey }) => {
   const pillar = pillars[pillarKey];
@@ -467,22 +289,45 @@ export const PillarVisionPage: React.FC<{ pillarKey: PillarKey }> = ({ pillarKey
         </div>
       </section>
 
-      <section className="vn-section vn-section--ink">
+      {/* A pillar page used to close by re-listing all three pillars, including
+          the one you are standing on. Now it points at the other two, once. */}
+      <section className="vn-section">
         <div className="vn-container">
-          <SectionIntro
-            eyebrow="The whole practice"
-            title="Start with this layer. The others join the same backlog."
-            text="Most engagements begin with one layer and grow as the work earns it — SAP, AI, and CX under one delivery lead, one status, one number to call."
-          />
-          <PillarCards />
+          <p className="vn-eyebrow">The other two layers</p>
+          <nav className="vn-crosslink" aria-label="The other layers">
+            {pillarOrder
+              .filter((key) => key !== pillarKey)
+              .map((key) => (
+                <Link className="vn-crosslink__item" to={pillars[key].path} key={key}>
+                  <span className="vn-crosslink__name">{pillars[key].label}</span>
+                  <span className="vn-crosslink__layer">{pillars[key].layer}</span>
+                  <span className="vn-crosslink__arrow" aria-hidden="true">
+                    <ArrowRight size={17} strokeWidth={1.8} />
+                  </span>
+                </Link>
+              ))}
+          </nav>
         </div>
       </section>
 
-      <FinalCta />
+      <FinalCta
+        kicker="Where to start"
+        line="Start here. We will tell you if it is not the right place to start."
+        to="/engage"
+        cta="Put it in front of us"
+      />
     </>
   );
 };
 
+/**
+ * PRACTICE — owns the gap.
+ *
+ * The thesis leads the page now instead of sitting on About. What follows is
+ * navigation into the three layers, and nothing else: the "why one team"
+ * section was a fourth restatement of a sentence the OneTeam block already
+ * makes once, at the bottom of this page and nowhere else on the site.
+ */
 export const WhatWeDoPage: React.FC = () => {
   const [active, setActive] = useState<PillarKey>('sap');
   const navigate = useNavigate();
@@ -491,24 +336,18 @@ export const WhatWeDoPage: React.FC = () => {
     <>
       <Seo
         title="SAP, AI & CX Consulting Services"
-        description="Varahi runs SAP, AI, and CX as three layers of one practice — platform, cognition, and human — on a single backlog with one delivery lead. S/4HANA, FSM, Service Cloud, CPQ, BTP and applied AI."
+        description="The big SI firms compete on hours. The strategy houses make decks. The AI shops can't ship inside an enterprise estate. Varahi exists in the gap — SAP, AI and CX on one backlog, one delivery lead."
         path="/practice"
       />
-      <section className="vn-what-we-do-hero">
-        <div className="vn-container vn-what-we-do-hero__layout">
-          <div className="vn-what-we-do-hero__intro">
-            <p className="vn-eyebrow">The practice</p>
-            <h1>One team. Three layers. A single backlog.</h1>
-            <p>
-              Platform, cognition, and human — SAP, AI, and CX, run by one team on one backlog.
-              Open a layer to see what it covers; click through for the full picture.
-            </p>
-          </div>
 
+      <GapHero />
+
+      <section className="vn-section">
+        <div className="vn-container">
+          <p className="vn-eyebrow">The three layers</p>
           <div className="vn-layers-accordion" role="tablist" aria-label="The three layers">
             {pillarOrder.map((key, index) => {
               const pillar = pillars[key];
-              const entry = entryPoints.find((item) => item.path === pillar.path);
               const isOpen = active === key;
 
               return (
@@ -552,7 +391,7 @@ export const WhatWeDoPage: React.FC = () => {
                       ))}
                     </ul>
                     <span className="vn-layer__cta">
-                      {entry?.prompt}
+                      Explore {pillar.label}
                       <ArrowRight size={17} strokeWidth={1.9} />
                     </span>
                   </span>
@@ -563,29 +402,7 @@ export const WhatWeDoPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="vn-section vn-section--paper">
-        <div className="vn-container">
-          <SectionIntro
-            eyebrow="Why one team"
-            title="Most firms hand you a slice. We run all three in the same room."
-            text="The implementer, the data team, the experience consultancy — three procurements, three roadmaps, three people to point at when it stalls. Varahi runs SAP, AI, and CX on one backlog, with one delivery lead."
-          />
-          <div className="vn-combine-grid">
-            {[
-              ['SAP without AI', 'A new SAP estate without an AI plan is already obsolete.'],
-              ['AI without a foundation', 'AI without a clean data and process foundation is theatre.'],
-              ['Both without CX', 'Both without CX is just a more expensive way to disappoint customers.'],
-            ].map(([term, line]) => (
-              <article key={term}>
-                <span>{term}</span>
-                <p>{line}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <FinalCta />
+      <OneTeam />
     </>
   );
 };
@@ -667,38 +484,7 @@ export const HowWeWorkPage: React.FC = () => (
       description="FORM: Frame, Orchestrate, Realize, Maintain. Senior delivery on a single backlog, production from day one, and a handover you genuinely own."
       path="/approach"
     />
-    <section className="vn-section vn-method-strength">
-      <div className="vn-container">
-        <div className="vn-method-strength__hero">
-          <div>
-            <p className="vn-eyebrow">The approach</p>
-            <h1>We give the program its <span className="vn-form-word">FORM</span>.</h1>
-            <p>
-              Frame, Orchestrate, Realize, Maintain — from the first interview to managed evolution.
-              We start with what hurts, design the smallest defensible answer, build it for production
-              from day one, and stay long enough to be sure it sticks.
-            </p>
-          </div>
-          <div className="vn-method-strength__proof">
-            {operatingPrinciples.map((item) => (
-              <p key={item}>
-                <CheckCircle2 size={18} />
-                <span>{item}</span>
-              </p>
-            ))}
-          </div>
-        </div>
-
-        <ol className="vn-form-mark" aria-label="FORM — Frame, Orchestrate, Realize, Maintain">
-          {methodSteps.map((step) => (
-            <li key={step.letter}>
-              <strong>{step.letter}</strong>
-              <span>{step.label}</span>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
+    <FormHero />
 
     <section className="vn-section">
       <div className="vn-container">
@@ -747,7 +533,12 @@ export const HowWeWorkPage: React.FC = () => (
         </div>
       </div>
     </section>
-    <FinalCta />
+    <FinalCta
+      kicker="Next"
+      line="See what FORM actually produced."
+      to="/our-thinking?view=work"
+      cta="Read the record"
+    />
   </>
 );
 
@@ -789,8 +580,20 @@ const ContentCard: React.FC<{ entry: CaseStudy | Insight }> = ({ entry }) => {
   );
 };
 
+/**
+ * WORK — owns the record, in three layers of decreasing weight.
+ *
+ *   1  the lead engagement, at full size, with its numbers as the picture
+ *   2  the rest of the record as tiles
+ *   3  the thinking behind it, as a dense list
+ *
+ * On this page the metrics are the artwork. Nothing illustrated competes with
+ * "0 - clean core" on an autonomous fleet, so nothing is illustrated. The
+ * proof standard opens in a sheet rather than taking a section of its own.
+ */
 export const ProofPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [openStandard, setOpenStandard] = useState(false);
   const viewParam = searchParams.get('view');
   const filter: 'all' | 'work' | 'insights' =
     viewParam === 'work' || viewParam === 'insights' ? viewParam : 'all';
@@ -799,30 +602,24 @@ export const ProofPage: React.FC = () => {
     setSearchParams(next === 'all' ? {} : { view: next }, { replace: true });
   };
 
-  const shown =
-    filter === 'all' ? allContent : allContent.filter((entry) => entry.kind === filter);
+  const [lead, ...rest] = caseStudies;
+  const showWork = filter !== 'insights';
+  const showInsights = filter !== 'work';
 
   return (
     <>
       <Seo
         title="SAP, AI & CX Insights & Case Studies"
-        description="Case studies and points of view on SAP S/4HANA, Field Service Management, Service Cloud, CX, and applied AI — from 23 years of enterprise SAP delivery. Real clients, real numbers."
+        description="Seven enterprise engagements with named clients and measured numbers — autonomous fleets, industrial robotics, heavy machinery, regulated medical equipment — plus ten points of view from 23 years in SAP service."
         path="/our-thinking"
       />
-      <section className="vn-proof-hero">
-        <div className="vn-proof-hero__motion" aria-hidden="true" />
-        <div className="vn-container vn-proof-hero__layout">
-          <div className="vn-proof-hero__copy">
-            <p className="vn-eyebrow">Our Thinking</p>
-            <h1>A delivery record, not a brochure.</h1>
-            <p>
-              {caseStudies.length} engagements we've architected — from autonomous fleets to regulated
-              medical equipment — and {insights.length} points of view from 23 years in SAP service.
-              Real clients, real numbers, honestly attributed.
-            </p>
-          </div>
-          <div className="vn-proof-hero__filters">
-            <div className="vn-proof-filters" role="tablist" aria-label="Filter content">
+
+      <section className="vn-section vn-work-head">
+        <div className="vn-container">
+          <p className="vn-eyebrow">The record</p>
+          <h1>Named clients. Measured numbers. Checkable.</h1>
+          <div className="vn-work-head__row">
+            <div className="vn-proof-filters" role="tablist" aria-label="Filter the record">
               <button
                 type="button"
                 role="tab"
@@ -832,44 +629,147 @@ export const ProofPage: React.FC = () => {
               >
                 Everything ({allContent.length})
               </button>
-              {thinkingCategories.map((item) => (
-                <button
-                  type="button"
-                  role="tab"
-                  key={item.key}
-                  aria-selected={filter === item.key}
-                  className={filter === item.key ? 'is-active' : undefined}
-                  onClick={() => setFilter(item.key)}
-                >
-                  {item.title} ({item.key === 'work' ? caseStudies.length : insights.length})
-                </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={filter === 'work'}
+                className={filter === 'work' ? 'is-active' : undefined}
+                onClick={() => setFilter('work')}
+              >
+                Engagements ({caseStudies.length})
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={filter === 'insights'}
+                className={filter === 'insights' ? 'is-active' : undefined}
+                onClick={() => setFilter('insights')}
+              >
+                Thinking ({insights.length})
+              </button>
+            </div>
+            <button className="vn-work-head__std" type="button" onClick={() => setOpenStandard(true)}>
+              How we publish numbers
+              <ArrowRight size={16} strokeWidth={1.8} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {showWork && lead && (
+        <section className="vn-section vn-section--tight">
+          <div className="vn-container">
+            <p className="vn-layer-label">Layer 01 &middot; The lead engagement</p>
+
+            <Link className="vn-story" to={`/our-thinking/work/${lead.slug}`}>
+              <svg className="vn-story__geo" viewBox="0 0 400 400" aria-hidden="true">
+                <rect x="70" y="70" width="260" height="260" />
+                <rect x="70" y="70" width="260" height="260" transform="rotate(30 200 200)" />
+                <rect x="70" y="70" width="260" height="260" transform="rotate(60 200 200)" />
+                <circle cx="200" cy="200" r="184" />
+              </svg>
+
+              <div className="vn-story__copy">
+                <p className="vn-story__meta">
+                  <span>{lead.year}</span>
+                  <span>{lead.industry}</span>
+                  <span>{pillars[lead.pillar].label}</span>
+                </p>
+                <h2>{lead.title}</h2>
+                <p className="vn-story__client">{lead.client}</p>
+                <p className="vn-story__role">{lead.role}</p>
+                <span className="vn-story__go">
+                  Read the engagement
+                  <ArrowRight size={17} strokeWidth={1.8} />
+                </span>
+              </div>
+
+              <div className="vn-story__figs">
+                {lead.metrics.slice(0, 4).map((m) => (
+                  <span className="vn-story__fig" key={m.label}>
+                    <strong>{m.value}</strong>
+                    <small>{m.label}</small>
+                  </span>
+                ))}
+              </div>
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {showWork && rest.length > 0 && (
+        <section className="vn-section vn-section--tight">
+          <div className="vn-container">
+            <p className="vn-layer-label">Layer 02 &middot; The rest of the record</p>
+            <div className="vn-tiles">
+              {rest.map((entry) => (
+                <Link className="vn-tile" to={`/our-thinking/work/${entry.slug}`} key={entry.slug}>
+                  <p className="vn-tile__top">
+                    <span>{entry.year}</span>
+                    <span>{entry.industry}</span>
+                  </p>
+                  <p className="vn-tile__client">{entry.client}</p>
+                  <h3>{entry.title}</h3>
+                  {entry.metrics[0] && (
+                    <p className="vn-tile__fig">
+                      <strong>{entry.metrics[0].value}</strong>
+                      <small>{entry.metrics[0].label}</small>
+                    </p>
+                  )}
+                </Link>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <section className="vn-section">
-        <div className="vn-container">
-          <div className="vn-thinking-grid">
-            {shown.map((entry) => (
-              <ContentCard entry={entry} key={`${entry.kind}-${entry.slug}`} />
-            ))}
+      {showInsights && (
+        <section className="vn-section vn-section--tight">
+          <div className="vn-container">
+            <p className="vn-layer-label">Layer 03 &middot; The thinking behind it</p>
+            <div className="vn-reclist">
+              {insights.map((entry, i) => (
+                <Link
+                  className="vn-reclist__item"
+                  to={`/our-thinking/insights/${entry.slug}`}
+                  key={entry.slug}
+                >
+                  <span className="vn-reclist__n">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="vn-reclist__t">{entry.title}</span>
+                  <span className="vn-reclist__d">{entry.description}</span>
+                  <span className="vn-reclist__m">
+                    <em>{pillars[entry.pillar].label}</em>
+                    {entry.readingMinutes} min
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <section className="vn-section vn-section--paper">
-        <div className="vn-container vn-two-col">
-          <SectionIntro
-            eyebrow="Proof standard"
-            title="Real engagements. Honestly attributed."
-            text="Every case study here is delivery our VP, Venkata Sundaragiri, led as architect — named clients, named roles, real numbers. Varahi is a principal-led practice, so this track record is the practice's proof. We won't publish a number we can't stand behind."
-          />
-          <Artifact title="Our proof standard" rows={proofStandards} />
+      <DetailSheet
+        open={openStandard}
+        onClose={() => setOpenStandard(false)}
+        kicker="Proof standard"
+        title="What has to be true before a number goes on this site."
+      >
+        <div className="vn-std-list">
+          {proofStandards.map((row, i) => (
+            <p key={row}>
+              <span>{String(i + 1).padStart(2, '0')}</span>
+              {row}
+            </p>
+          ))}
         </div>
-      </section>
-      <FinalCta />
+      </DetailSheet>
+
+      <FinalCta
+        kicker="Next"
+        line="Meet the architect who ran these."
+        to="/about"
+        cta="Who shows up"
+      />
     </>
   );
 };
@@ -1000,7 +900,12 @@ export const ArticlePage: React.FC<{ kind: 'work' | 'insights' }> = ({ kind }) =
         </section>
       )}
 
-      <FinalCta />
+      <FinalCta
+        kicker="Keep reading"
+        line="More arguments from the same practice."
+        to="/our-thinking"
+        cta="All thinking"
+      />
     </>
   );
 };
@@ -1158,11 +1063,26 @@ const ContactPanel: React.FC<{
   );
 };
 
+/**
+ * ABOUT — the one page that is not a technical document.
+ *
+ * It used to run the same rhythm as every other page: SectionIntro, grid,
+ * SectionIntro, grid, four times over. That template is the thing that made
+ * the site feel generic, and About was the last page still doing it.
+ *
+ * This page holds the only two photographs on the site, so it is the only page
+ * that gets to look like a profile rather than a spec sheet. No geometry, no
+ * orb field, no uppercase mono metadata — running text at a real measure, the
+ * portraits large, and the references as pull-quotes.
+ *
+ * The old "Operating beliefs" list is gone: it was a fifth restatement of the
+ * operating principles, which now live once, on Approach.
+ */
 export const AboutVisionPage: React.FC = () => (
-  <>
+  <div className="vn-about">
     <Seo
       title="About"
-      description="Varahi is a women-owned enterprise consulting firm that treats SAP, AI, and customer experience as one design problem. Principal-led, deliberately small, delivery-led."
+      description="Varahi is a women-owned enterprise consulting firm, deliberately small and principal-led. Founded by CEO Naga Poornima, with SAP and AI delivery run by VP Venkata R. Sundaragiri."
       path="/about"
       jsonLd={[
         {
@@ -1185,147 +1105,117 @@ export const AboutVisionPage: React.FC = () => (
         },
       ]}
     />
-    <section className="vn-about-hero">
-      <div className="vn-container vn-about-hero__layout">
-        <div>
-          <p className="vn-eyebrow">Who we are</p>
-          <h1>Independent enterprise consulting firm.</h1>
-          <p>
-            A women-owned practice that exists in the gap between the SI firms that compete on hours,
-            the strategy houses that make decks, and the AI shops that can't ship inside an enterprise
-            estate. Senior, deliberately small, delivery-led.
-          </p>
-        </div>
-        <div className="vn-about-hero__metrics">
+
+    <section className="vn-about__open">
+      <div className="vn-container">
+        <p className="vn-about__kicker">Who we are</p>
+        <h1>Small on purpose.</h1>
+        <p className="vn-about__lede">
+          A women-owned practice where the person who scopes your work is the person who runs it.
+          There is no bench behind us and no pyramid billing beneath the architect — which is a
+          constraint on how much we take on, and the reason the work holds up.
+        </p>
+
+        <div className="vn-about__facts">
           {[
             ['Ownership', 'Women-owned'],
-            ['Leadership', 'CEO + delivery VP'],
-            ['Model', 'SAP, AI, and CX in one room'],
-            ['Delivery', locations.join(' · ')],
+            ['Leadership', 'Founder & CEO, plus a delivery VP'],
+            ['Independent since', '2009'],
+            ['Delivering from', locations.join(', ')],
           ].map(([label, value]) => (
-            <article key={label}>
+            <span className="vn-about__fact" key={label}>
               <span>{label}</span>
               <strong>{value}</strong>
-            </article>
+            </span>
           ))}
         </div>
       </div>
     </section>
 
-    <section className="vn-section vn-about-thesis">
-      <div className="vn-container vn-about-thesis__grid">
-        <div className="vn-about-thesis__lead-col">
-          <p className="vn-eyebrow">The thesis</p>
-          <p className="vn-about-thesis__lead">{thesis[0]}</p>
-        </div>
-        <div className="vn-about-thesis__rest">
-          {thesis.slice(1).map((para, index) => (
-            <p key={index}>{para}</p>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section className="vn-section vn-section--paper">
-      <div className="vn-container">
-        <SectionIntro
-          eyebrow="Since 2009"
-          title="One practice. Twenty-three years in SAP."
-          text="Varahi is the name today for an enterprise SAP practice that has run independently since 2009 — and a delivery record that reaches back 23 years, from the first CRM rollouts to today's S/4HANA and applied-AI estates."
-        />
-        <div className="vn-origin">
+    <section className="vn-about__story">
+      <div className="vn-container vn-about__storyGrid">
+        <h2>Twenty-three years, one kind of problem.</h2>
+        <div className="vn-about__prose">
           <p>
-            The through-line has never changed: asset-intensive, engineered-equipment businesses
-            where uptime and aftermarket service are the whole game — autonomous fleets, industrial
-            robotics, heavy machinery, forest products, medical capital equipment. The same hard
-            problem, solved end to end.
+            Varahi is the name today for an enterprise SAP practice that has run independently since
+            2009, on a delivery record reaching back twenty-three years — from the first CRM
+            rollouts to today&rsquo;s S/4HANA and applied-AI estates.
           </p>
           <p>
-            Deliberately small and principal-led. When you engage Varahi you get the architect who
-            scoped the work — not a pyramid billing beneath him.
+            The through-line has never changed: <strong>asset-intensive, engineered-equipment
+            businesses where uptime and aftermarket service are the whole game.</strong> Autonomous
+            fleets, industrial robotics, heavy machinery, forest products, medical capital
+            equipment. The same hard problem, solved end to end.
+          </p>
+          <p>
+            We stay deliberately small because the alternative is a pyramid, and a pyramid is how
+            the person you met in the pitch stops being the person who answers the phone.
           </p>
         </div>
       </div>
     </section>
 
-    <section className="vn-section">
+    <section className="vn-about__people">
       <div className="vn-container">
-        <SectionIntro
-          eyebrow="Leadership"
-          title="A women-owned practice. Principal-led delivery."
-          text="Varahi is founded and led by CEO Naga Poornima, with SAP and AI delivery run by VP Venkata Sundaragiri — so you always know exactly who owns the vision and who is accountable for the work."
-        />
-        <div className="vn-leadership">
-          {[owner, principal].map((person, index) => (
-            <article
-              className={`vn-leader-row${index % 2 === 1 ? ' vn-leader-row--reverse' : ''}`}
-              key={person.name}
-            >
-              <div className="vn-leader-row__media">
-                <div className="vn-leader-row__frame" aria-hidden={person.photo ? undefined : 'true'}>
-                  {person.photo ? (
-                    <img src={person.photo} alt={person.name} />
-                  ) : (
-                    <span className="vn-founder__monogram">{person.initials}</span>
-                  )}
-                </div>
-              </div>
-              <div className="vn-leader-row__body">
-                <h3>{person.name}</h3>
-                <p className="vn-founder__title">{person.title}</p>
-                <p className="vn-leader-row__bio">{person.bio}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+        {[owner, principal].map((person, index) => (
+          <article
+            className={`vn-person${index % 2 === 1 ? ' vn-person--flip' : ''}`}
+            key={person.name}
+          >
+            <div className="vn-person__media">
+              {person.photo ? (
+                /* The source PNG was 2.1 MB. The WebP beside it is 87 KB and the
+                   original stays on disk as the fallback, so nothing is lost. */
+                <picture>
+                  <source srcSet={person.photo.replace(/\.(png|jpe?g)$/i, '.webp')} type="image/webp" />
+                  <img
+                    src={person.photo}
+                    alt={person.name}
+                    width={880}
+                    height={1100}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+              ) : (
+                <span className="vn-person__mono">{person.initials}</span>
+              )}
+            </div>
+            <div>
+              <h2 className="vn-person__name">{person.name}</h2>
+              <p className="vn-person__title">{person.title}</p>
+              <p className="vn-person__bio">{person.bio}</p>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
 
-    <section className="vn-section vn-section--paper">
+    <section className="vn-about__refs">
       <div className="vn-container">
-        <SectionIntro
-          eyebrow="References"
-          title="In the words of the people who hired him."
-        />
-        <div className="vn-testimonial-grid">
-          {testimonials.map((item) => (
-            <figure className="vn-testimonial" key={item.name}>
-              <blockquote>{item.quote}</blockquote>
-              <figcaption>
-                <strong>{item.name}</strong>
-                <span>{item.role}</span>
-              </figcaption>
-            </figure>
-          ))}
+        <div className="vn-about__refsHead">
+          <p className="vn-about__kicker">References</p>
+          <h2>In the words of the people who hired him.</h2>
         </div>
+        {testimonials.map((item) => (
+          <figure className="vn-quote" key={item.name}>
+            <blockquote>{item.quote}</blockquote>
+            <figcaption>
+              <strong>{item.name}</strong>
+              <span>{item.role}</span>
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </section>
 
-    <section className="vn-section">
-      <div className="vn-container vn-about-principles">
-        <SectionIntro
-          eyebrow="Operating beliefs"
-          title="What we optimize for in every engagement."
-          text="These are not brand statements. They are working constraints used to make delivery and architecture decisions under pressure."
-        />
-        <div className="vn-check-list">
-          {[
-            'One design problem, not three procurements — SAP, AI, and CX on a single backlog.',
-            'Senior delivery, no pyramid — the architects who scoped the work run it.',
-            'Production from day one — no prototypes that need a rebuild to ship.',
-            'Governance before autonomous action; no synthetic proof or inflated claims.',
-            `One integrated delivery rhythm across ${locations.join(', ')}.`,
-          ].map((item) => (
-            <p key={item}>
-              <CheckCircle2 size={18} />
-              <span>{item}</span>
-            </p>
-          ))}
-        </div>
-      </div>
-    </section>
-    <FinalCta />
-  </>
+    <FinalCta
+      kicker="Next"
+      line="Read the record behind the references."
+      to="/our-thinking?view=work"
+      cta="See the work"
+    />
+  </div>
 );
 
 export const EngagePage: React.FC = () => (
@@ -1375,32 +1265,28 @@ const SimpleHero: React.FC<{ eyebrow: string; title: string; text: string }> = (
   </section>
 );
 
-const FinalCta: React.FC = () => (
+/**
+ * FinalCta — one component, a different next step on every page.
+ *
+ * It used to be a single fixed block on nine pages, carrying the SAP/AI/CX
+ * convergence diagram. That diagram is gone and the copy is now supplied by
+ * the page, so no two pages close the same way.
+ */
+const FinalCta: React.FC<{ kicker: string; line: string; to: string; cta: string }> = ({
+  kicker,
+  line,
+  to,
+  cta,
+}) => (
   <section className="vn-section vn-final-cta">
-    <div className="vn-container">
-      <div className="vn-final-cta__viz" aria-hidden="true">
-        <svg viewBox="0 0 300 200" fill="none" className="vn-converge">
-          <path className="vn-converge__path" d="M56 44 C 150 44, 170 100, 232 100" />
-          <path className="vn-converge__path" d="M56 100 C 150 100, 188 100, 232 100" />
-          <path className="vn-converge__path" d="M56 156 C 150 156, 170 100, 232 100" />
-          <g className="vn-converge__labels">
-            <text x="46" y="48" textAnchor="end">SAP</text>
-            <text x="46" y="104" textAnchor="end">AI</text>
-            <text x="46" y="160" textAnchor="end">CX</text>
-          </g>
-          <circle className="vn-converge__in" cx="56" cy="44" r="3.5" />
-          <circle className="vn-converge__in" cx="56" cy="100" r="3.5" />
-          <circle className="vn-converge__in" cx="56" cy="156" r="3.5" />
-          <circle className="vn-converge__ring" cx="232" cy="100" r="9" />
-          <circle className="vn-converge__node" cx="232" cy="100" r="6" />
-          <text className="vn-converge__out" x="252" y="104">one team</text>
-        </svg>
+    <div className="vn-container vn-final-cta__row">
+      <div>
+        <p className="vn-eyebrow">{kicker}</p>
+        <h2>{line}</h2>
       </div>
-      <div className="vn-final-cta__copy">
-        <p className="vn-eyebrow">Engineered together</p>
-        <h2>A single team. A single roadmap. One number to call when it breaks.</h2>
-        <ArrowLink to="/engage" variant="primary">Start a conversation</ArrowLink>
-      </div>
+      <ArrowLink to={to} variant="primary">
+        {cta}
+      </ArrowLink>
     </div>
   </section>
 );
