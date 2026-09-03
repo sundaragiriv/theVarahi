@@ -40,6 +40,7 @@ PILLARS = {
     "agent-governance-for-enterprises": "ai",
     "sap-ai-copilot-role-design":       "ai",
     "agentic-ai-handoff-problem":       "ai",
+    "beyond-the-chatbot-engineering-agentic-workflows-for-supply": "ai",
 }
 
 def pillar_for(slug):
